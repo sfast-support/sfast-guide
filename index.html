@@ -1,0 +1,2612 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Sfast Guide v2.0 — Hướng Dẫn Sử Dụng Chức Năng</title>
+  <meta name="description" content="Sổ tay tra cứu thế hệ mới: 19 chức năng SFast Bot tự động. Giao diện Master-Detail trên PC và Native Bottom Sheet trên Mobile.">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════════════════════════════
+       SFAST DESIGN SYSTEM v2.0 — NEO-FINTECH MASTER-DETAIL & DRAWER
+       Optimized for Mobile (Bottom Sheet) & PC Desktop (Split-View)
+       ══════════════════════════════════════════════════════════════ */
+    :root {
+      --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --bg-body: #F8FAFC;
+      --bg-header: rgba(255, 255, 255, 0.94);
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F8FAFC;
+      --bg-subtle: #F1F5F9;
+      --bg-active-row: #EFF6FF;
+      --border-color: #E2E8F0;
+      --border-active: #3B82F6;
+      --border-focus: #94A3B8;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #475569;
+
+      --brand-primary: #EE4D2D;
+      --brand-coral: #FF5722;
+      --brand-gradient: linear-gradient(135deg, #FF6533 0%, #EE4D2D 100%);
+      --brand-glow: rgba(238, 77, 45, 0.22);
+
+      --badge-km-bg: #ECFDF5;
+      --badge-km-text: #059669;
+      --badge-km-border: #A7F3D0;
+      --badge-main-bg: #FFFBEB;
+      --badge-main-text: #D97706;
+      --badge-main-border: #FDE68A;
+      --badge-combo-bg: #EFF6FF;
+      --badge-combo-text: #2563EB;
+      --badge-combo-border: #BFDBFE;
+
+      --code-bg: #0F172A;
+      --code-text: #E2E8F0;
+      --code-border: #1E293B;
+
+      --card-shadow: 0 4px 18px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+      --card-shadow-active: 0 10px 25px -4px rgba(37, 99, 235, 0.12), 0 4px 12px -2px rgba(37, 99, 235, 0.08);
+
+      --banner-bg: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%);
+      --banner-border: #BFDBFE;
+
+      --drawer-bg: #FFFFFF;
+      --drawer-backdrop: rgba(15, 23, 42, 0.65);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+      --transition-fast: 0.15s ease;
+      --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #090D16;
+      --bg-header: rgba(15, 23, 42, 0.94);
+      --bg-card: #0F172A;
+      --bg-card-hover: #1E293B;
+      --bg-subtle: #1E293B;
+      --bg-active-row: #1E293B;
+      --border-color: #334155;
+      --border-active: #60A5FA;
+      --border-focus: #475569;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-sub: #CBD5E1;
+
+      --brand-primary: #FF6533;
+      --brand-coral: #FF7A45;
+      --brand-glow: rgba(255, 101, 51, 0.35);
+
+      --badge-km-bg: rgba(6, 78, 59, 0.45);
+      --badge-km-text: #34D399;
+      --badge-km-border: #065F46;
+      --badge-main-bg: rgba(120, 53, 15, 0.45);
+      --badge-main-text: #FBBF24;
+      --badge-main-border: #92400E;
+      --badge-combo-bg: rgba(30, 58, 138, 0.45);
+      --badge-combo-text: #60A5FA;
+      --badge-combo-border: #1E40AF;
+
+      --code-bg: #050811;
+      --code-text: #E2E8F0;
+      --code-border: #1E293B;
+
+      --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+      --card-shadow-active: 0 10px 25px -4px rgba(96, 165, 250, 0.2);
+
+      --banner-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, rgba(6, 78, 59, 0.3) 100%);
+      --banner-border: #1E3A8A;
+
+      --drawer-bg: #0F172A;
+      --drawer-backdrop: rgba(0, 0, 0, 0.75);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    /* ══════════════════════════════════════════════════════════════
+       STICKY HEADER & NAVIGATION
+       ══════════════════════════════════════════════════════════════ */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-header);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+    .header-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--brand-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+      box-shadow: 0 4px 12px var(--brand-glow);
+    }
+    .brand-title {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .brand-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      background: var(--brand-primary);
+      color: white;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .desktop-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    @media (max-width: 860px) {
+      .desktop-nav-links {
+        display: none;
+      }
+    }
+    .nav-link-btn {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-sub);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+    .nav-link-btn:hover {
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+      background: var(--bg-subtle);
+    }
+    .btn-icon {
+      font-family: inherit;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: var(--radius-full);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+    }
+    .btn-icon:hover {
+      background: var(--bg-subtle);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       SEARCH BOX & FILTERS
+       ══════════════════════════════════════════════════════════════ */
+    .controls-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .search-icon-left {
+      position: absolute;
+      left: 14px;
+      font-size: 15px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      padding: 10px 38px 10px 40px;
+      color: var(--text-main);
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+    .search-input:focus {
+      background: var(--bg-card);
+      border-color: var(--brand-primary);
+      box-shadow: 0 0 0 3px var(--brand-glow);
+    }
+    .search-clear-btn {
+      position: absolute;
+      right: 12px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--border-color);
+      color: var(--text-sub);
+      border: none;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .search-clear-btn.visible {
+      display: flex;
+    }
+
+    /* CATEGORIES & FILTERS */
+    .filter-bar-unified {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .cat-scroll-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 2px;
+    }
+    .cat-scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+    .cat-pill {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      padding: 7px 15px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .cat-pill:hover {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+    .cat-pill.active {
+      background: var(--brand-gradient);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 2px 8px var(--brand-glow);
+    }
+
+    .filter-pills-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .filter-pill {
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .filter-pill:hover {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+    .filter-pill.active {
+      background: var(--text-main);
+      border-color: var(--text-main);
+      color: var(--bg-body);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       RULES & MULTI-BUCKET BANNER
+       ══════════════════════════════════════════════════════════════ */
+    .rules-banner {
+      background: var(--banner-bg);
+      border: 1px solid var(--banner-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: all var(--transition-normal);
+    }
+    .rules-banner-header {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+    .rules-banner-title {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-main);
+    }
+    .rules-banner-arrow {
+      font-size: 11px;
+      color: var(--text-muted);
+      transition: transform var(--transition-normal);
+    }
+    .rules-banner.collapsed .rules-banner-arrow {
+      transform: rotate(-90deg);
+    }
+    .rules-banner.collapsed .rules-banner-body {
+      display: none;
+    }
+    .rules-banner-body {
+      padding: 0 16px 14px 16px;
+    }
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 960px) {
+      .rules-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+    .rule-bento-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+    .rule-bento-box h4 {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .flow-step-item {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 11px;
+      color: var(--text-main);
+    }
+    .flow-step-arrow {
+      color: var(--brand-primary);
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       MAIN MASTER-DETAIL 2-COLUMN LAYOUT (DESKTOP)
+       ══════════════════════════════════════════════════════════════ */
+    .content-area {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 16px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .master-detail-container {
+      display: grid;
+      grid-template-columns: 440px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* LEFT MASTER LIST (SCROLLABLE ON DESKTOP) */
+    .master-list-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .master-list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding: 0 4px 6px 4px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .master-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      user-select: none;
+    }
+    .master-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
+      transform: translateY(-1px);
+    }
+    .master-card.active {
+      border-color: var(--brand-primary);
+      background: var(--bg-card);
+      box-shadow: 0 0 0 2px var(--brand-glow), var(--card-shadow-active);
+    }
+    .master-card.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 10px;
+      width: 4px;
+      border-radius: 0 4px 4px 0;
+      background: var(--brand-gradient);
+    }
+    .card-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+    }
+    .card-num-badge {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      padding: 1px 6px;
+      border-radius: 6px;
+      color: var(--text-sub);
+    }
+    .card-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+    .card-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-action-indicator {
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: transform var(--transition-fast), color var(--transition-fast);
+    }
+    .master-card.active .card-action-indicator {
+      color: var(--brand-primary);
+      transform: translateX(3px);
+    }
+    .card-row-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .card-tags {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .tag-badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .tag-price {
+      background: var(--bg-subtle);
+      color: var(--text-sub);
+      border: 1px solid var(--border-color);
+      font-family: var(--font-mono);
+    }
+    .tag-km {
+      background: var(--badge-km-bg);
+      color: var(--badge-km-text);
+      border: 1px solid var(--badge-km-border);
+    }
+    .tag-main {
+      background: var(--badge-main-bg);
+      color: var(--badge-main-text);
+      border: 1px solid var(--badge-main-border);
+    }
+    .tag-combo {
+      background: var(--badge-combo-bg);
+      color: var(--badge-combo-text);
+      border: 1px solid var(--badge-combo-border);
+    }
+    .card-cmd-badge {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brand-primary);
+      background: rgba(238, 77, 45, 0.08);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(238, 77, 45, 0.2);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .card-cmd-badge:hover {
+      background: var(--brand-primary);
+      color: #FFF;
+      border-color: var(--brand-primary);
+      box-shadow: 0 2px 6px var(--brand-glow);
+      border-radius: 4px;
+    }
+
+    /* RIGHT DETAIL INSPECTOR (STICKY ON DESKTOP) */
+    .detail-inspector-panel {
+      position: sticky;
+      top: 130px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      max-height: calc(100vh - 150px);
+      overflow: hidden;
+    }
+    .inspector-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-card);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .inspector-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .inspector-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .inspector-title-row h2 {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.3px;
+    }
+    .inspector-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* 3 SEGMENTED MICRO-TABS */
+    .segmented-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--bg-subtle);
+      padding: 4px 6px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .seg-tab-btn {
+      flex: 1;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+    .seg-tab-btn:hover {
+      color: var(--text-main);
+    }
+    .seg-tab-btn.active {
+      background: var(--bg-card);
+      color: var(--brand-primary);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    /* INSPECTOR SCROLLABLE BODY */
+    .inspector-body {
+      padding: 18px 20px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .tab-content-panel {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .tab-content-panel.active {
+      display: flex;
+    }
+
+    /* CONTENT BLOCKS & TYPOGRAPHY */
+    .detail-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .section-heading {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .bento-card-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+    }
+
+    /* TYPOGRAPHY HELPERS (BULLETS & BADGES) */
+    .bento-intro-line {
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      font-size: 14.5px;
+    }
+    .bento-bullet-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+    .bento-bullet-row.sub-bullet {
+      margin-left: 8px;
+      border-left: 2px solid var(--border-color);
+      padding-left: 10px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+    }
+    .bento-bullet-char {
+      color: var(--brand-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .bento-bullet-content {
+      flex: 1;
+    }
+    .inline-btn-tag {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 1px 7px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      margin: 0 2px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    .inline-cmd {
+      font-family: var(--font-mono);
+      background: rgba(238, 77, 45, 0.1);
+      color: var(--brand-primary);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+    .bento-spacer {
+      height: 6px;
+    }
+
+    
+    /* RICH TEXT ENHANCEMENTS */
+    .bullet-lead {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+    .inline-arrow {
+      color: var(--brand-primary);
+      font-weight: 700;
+      margin: 0 4px;
+      display: inline-block;
+    }
+    .inline-syntax {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--text-main);
+      word-break: break-all;
+    }
+    [data-theme="dark"] .inline-syntax {
+      background: #111827;
+      border-color: #374151;
+      color: #E2E8F0;
+    }
+
+    /* BILLING MECHANISM BADGE */
+    .tag-billing {
+      background: var(--bg-subtle);
+      color: var(--text-sub);
+      border: 1px solid var(--border-color);
+      font-size: 12px;
+      font-weight: 600;
+    }
+    [data-theme="dark"] .tag-billing {
+      background: #1E293B;
+      color: #CBD5E1;
+      border-color: #334155;
+    }
+
+    /* RULES BANNER INTERACTIVE CHIPS & BENTO CARDS */
+    .rule-subcard {
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-top: 8px;
+    }
+    .rule-subcard.main-wallet {
+      background: var(--badge-main-bg);
+      border: 1px solid var(--badge-main-border);
+    }
+    .rule-subcard.km-wallet {
+      background: var(--badge-km-bg);
+      border: 1px solid var(--badge-km-border);
+    }
+    .rule-subcard-title {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rule-subcard.main-wallet .rule-subcard-title {
+      color: var(--badge-main-text);
+    }
+    .rule-subcard.km-wallet .rule-subcard-title {
+      color: var(--badge-km-text);
+    }
+    .rule-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .rule-chip {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid transparent;
+      user-select: none;
+    }
+    .rule-chip.chip-main {
+      background: var(--bg-card);
+      color: var(--badge-main-text);
+      border-color: var(--badge-main-border);
+    }
+    .rule-chip.chip-main:hover {
+      background: var(--badge-main-text);
+      color: #FFF;
+      transform: translateY(-1px);
+    }
+    .rule-chip.chip-km {
+      background: var(--bg-card);
+      color: var(--badge-km-text);
+      border-color: var(--badge-km-border);
+    }
+    .rule-chip.chip-km:hover {
+      background: var(--badge-km-text);
+      color: #FFF;
+      transform: translateY(-1px);
+    }
+    .rule-chip.chip-spcf {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border-color: var(--border-color);
+      font-size: 11.5px;
+      padding: 3px 8px;
+    }
+    .rule-chip.chip-spcf:hover {
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+      transform: translateY(-1px);
+    }
+
+    /* PROMO HORIZONTAL MINI CARDS */
+    .promo-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .promo-mini-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 8px 6px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .promo-card-tier {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .promo-card-bonus {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--badge-km-text);
+      background: var(--badge-km-bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--badge-km-border);
+    }
+
+    /* CODE BOX */
+    .code-box-wrapper {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .code-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94A3B8;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .code-block {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--code-text);
+      padding: 10px 14px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .btn-copy-code {
+      font-family: inherit;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFF;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all var(--transition-fast);
+    }
+    .btn-copy-code:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    /* ALERT BOX */
+    .alert-box {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+    }
+    .alert-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #D97706;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* STICKY FOOTER IN INSPECTOR */
+    .inspector-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-use-now {
+      flex: 1;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      border: none;
+      background: var(--brand-gradient);
+      color: white;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px var(--brand-glow);
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+    .btn-use-now:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px var(--brand-glow);
+    }
+    .btn-secondary-action {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-sub);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+    .btn-secondary-action:hover {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       MOBILE NATIVE BOTTOM SHEET DRAWER (< 860px)
+       ══════════════════════════════════════════════════════════════ */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--drawer-backdrop);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-normal);
+    }
+    .drawer-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .bottom-sheet-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--drawer-bg);
+      border-top-left-radius: var(--radius-xl);
+      border-top-right-radius: var(--radius-xl);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
+      z-index: 201;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+    .bottom-sheet-drawer.open {
+      transform: translateY(0);
+    }
+
+    .drawer-drag-pill-wrap {
+      width: 100%;
+      padding: 8px 0 4px 0;
+      display: flex;
+      justify-content: center;
+      cursor: grab;
+    }
+    .drawer-drag-pill {
+      width: 40px;
+      height: 4.5px;
+      border-radius: var(--radius-full);
+      background: var(--border-color);
+    }
+
+    .drawer-header {
+      padding: 8px 16px 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .drawer-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .drawer-body {
+      padding: 16px;
+      overflow-y: auto;
+      flex: 1;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .drawer-footer {
+      padding: 12px 16px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid var(--border-color);
+      background: var(--drawer-bg);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* MOBILE RESPONSIVE ADAPTATIONS */
+    @media (max-width: 860px) {
+      .master-detail-container {
+        grid-template-columns: 1fr;
+      }
+      .detail-inspector-panel {
+        display: none; /* Hidden on mobile; replaced by bottom sheet */
+      }
+      .rules-banner {
+        margin-bottom: 12px;
+      }
+      .content-area {
+        padding: 12px;
+        padding-bottom: 80px; /* space for mobile footer */
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       MOBILE FLOATING BOTTOM NAV (FIXED AT BOTTOM)
+       ══════════════════════════════════════════════════════════════ */
+    .mobile-floating-nav {
+      display: none;
+    }
+    @media (max-width: 860px) {
+      .mobile-floating-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 90;
+        background: var(--bg-header);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px)) 8px;
+      }
+      .m-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        font-family: inherit;
+        font-size: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 4px 8px;
+      }
+      .m-nav-item .icon {
+        font-size: 16px;
+      }
+      .m-nav-item.active {
+        color: var(--brand-primary);
+      }
+    }
+
+    /* TOAST NOTIFICATION */
+    .toast-popup {
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #0F172A;
+      color: #FFF;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-size: 12.5px;
+      font-weight: 600;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      z-index: 300;
+      opacity: 0;
+      pointer-events: none;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toast-popup.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 40px 16px;
+      color: var(--text-muted);
+    }
+    .empty-state.visible {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- STICKY HEADER -->
+  <header class="sticky-header" id="sticky-header">
+    <div class="header-inner">
+      <div class="header-top">
+        <a href="#" class="brand-box">
+          <div class="brand-logo">⚡</div>
+          <div class="brand-title">
+            SFAST GUIDE
+            <span class="brand-badge">v2.0 Hub</span>
+          </div>
+        </a>
+        <div class="header-actions">
+          <nav class="desktop-nav-links">
+            <button class="nav-link-btn" onclick="openSupportGroup()">👥 Nhóm Hỗ Trợ</button>
+            <button class="nav-link-btn" onclick="openAdminSupport()">💬 Admin Hỗ Trợ</button>
+            <button class="nav-link-btn" onclick="useFeatureNow('reg')">🚀 Tạo ACC</button>
+            <button class="nav-link-btn" onclick="useFeatureNow('sim')">📱 Thuê SĐT</button>
+          </nav>
+          <button class="btn-icon" id="theme-toggle-btn" title="Chuyển đổi Sáng / Tối" onclick="toggleTheme()">
+            <span id="theme-icon">🌙</span> <span id="theme-text">Tối</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SEARCH & FILTER ROW -->
+      <div class="controls-row">
+        <div class="search-wrapper">
+          <span class="search-icon-left">🔍</span>
+          <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm nhanh 19 chức năng (tên, lệnh /reg, cú pháp, ví dụ...)" autocomplete="off">
+          <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearch()">✕</button>
+        </div>
+
+        <div class="filter-bar-unified">
+          <!-- CATEGORY TABS -->
+          <div class="cat-scroll-container" id="category-scroll">
+            <button class="cat-pill active" data-cat="all" onclick="selectCategory('all', this)">Tất cả (19)</button>
+            <button class="cat-pill" data-cat="cat_1" onclick="selectCategory('cat_1', this)">1. Tạo Acc & SIM (3)</button>
+            <button class="cat-pill" data-cat="cat_2" onclick="selectCategory('cat_2', this)">2. Quản Lý Email (3)</button>
+            <button class="cat-pill" data-cat="cat_3" onclick="selectCategory('cat_3', this)">3. Cookie & Kiểm Tra (5)</button>
+            <button class="cat-pill" data-cat="cat_4" onclick="selectCategory('cat_4', this)">4. Đơn & Địa Chỉ (4)</button>
+            <button class="cat-pill" data-cat="cat_5" onclick="selectCategory('cat_5', this)">5. Voucher & Combo (4)</button>
+          </div>
+
+          <!-- WALLET FILTERS -->
+          <div class="filter-pills-row" id="wallet-filter-row">
+            <button class="filter-pill active" data-filter="all" onclick="selectWalletFilter('all', this)">Tất cả</button>
+            <button class="filter-pill" data-filter="km" onclick="selectWalletFilter('km', this)">🎁 Hỗ trợ TK KM (15)</button>
+            <button class="filter-pill" data-filter="main" onclick="selectWalletFilter('main', this)">💰 Chỉ TK Chính (4)</button>
+            <button class="filter-pill" data-filter="combo" onclick="selectWalletFilter('combo', this)">💎 Có Combo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="content-area">
+
+    <!-- RULES & KNOWLEDGE BANNER (3-COL BENTO) -->
+    <div class="rules-banner" id="rules-banner">
+      <div class="rules-banner-header" onclick="toggleRulesBanner()">
+        <div class="rules-banner-title">
+          <span>💡</span>
+          <span>Thứ Tự Trừ Tiền & Quy Chuẩn SPC_ST / SPC_F</span>
+        </div>
+        <div class="rules-banner-arrow" id="rules-arrow">▼</div>
+      </div>
+      <div class="rules-banner-body">
+        <div class="rules-grid">
+          <!-- CỘT TRÁI: THỨ TỰ TRỪ TIỀN & PHÂN NHÓM VÍ -->
+          <div class="rule-bento-box">
+            <h4>💳 Thứ Tự Trừ Tiền Của Bot (Multi-Bucket)</h4>
+            <div class="flow-steps" style="margin-bottom: 8px;">
+              <span class="flow-step-item" style="font-size: 12.5px; padding: 4px 10px;">1. Lượt Dùng Thử</span>
+              <span class="flow-step-arrow">➔</span>
+              <span class="flow-step-item" style="font-size: 12.5px; padding: 4px 10px;">2. Gói Combo</span>
+              <span class="flow-step-arrow">➔</span>
+              <span class="flow-step-item" style="font-size: 12.5px; padding: 4px 10px;">3. TK Khuyến Mãi</span>
+              <span class="flow-step-arrow">➔</span>
+              <span class="flow-step-item" style="font-size: 12.5px; padding: 4px 10px;">4. TK Chính</span>
+            </div>
+
+            <!-- Subcard 1: Nhóm Dùng TK Chính -->
+            <div class="rule-subcard main-wallet">
+              <div class="rule-subcard-title">💰 Nhóm Dùng TK Chính</div>
+              <div class="rule-chips-wrap">
+                <button class="rule-chip chip-main" onclick="selectFeature('01')">#01 Tạo ACC</button>
+                <button class="rule-chip chip-main" onclick="selectFeature('02')">#02 Thuê SĐT Shopee</button>
+                <button class="rule-chip chip-main" onclick="selectFeature('03')">#03 Thuê SIM TikTok</button>
+                <button class="rule-chip chip-main" onclick="selectFeature('19')">#19 Gói Combo</button>
+                <button class="rule-chip chip-main" onclick="selectFeature('04')">#04 Mail Kho / iCloud / Mua lẻ</button>
+              </div>
+              <div style="color: var(--badge-main-text); font-size: 11.5px; font-weight: 600; margin-top: 6px;">💡 Riêng #01 Tạo ACC có hỗ trợ trừ Lượt Free khi chiến thắng trò chơi ở nhóm hỗ trợ của Sfast.</div>
+            </div>
+
+            <!-- Subcard 2: Nhóm Hỗ Trợ TK Khuyến Mãi -->
+            <div class="rule-subcard km-wallet">
+              <div class="rule-subcard-title">🎁 Nhóm Hỗ Trợ TK Khuyến Mãi (15 chức năng — Ưu tiên trừ KM & Combo)</div>
+              <div class="rule-chips-wrap">
+                <button class="rule-chip chip-km" onclick="selectFeature('04')">#04 Mail Free / Tự nhập</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('05')">#05 Đổi Email</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('06')">#06 Đọc Email</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('07')">#07 Quét QR</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('08')">#08 Đổi SPC_F</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('09')">#09 Check Live</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('10')">#10 Check Zin</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('11')">#11 Check Acc</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('12')">#12 Tra Đơn</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('13')">#13 Chi Tiết Đơn</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('14')">#14 Thêm Địa Chỉ</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('15')">#15 Xác Nhận Đơn</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('16')">#16 Check Ví</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('17')">#17 Lưu Code</button>
+                <button class="rule-chip chip-km" onclick="selectFeature('18')">#18 Voucher Hot</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- CỘT PHẢI: ƯU ĐÃI NẠP & SPC_ST / SPC_F -->
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Khối 1: Ưu đãi nạp tiền -->
+            <div class="rule-bento-box">
+              <h4>🎁 Ưu Đãi Nạp Tiền (Cộng Tự Động Vào TK KM)</h4>
+              <div class="promo-cards-grid">
+                <div class="promo-mini-card">
+                  <span class="promo-card-tier">Từ 50.000đ</span>
+                  <span class="promo-card-bonus">+5% KM</span>
+                </div>
+                <div class="promo-mini-card">
+                  <span class="promo-card-tier">Từ 100.000đ</span>
+                  <span class="promo-card-bonus">+10% KM</span>
+                </div>
+                <div class="promo-mini-card">
+                  <span class="promo-card-tier">Từ 200.000đ</span>
+                  <span class="promo-card-bonus">+15% KM</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Khối 2: Quy chuẩn Cookie & SPC_F -->
+            <div class="rule-bento-box">
+              <h4>🍪 Quy Chuẩn Cookie SPC_ST & Giải Mã SPC_F</h4>
+              <div style="font-size: 13px; line-height: 1.6; color: var(--text-sub);">
+                <p style="margin-bottom: 6px;">• <strong>Chuẩn mặc định:</strong> Nhận Cookie <code>SPC_ST=xxx</code> hoặc token thuần <code>xxx</code> (hỗ trợ kèm <code>[|proxy]</code>).</p>
+                <p style="margin-bottom: 6px;">• <strong>Đổi hàng loạt:</strong> Dùng chức năng <button class="rule-chip chip-spcf" onclick="selectFeature('08')">#08 Đổi SPC_F</button> để đổi <code>SPC_F=token|user|pass</code> sang <code>SPC_ST</code>.</p>
+                <div>
+                  <p style="margin-bottom: 4px;">• <strong>Tự giải mã SPC_F trực tiếp (Không cần đổi trước):</strong></p>
+                  <div class="rule-chips-wrap">
+                    <button class="rule-chip chip-spcf" onclick="selectFeature('04')">#04 Thêm Mail</button>
+                    <button class="rule-chip chip-spcf" onclick="selectFeature('05')">#05 Đổi Mail</button>
+                    <button class="rule-chip chip-spcf" onclick="selectFeature('09')">#09 Check Live</button>
+                    <button class="rule-chip chip-spcf" onclick="selectFeature('11')">#11 Check Acc</button>
+                    <button class="rule-chip chip-spcf" onclick="selectFeature('15')">#15 Xác Nhận Đơn</button>
+                    <button class="rule-chip chip-spcf" onclick="selectFeature('16')">#16 Check Ví</button>
+                    <button class="rule-chip chip-spcf" onclick="selectFeature('17')">#17 Lưu Code</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MASTER-DETAIL 2-COLUMN CONTAINER -->
+    <div class="master-detail-container">
+      
+      <!-- LEFT: MASTER CARDS LIST -->
+      <section class="master-list-panel">
+        <div class="master-list-header">
+          <span id="results-count">Hiển thị: 19 chức năng</span>
+          <span style="font-size: 11.5px; font-weight: 500;">Bấm thẻ để xem chi tiết ➔</span>
+        </div>
+        <div id="master-cards-list"></div>
+
+        <!-- EMPTY STATE -->
+        <div class="empty-state" id="empty-state">
+          <div style="font-size: 28px; margin-bottom: 6px;">🔍</div>
+          <h3 style="font-size: 15px; margin-bottom: 4px;">Không tìm thấy chức năng phù hợp</h3>
+          <p style="font-size: 12px;">Sếp thử tìm với từ khóa khác như "reg", "sim", "mail", "voucher"...</p>
+        </div>
+      </section>
+
+      <!-- RIGHT: STICKY DETAIL INSPECTOR (PC DESKTOP) -->
+      <aside class="detail-inspector-panel" id="desktop-detail-inspector">
+        <div class="inspector-header" id="inspector-header">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- 3 SEGMENTED MICRO-TABS -->
+        <div class="segmented-tabs-bar" id="desktop-tabs-bar">
+          <button class="seg-tab-btn active" data-tab="guide" onclick="switchDetailTab('guide', this)">
+            <span>📋 Hướng Dẫn & Nút Bấm</span>
+          </button>
+          <button class="seg-tab-btn" data-tab="syntax" onclick="switchDetailTab('syntax', this)">
+            <span>💻 Cú Pháp & Mẫu Nhập</span>
+          </button>
+          <button class="seg-tab-btn" data-tab="notes" onclick="switchDetailTab('notes', this)">
+            <span>⚠️ Lưu Ý & Hoàn Tiền</span>
+          </button>
+        </div>
+
+        <!-- INSPECTOR BODY -->
+        <div class="inspector-body" id="inspector-body">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- INSPECTOR STICKY FOOTER -->
+        <div class="inspector-footer" id="inspector-footer">
+          <!-- Rendered via JS -->
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- MOBILE NATIVE BOTTOM SHEET DRAWER (< 860px) -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeMobileDrawer()"></div>
+  <div class="bottom-sheet-drawer" id="mobile-drawer" role="dialog" aria-modal="true">
+    <div class="drawer-drag-pill-wrap" onclick="closeMobileDrawer()">
+      <div class="drawer-drag-pill"></div>
+    </div>
+    <div class="drawer-header" id="drawer-header">
+      <!-- Rendered via JS -->
+      <button class="drawer-close-btn" onclick="closeMobileDrawer()">✕</button>
+    </div>
+
+    <!-- 3 SEGMENTED MICRO-TABS (MOBILE) -->
+    <div class="segmented-tabs-bar" id="mobile-tabs-bar">
+      <button class="seg-tab-btn active" data-tab="guide" onclick="switchMobileDrawerTab('guide', this)">
+        <span>📋 Hướng Dẫn</span>
+      </button>
+      <button class="seg-tab-btn" data-tab="syntax" onclick="switchMobileDrawerTab('syntax', this)">
+        <span>💻 Cú Pháp</span>
+      </button>
+      <button class="seg-tab-btn" data-tab="notes" onclick="switchMobileDrawerTab('notes', this)">
+        <span>⚠️ Hoàn Tiền</span>
+      </button>
+    </div>
+
+    <div class="drawer-body" id="drawer-body">
+      <!-- Rendered via JS -->
+    </div>
+
+    <div class="drawer-footer" id="drawer-footer">
+      <!-- Rendered via JS -->
+    </div>
+  </div>
+
+  <!-- MOBILE FLOATING BOTTOM NAV -->
+  <nav class="mobile-floating-nav">
+    <button class="m-nav-item active" onclick="scrollToTop()">
+      <span class="icon">📖</span>
+      <span>Tra Cứu</span>
+    </button>
+    <button class="m-nav-item" onclick="openSupportGroup()">
+      <span class="icon">👥</span>
+      <span>Hỗ Trợ</span>
+    </button>
+    <button class="m-nav-item" onclick="openAdminSupport()">
+      <span class="icon">💬</span>
+      <span>Admin</span>
+    </button>
+    <button class="m-nav-item" onclick="useFeatureNow('reg')">
+      <span class="icon">🚀</span>
+      <span>Tạo ACC</span>
+    </button>
+    <button class="m-nav-item" onclick="useFeatureNow('sim')">
+      <span class="icon">📱</span>
+      <span>Thuê SĐT</span>
+    </button>
+  </nav>
+
+  <!-- TOAST POPUP -->
+  <div class="toast-popup" id="toast-popup">
+    <span>✅</span>
+    <span id="toast-message">Đã sao chép!</span>
+  </div>
+
+  <script>
+    const SFAST_CONFIG = {
+      botUsername: "sfast_main_bot",
+      supportGroup: "https://t.me/sfastsp",
+      adminSupport: "https://t.me/Thomas3810"
+    };
+
+    const FEATURES_DATA = [
+  {
+    "id": "01",
+    "name": "Tạo ACC Shopee Mới",
+    "icon": "🚀",
+    "cat": "cat_1",
+    "catName": "Tạo Acc & SIM",
+    "price": "4,000 VNĐ / acc",
+    "shortPrice": "4,000 VNĐ / acc",
+    "walletType": "main",
+    "walletLabel": "💰 Chỉ TK Chính",
+    "comboSupport": false,
+    "comboLabel": "Hỗ trợ Lượt Free",
+    "billingType": "Tạo xong mới tính tiền",
+    "payload": "reg",
+    "command": "/reg",
+    "purpose": "Hệ thống tự động tạo nick Shopee với 4 gói linh hoạt: Trọn gói hệ thống lo từ A-Z hoặc sếp tự nhập SĐT/Proxy riêng với giá siêu tiết kiệm.",
+    "inputFormat": "• Gói Mặc Định — Trọn Gói Hệ Thống (4,000đ / acc):\n  ▸ Gõ /reg (hoặc bấm [🚀 Tạo ACC Shopee]) ➔ Màn hình hiện bảng giá & số dư\n  ▸ Bấm chọn số lượng: [🔹 1 Acc] | [🔸 5 Acc] | [🔥 10 Acc]\n  ▸ Hoặc bấm [✏️ Nhập Số Lượng] để điền số lượng mong muốn\n  ▸ Hệ thống lo 100% SIM và Proxy.\n• Các Tùy Chọn Khi Reg Acc:\n  ▸ Gói A — Tự cấp SĐT riêng (700đ / acc): Gõ /regsdt 0901234567 ➔ Sếp tự cấp SĐT, hệ thống check tự động và tự dùng Proxy Xoay Riêng có trong hệ thống.\n  ▸ Gói B — Tự cấp SĐT + Proxy riêng (500đ / acc): Gõ /regfull 0901234567|ip:port:user:pass ➔ Siêu rẻ, hệ thống xử lý nhanh mà không phải chờ đợi.\n  ▸ Gói C — Tự cấp Proxy riêng (3,800đ / acc): Gõ /regproxy ip:port:user:pass ➔ Hệ thống lo SIM, kết hợp Proxy của Sếp.\n• Quản lý tài khoản đã tạo: Gõ /myacc hoặc bấm nút [📋 ACC Đã Tạo]",
+    "inputSample": "Gói Mặc Định: /reg (Chọn [🔹 1 Acc] / [🔸 5 Acc] / [🔥 10 Acc])\nHoặc Gói A: /regsdt 0901234567\nHoặc Gói B: /regfull 0901234567|103.151.120.45:8080:user:pass\nHoặc Gói C: /regproxy 103.151.120.45:8080:user:pass",
+    "outputFormat": "• Kết quả bàn giao: Danh sách tài khoản tạo thành công gồm Cookie SPC_ST, SPC_F, Số điện thoại và Mật khẩu đăng nhập trực tiếp trên màn hình bot.\n• Quản lý tài khoản: Xem lại danh sách tài khoản đã tạo mọi lúc bằng lệnh /myacc hoặc bấm nút [📋 ACC Đã Tạo].",
+    "example": "Sếp cần tạo 5 nick mới ➔ Gõ /reg ➔ Bấm nút [ 5 Acc ] ➔ Bot tự động khởi chạy và bàn giao 5 tài khoản kèm đầy đủ Cookie, SĐT, Mật khẩu ra màn hình.",
+    "notes": "• Loại ví thanh toán: Chỉ thanh toán bằng TK Chính (không trừ TK KM). Hỗ trợ trừ Lượt Free khi chiến thắng trò chơi ở nhóm hỗ trợ của Sfast.\n• Chính sách hoàn tiền theo gói:\n  ▸ Gói Mặc Định & Gói C (SIM hệ thống): Lỗi hệ thống (chưa có OTP) hoặc hết 6 phút chờ ➔ Tự động hoàn 100% TK Chính. Kho số trả mã OTP sai định dạng / lỗi không xác định ➔ Hoàn vào TK KM. Không hỗ trợ hoàn tiền sau khi acc đã tạo thành công, hoặc lỗi từ phía Shopee (mã xác nhận hết hạn, tài khoản không đủ điều kiện lưu voucher).\n  ▸ Nút [🛑 Dừng Ngay]: Nếu Sếp chủ động bấm dừng khi bot đang chờ OTP ➔ Hiện cảnh báo mất phí (không hoàn tiền nếu xác nhận dừng). Sếp nên chờ hết 6 phút — nếu không có OTP, hệ thống sẽ tự động hoàn 100% tiền.\n  ▸ Gói A & Gói B (SĐT riêng của Sếp): Khi nhận cuộc gọi hoặc SMS chứa mã OTP, nhập nhanh cú pháp /otp <mã 6 số> (ví dụ: /otp 123456). Có nút [📲 Gửi Lại Mã] nếu chưa nhận được. Sếp có thể chủ động hủy phiên bằng lệnh /huyreg — chỉ trừ phí xử lý 50đ, phần dư hoàn về TK Chính.\n• Lưu ý vận hành acc an toàn:\n  ▸ Sếp nên tạo thử vài acc để check chất lượng trước khi tạo số lượng lớn.\n  ▸ Không nên đăng nhập cùng lúc nhiều tài khoản trên nhiều thiết bị giống nhau trong thời gian ngắn để tránh bị Shopee quét khóa bất thường.\n  ▸ Chỉ liên kết email khi đã đăng nhập vào thiết bị điện thoại thật, tránh liên kết xong để đó không đăng nhập.\n  ▸ Các kho số hiện khá khan hiếm nên tỷ lệ mất liên kết số sau khi reg có thể phát sinh, các Sếp cân nhắc khi sử dụng.\n  ▸ 💡 Mẹo ngâm: Nên đăng nhập và để acc \"ngâm\" ít nhất 12–24h trước khi đặt đơn để tăng độ uy tín và giảm tối đa tỷ lệ bị Shopee hạn chế."
+  },
+  {
+    "id": "02",
+    "name": "Thuê SĐT Shopee",
+    "icon": "📱",
+    "cat": "cat_1",
+    "catName": "Tạo Acc & SIM",
+    "price": "Từ 3,100 VNĐ / số",
+    "walletType": "main",
+    "walletLabel": "💰 Chỉ TK Chính",
+    "comboSupport": false,
+    "comboLabel": "Không Quota",
+    "billingType": "Có OTP mới tính tiền",
+    "payload": "sim",
+    "command": "/sim",
+    "purpose": "Thuê số điện thoại nhận mã OTP đăng ký hoặc đăng nhập Shopee, có phân loại gói ZIN và gói Lấy Lại Được.",
+    "inputFormat": "• Thao tác nhanh qua Menu:\n  ▸ Gõ /sim (hoặc bấm [📱 Thuê SĐT Shopee]) ➔ Hiện bảng giá các gói V1 - Vn kèm thống kê Tỷ Lệ Mã Về hôm nay\n  ▸ Bấm chọn gói tương ứng: [Gói V1 ...] | [Gói V2 ...] | [Gói V3 ...]\n• Lệnh thuê SIM nhanh (Tắt):\n  ▸ Gõ trực tiếp: /v1, /v2, /v3... để lấy số ngay không cần qua menu\n• Các phân loại gói đặc biệt:\n  ▸ Gói Lấy Lại Được: Hỗ trợ thuê cả số đã từng đăng ký Shopee (gặp số đã ĐK ➔ bấm 'Lấy lại số' trên Shopee)\n  ▸ Gói Không Check Zin (⚠️): Lấy số siêu tốc khi kho khan hiếm, không bảo hành tài khoản nhưng không có OTP vẫn hoàn 100%",
+    "inputSample": "/sim (Bấm chọn gói [Gói V1 ...] / [Gói V2 ...])\nHoặc gõ tắt: /v1",
+    "outputFormat": "• Nhận số: Bot cấp số điện thoại (ví dụ: 0981234567) để dán vào Shopee.\n• Nhận mã OTP: Bot tự động hiển thị mã OTP kèm file ghi âm cuộc gọi [🔊 Nghe mã OTP (Audio)] (nếu có) ngay khi nhận được.\n• Nút tiện ích sau khi xong: [🔄 Thuê lại] • [📱 Chọn gói khác] • [🔄 Thuê lại số này].",
+    "example": "Sếp cần số tạo nick Shopee ➔ Gõ /sim chọn gói V1 ➔ Nhận ngay SĐT 098... ➔ Dán vào Shopee yêu cầu gửi mã ➔ Bot tự động hiển thị mã OTP kèm file ghi âm (nếu có) ngay khi nhận được.",
+    "notes": "• Thời gian chờ: Mỗi số chờ OTP tối đa 6 phút (hoặc theo timeout quy định của gói).\n• KHÔNG CÓ NÚT HỦY CHỦ ĐỘNG: Trong lúc đang chờ mã, không hỗ trợ bấm hủy giữa chừng.\n• Cơ chế hoàn tiền: Hết thời gian chờ mà không nhận được mã ➔ Tự động hủy đơn và hoàn 100% tiền về TK Chính ngay lập tức.\n• Không hỗ trợ hoàn tiền sau khi đã nhận được mã OTP hoặc file ghi âm cuộc gọi.\n• Các kho giá rẻ có tỷ lệ bị hủy liên kết SĐT cao hơn, Sếp nên cân nhắc khi sử dụng."
+  },
+  {
+    "id": "03",
+    "name": "Thuê SIM TikTok",
+    "icon": "🎵",
+    "cat": "cat_1",
+    "catName": "Tạo Acc & SIM",
+    "price": "Từ 2,500 VNĐ / số",
+    "walletType": "main",
+    "walletLabel": "💰 Chỉ TK Chính",
+    "comboSupport": false,
+    "comboLabel": "Không Quota",
+    "billingType": "Có OTP mới tính tiền",
+    "payload": "ttsim",
+    "command": "/ttsim",
+    "purpose": "Thuê số điện thoại nhận mã OTP đăng ký, đăng nhập tài khoản TikTok hoặc liên kết TikTok Shop.",
+    "inputFormat": "• Thao tác nhanh qua Menu:\n  ▸ Gõ /ttsim (hoặc bấm [🎵 Thuê SIM TikTok]) ➔ Hiện danh sách các gói TikTok SIM kèm tỷ lệ mã về\n  ▸ Bấm chọn gói tương ứng: [Gói V1 ...] | [Gói V2 ...] | [Gói V3 ...]\n• Lệnh thuê nhanh: Gõ tắt /ttv1, /ttv2, /ttv3... để nhận số ngay",
+    "inputSample": "/ttsim (Bấm chọn gói [Gói V1 ...] / [Gói V2 ...])\nHoặc gõ tắt: /ttv1",
+    "outputFormat": "• Cấp số: SĐT nhận mã hiển thị ngay trên màn hình.\n• Cập nhật OTP: Bot tự động hiển thị mã OTP kèm nút nghe ghi âm [🔊 Nghe mã OTP (Audio)] (nếu là cuộc gọi thoại) ngay khi nhận được.\n• Nút tiện ích: [🔄 Thuê lại] • [📱 Chọn gói khác].",
+    "example": "Sếp làm TikTok Shop cần số xác minh liên kết ➔ Gõ /ttsim chọn gói ➔ Lấy số dán vào TikTok ➔ Nhận mã OTP hoặc file ghi âm cuộc gọi tự động trên bot.",
+    "notes": "• Thời gian chờ: Chờ OTP tối đa 6 phút. Không có nút hủy chủ động trong khi chờ.\n• Cơ chế hoàn tiền: Không nhận được mã ➔ Tự động hủy và hoàn tiền 100% vào TK Chính. Không hoàn tiền sau khi đã nhận OTP hoặc file ghi âm."
+  },
+  {
+    "id": "04",
+    "name": "Quản Lý & Thêm Email Shopee",
+    "icon": "📧",
+    "cat": "cat_2",
+    "catName": "Quản Lý Email",
+    "price": "50 VNĐ - 500 VNĐ (tùy gói)",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM & Chính",
+    "comboSupport": true,
+    "comboLabel": "💎 Có Quota",
+    "billingType": "Thành công mới tính tiền",
+    "payload": "mail",
+    "command": "/mail",
+    "purpose": "Trung tâm quản lý Email Shopee: Tự động thêm mail vào Tài Khoản Shopee (Hotmail, Outlook, iCloud, Mail Free), hoặc sếp có thể điền email riêng.",
+    "inputFormat": "• Thao tác chính qua lệnh /mail (hoặc bấm [📧 Thêm Email]):\n  ▸ Gói 1 — Hotmail / Outlook Kho Bot (400đ / acc — Chỉ TK Chính): Bấm [📮 Hotmail — 400đ] hoặc [📩 Outlook — 400đ] ➔ Dán danh sách Cookie (tối đa 10 dòng). Bot tự động lấy mail từ kho thêm vào tài khoản.\n  ▸ Gói 2 — Mua Email Riêng Lẻ (350đ / email — Chỉ TK Chính): Bấm [🛒 Chỉ Mua Email — 350đ] ➔ Chọn [📮 Hotmail] hoặc [📩 Outlook] (hoặc gõ /muamail). Mua mail lẻ sạch có mật khẩu + token để tự dùng riêng, không cần dán Cookie. Có sẵn nút [📨 Đọc Email Vừa Mua].\n  ▸ Gói 3 — Thuê Mail iCloud 7 Ngày (500đ / 7 ngày — Chỉ TK Chính): Bấm [☁️ Thuê Mail iCloud — 500đ/7 ngày] ➔ Dán danh sách Cookie. Bot cấp Mail iCloud, gắn vào nick và bảo lưu hộp thư đọc OTP 7 ngày. Phù hợp nuôi acc trust cao.\n  ▸ Gói 4 — Mail Free Tạm Thời (50đ / acc — Hỗ trợ TK KM 🎁): Bấm [📨 Mail Free (Mail Tạm) — 50đ] (hoặc gõ /mailfree) ➔ Dán danh sách Cookie. Bot tự tạo mail tạm và đọc OTP tự động.\n  ▸ Gói 5 — Thêm Email Riêng Của Sếp (80đ / acc — Hỗ trợ TK KM 🎁): Không cần bấm nút, dán thẳng danh sách: email@domain|Cookie[|proxy]. Bot gửi yêu cầu đổi mail để Sếp tự nhập OTP.\n• Định dạng Cookie đầu vào: Chấp nhận Cookie SPC_ST hoặc dòng SPC_F=token|user|pass (hỗ trợ kèm proxy riêng).",
+    "inputSample": "Cú pháp dán Cookie thêm mail tự động (Gói 1, 3, 4):\nSPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123\n\nCú pháp tự điền email riêng (Gói 5):\nmyemail@gmail.com|SPC_ST=WTdWUTBhS01wVz...abc123def",
+    "outputFormat": "• Báo cáo chi tiết: Trạng thái thêm email thành công từng tài khoản.\n• Với Mua Email Riêng: Xuất đầy đủ email|password|token_auth|client_key kèm nút [📨 Đọc Email Vừa Mua].",
+    "example": "Sếp có 5 nick Shopee cần thêm mail ➔ Gõ /mail ➔ Bấm chọn [ 📮 Hotmail — 400đ ] ➔ Dán 5 Cookie ➔ Bot tự mua mail và liên kết hoàn tất trong 30 giây.",
+    "notes": "• Phân loại ví thanh toán:\n  - Chỉ dùng TK Chính: Hotmail/Outlook kho bot (400đ), Mua mail riêng (350đ), Thuê iCloud 7 ngày (500đ).\n  - Hỗ trợ TK Khuyến Mãi: Mail Free tạm thời (50đ), Thêm email riêng của Sếp (80đ).\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Chỉ tính tiền tài khoản thêm email thành công. Lỗi (đã có email, sai pass SPC_F hoặc cookie die) ➔ Tự động hoàn tiền 100% cho từng dòng lỗi."
+  },
+  {
+    "id": "05",
+    "name": "Đổi Email Tài Khoản Shopee",
+    "icon": "🔄",
+    "cat": "cat_2",
+    "catName": "Quản Lý Email",
+    "price": "50 VNĐ - 500 VNĐ / acc",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": false,
+    "comboLabel": "Không Quota",
+    "billingType": "Đổi xong mới tính tiền",
+    "payload": "doimail",
+    "command": "/doimail",
+    "purpose": "Đổi sang địa chỉ email mới cho tài khoản Shopee đã có sẵn email cũ. Tích hợp 3 tùy chọn: tự nhập email riêng, dùng mail tạm tự động, hoặc thuê mail iCloud cao cấp.",
+    "inputFormat": "• Thao tác chọn phương thức qua lệnh /doimail (hoặc bấm [🔄 Đổi Email]):\n  ▸ Gói 1 — Tự Nhập Email (50đ — Hỗ trợ TK KM 🎁): Bấm [🟢 Tự Nhập (50đ)] ➔ Dán theo định dạng email_moi@domain|Cookie_Shopee[|proxy] ➔ Nhập OTP thủ công gửi về email\n  ▸ Gói 2 — Mail Free Tự Động (50đ — Hỗ trợ TK KM 🎁): Bấm [📨 Mail Free (50đ)] ➔ Dán danh sách Cookie SPC_ST hoặc SPC_F (tối đa 10 dòng) ➔ Hệ thống tự tạo mail tạm và đọc OTP tự động\n  ▸ Gói 3 — Thuê Mail iCloud (500đ — Chỉ TK Chính 💰): Bấm [☁️ iCloud (500đ)] ➔ Dán danh sách Cookie SPC_ST hoặc SPC_F (tối đa 10 dòng) ➔ Hệ thống cấp Mail iCloud và tự đọc OTP hoàn tất",
+    "inputSample": "Cú pháp Tự Nhập Email Mới:\nemail_moi@gmail.com|SPC_ST=WTdWUTBhS01wVz...abc123def\nemail_moi@outlook.com|SPC_F=token_spcf|0912345678|MatKhau@123\n\nCú pháp Mail Free / iCloud:\nSPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
+    "outputFormat": "• Thông báo kết quả: Đổi email thành công kèm địa chỉ email mới đã liên kết.\n• Nút hủy chủ động: Trong lúc chờ OTP có nút [ ❌ Hủy Đổi Email ] để hủy phiên ngay.",
+    "example": "Sếp mua lại nick Shopee và muốn đổi sang email chính chủ ➔ Gõ /doimail ➔ Bấm [ 🟢 Tự Nhập (50đ) ] ➔ Gửi email mới kèm cookie ➔ Nhập OTP xác thực là xong.",
+    "notes": "• Cơ chế trừ tiền: ĐỔI XONG 100% MỚI TÍNH TIỀN.\n• Nếu bấm [ ❌ Hủy Đổi Email ], sai mật khẩu SPC_F hoặc Shopee từ chối đổi ➔ Tự động hoàn tiền 100%."
+  },
+  {
+    "id": "06",
+    "name": "Đọc Hộp Thư Lấy Mã OTP",
+    "icon": "📬",
+    "cat": "cat_2",
+    "catName": "Quản Lý Email",
+    "price": "10 VNĐ / lần",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": true,
+    "comboLabel": "💎 Có Quota",
+    "billingType": "Chỉ trừ khi có thư / OTP",
+    "payload": "docmail",
+    "command": "/docmail",
+    "purpose": "Tự động kiểm tra hòm thư (Hotmail, Outlook, Mail Free hoặc iCloud thuê) và lấy ra mã OTP Shopee mới nhất.",
+    "inputFormat": "• Thao tác đọc email:\n  ▸ Gõ /docmail (hoặc bấm [📬 Đọc Email]) ➔ Dán data email theo định dạng tương ứng:\n  ▸ ☁️ Mail iCloud: tenmail@icloud.com (chỉ cần 1 dòng địa chỉ)\n  ▸ 📮 Hotmail / Outlook: email|password|token_auth|client_key\n  ▸ 📨 Mail Free: email|password|mailfree\n  ▸ Hệ thống tự động đọc hộp thư và trích xuất mã OTP hoặc link xác nhận mới nhất",
+    "inputSample": "abc123@icloud.com\nmyaccount@hotmail.com|Password123|token_auth_sample|client_key_sample\ntempmail123@domain.com|Password123|mailfree",
+    "outputFormat": "• Kết quả: Mã xác thực OTP Shopee: 123456 (hoặc link xác nhận trong thư).\n• Nút bấm tương tác: [ 🔄 Đọc Lại / Lấy Mã Mới ] • [ 🔄 Kiểm Tra Lại Hộp Thư ] • [ ☁️ Thuê Mail Mới ] • [ 🏠 Menu Chính ].",
+    "example": "Sếp đổi mật khẩu Shopee và Shopee gửi mã về email ➔ Gửi thông tin mail vào /docmail ➔ Bot đọc ngay mã OTP trong 3 giây.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế trừ tiền: CHỈ TRỪ TIỀN KHI ĐỌC ĐƯỢC THƯ CÓ MÃ OTP SHOPEE. Nếu hòm thư chưa nhận được thư mới hoặc tìm không thấy mã OTP ➔ Hoàn tiền 100% ngay lập tức (không tính phí)."
+  },
+  {
+    "id": "07",
+    "name": "Lấy Cookie Bằng Mã QR",
+    "icon": "🔑",
+    "cat": "cat_3",
+    "catName": "Cookie & Kiểm Tra Acc",
+    "price": "50 VNĐ / lần",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": true,
+    "comboLabel": "💎 Có Quota",
+    "billingType": "Chỉ tính khi quét thành công",
+    "payload": "cookie",
+    "command": "/cookie",
+    "purpose": "Lấy Cookie đăng nhập SPC_ST từ tài khoản Shopee cực nhanh bằng cách quét mã QR trên điện thoại (không cần nhập mật khẩu).",
+    "inputFormat": "• Thao tác qua Menu:\n  ▸ Bước 1: Gõ /cookie (hoặc bấm [🔑 Lấy Cookie])\n  ▸ Bước 2: Bấm nút [📷 Quét Mã QR Shopee  —  50đ/lần]\n  ▸ Bước 3: Mở App Shopee trên điện thoại ➔ Quét mã QR ➔ Bấm 'Xác nhận đăng nhập'\n• Lệnh quét QR nhanh:\n  ▸ Gõ trực tiếp: /qr (hoặc kèm proxy: /qr ip:port:user:pass)",
+    "inputSample": "/cookie (Bấm nút [📷 Quét Mã QR Shopee])\nHoặc gõ nhanh: /qr\nHoặc gõ kèm proxy: /qr 103.151.120.45:8080:user:pass",
+    "outputFormat": "• Kết quả: Quét mã thành công, bot trả về Cookie chuẩn SPC_ST và mã SPC_F.\n• Nút điều hướng nhanh: [ 🎁 Lưu Voucher ] • [ 📧 Thêm Email ] • [ 🔎 Chi Tiết Đơn ] • [ 🔑 Lấy Tiếp Cookie ].",
+    "example": "Sếp có nick trên điện thoại muốn lấy Cookie để chạy tool săn sale ➔ Gõ /qr ➔ Mở App Shopee quét mã ➔ Bấm xác nhận ➔ Nhận Cookie SPC_ST ngay.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Thời gian chờ quét mã: Tối đa 5 phút.\n• Cơ chế trừ tiền an toàn: CHỈ TRỪ TIỀN KHI QUÉT MÃ THÀNH CÔNG. Khách không quét, sau một thời gian sẽ hết hạn mã QR hoặc bấm nút [ ❌ Hủy ] ➔ Không bị trừ bất kỳ đồng nào."
+  },
+  {
+    "id": "08",
+    "name": "Đổi SPC_F Sang Cookie SPC_ST",
+    "icon": "🌐",
+    "cat": "cat_3",
+    "catName": "Cookie & Kiểm Tra Acc",
+    "price": "50 VNĐ / acc OK",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": true,
+    "comboLabel": "💎 Có Quota",
+    "billingType": "Chỉ tính acc thành công",
+    "payload": "spcf",
+    "command": "/spcf",
+    "purpose": "Chuyển đổi danh sách nick từ Mã định danh SPC_F sang Cookie chuẩn SPC_ST để lưu trữ hoặc dùng cho các chức năng khác.",
+    "inputFormat": "• Thao tác khởi chạy:\n  ▸ Gõ lệnh /spcf (hoặc /spc, hoặc bấm '🛡️ Nhập SPC_F' trong menu /cookie)\n• Định dạng nhập liệu (mỗi dòng 1 tài khoản, tối đa 50 dòng):\n  ▸ Cú pháp chuẩn: SPC_F=xxx|username|password\n  ▸ Kèm proxy HTTP: SPC_F=xxx|user|pass|ip:port:user:pass\n  ▸ Kèm proxy SOCKS5: SPC_F=xxx|user|pass|socks5://ip:port:user:pass\n  ▸ Trường username hỗ trợ SĐT (0912345678) hoặc Tên đăng nhập Shopee",
+    "inputSample": "SPC_F=abc123xyz|0912345678|MatKhau@123\nSPC_F=def456uvw|myusername|MatKhau@456|103.151.120.45:8080:user:pass",
+    "outputFormat": "• Danh sách Cookie SPC_ST đổi thành công: ✅ [user]: SPC_ST=WTdWUT...",
+    "example": "Sếp có 20 nick dạng SPC_F|user|pass ➔ Dán cả 20 dòng vào Bot ➔ Bot đổi và trả ra 20 Cookie SPC_ST để dùng cho các tool khác.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế hoàn tiền: Trừ tiền trước, hoàn sau. Chỉ tính tiền những tài khoản trích xuất thành công Cookie SPC_ST. Tài khoản sai mật khẩu hoặc lỗi proxy ➔ Tự động hoàn tiền 100% cho từng dòng lỗi."
+  },
+  {
+    "id": "09",
+    "name": "Kiểm Tra Sống / Chết (Check Live)",
+    "icon": "🛡️",
+    "cat": "cat_3",
+    "catName": "Cookie & Kiểm Tra Acc",
+    "price": "10 VNĐ / số",
+    "shortPrice": "",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": true,
+    "comboLabel": "💎 Có Quota",
+    "billingType": "Trừ trước, hoàn sau",
+    "payload": "live",
+    "command": "/live",
+    "purpose": "Kiểm tra danh sách số điện thoại Shopee xem tài khoản còn hoạt động (Live), chưa đăng ký hoặc đã bị khóa/hạn chế. Không cần mật khẩu hay Cookie.",
+    "inputFormat": "• Thao tác kiểm tra:\n  ▸ Gõ /live (hoặc bấm [🛡️ Check Live], hoặc gõ /check_live)\n  ▸ Dán danh sách số điện thoại cần kiểm tra (mỗi số 1 dòng, tối đa 10 dòng)\n  ▸ Hỗ trợ các định dạng SĐT Việt Nam: 84xxxxxxxxx, 0xxxxxxxxx, hoặc xxxxxxxx (9 số, hệ thống tự động bổ sung đầu 84)\n  ▸ Lưu ý: Chỉ nhận số điện thoại, không nhận Cookie, Username hay Email",
+    "inputSample": "0931307769\n84912345678\n0987654321",
+    "outputFormat": "• Báo cáo chi tiết từng SĐT:\n  ▸ 🍀 Live: ✅ Tài khoản đang hoạt động (Live) kèm thông tin che bảo mật: Username, SĐT, Email (nếu có)\n  ▸ ❌ Die / Chưa ĐK: Số điện thoại chưa đăng ký hoặc đã bị khóa\n  ▸ ⚠️ Lỗi: Không kiểm tra được (do mạng hoặc timeout)",
+    "example": "Sếp có 10 số điện thoại Shopee cần lọc ➔ Gõ /live dán 10 SĐT ➔ Bot kiểm tra trực tiếp và báo ngay từng số Live ✅ kèm thông tin nick hoặc Die ❌.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Giới hạn: Mỗi lần kiểm tra tối đa 10 dòng (mỗi dòng 1 số điện thoại).\n• Cơ chế trừ tiền: Chỉ trừ tiền những số kiểm tra thành công. Lỗi hệ thống hoặc timeout ➔ Tự động hoàn tiền 100%."
+  },
+  {
+    "id": "10",
+    "name": "Kiểm Tra SĐT Chưa Đăng Ký (Check Zin)",
+    "icon": "🔍",
+    "cat": "cat_3",
+    "catName": "Cookie & Kiểm Tra Acc",
+    "price": "80 VNĐ / số",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": true,
+    "comboLabel": "💎 Có Quota",
+    "billingType": "Trừ trước, hoàn sau",
+    "payload": "zin",
+    "command": "/zin",
+    "purpose": "Kiểm tra xem số điện thoại đã từng đăng ký Shopee chưa trước khi Sếp mua SIM hoặc nạp tiền tạo nick.",
+    "inputFormat": "• Thao tác kiểm tra:\n  ▸ Gõ /zin (hoặc bấm [🔍 Check SĐT Zin], hoặc gõ /check_zin)\n  ▸ Dán danh sách số điện thoại Việt Nam (mỗi dòng 1 số, tối đa 10 số)\n  ▸ Hệ thống kiểm tra trực tiếp trên Shopee và trả về trạng thái ZIN Chưa ĐK ✅ hoặc ĐÃ ĐK ❌",
+    "inputSample": "0912345678\n0987654321\n0345678901",
+    "outputFormat": "• Báo cáo kết quả: ✨ [SĐT]: ZIN (Chưa từng đăng ký - Tạo nick OK) hoặc ⚠️ [SĐT]: ĐÃ ĐĂNG KÝ SHOPEE.",
+    "example": "Sếp vừa mua 1 lô SIM vật lý về định tạo nick Shopee ➔ Dán danh sách vào check trước ➔ Lọc ngay số sạch chưa đăng ký.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Lỗi kết nối Shopee hoặc timeout không có kết quả ➔ Tự động hoàn tiền 100%."
+  },
+  {
+    "id": "11",
+    "name": "Xem Thông Tin Tài Khoản (Check Acc Info)",
+    "icon": "🔍",
+    "cat": "cat_3",
+    "catName": "Cookie & Kiểm Tra Acc",
+    "price": "50 VNĐ / acc",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": true,
+    "comboLabel": "💎 Có Quota",
+    "billingType": "Trừ trước, hoàn sau",
+    "payload": "checkacc",
+    "command": "/checkacc",
+    "purpose": "Trích xuất hồ sơ tài khoản Shopee đầy đủ: User ID, Shop ID, Tên đăng nhập, Email gốc, SĐT gốc, Ngày tạo tài khoản và trạng thái Live/Die.",
+    "inputFormat": "• Thao tác soi thông tin acc:\n  ▸ Gõ /checkacc (hoặc bấm [🔍 Check Acc Info])\n  ▸ Dán danh sách tài khoản (mỗi dòng 1 tài khoản [|proxy], tối đa 20 dòng)\n  ▸ Chấp nhận Cookie SPC_ST hoặc SPC_F=token|user|pass\n  ▸ Bot trích xuất đầy đủ: User ID, Shop ID, Tên đăng nhập, Email gốc, SĐT gốc, Ngày tạo và trạng thái Live/Die",
+    "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
+    "outputFormat": "• Hồ sơ trích xuất: User ID, Shop ID, Tên đăng nhập, Email gốc, SĐT gốc, Ngày tạo, Trạng thái (Live ✅ / Die ❌).",
+    "example": "Sếp có danh sách Cookie nhưng không nhớ tài khoản tên gì, tạo từ khi nào ➔ Dán vào ➔ Bot xuất ra thông tin rõ ràng.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Hỗ trợ token SPC_F: Tự động nhận diện và đăng nhập giải mã.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Dòng nào sai mật khẩu hoặc cookie die ➔ Hoàn tiền 100%."
+  },
+  {
+    "id": "12",
+    "name": "Tra Mã Vận Đơn (SPX / GHN)",
+    "icon": "📦",
+    "cat": "cat_4",
+    "catName": "Đơn Hàng & Địa Chỉ",
+    "price": "10 VNĐ / mã",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": true,
+    "comboLabel": "💎 Có Quota",
+    "billingType": "Trừ trước, hoàn sau",
+    "payload": "mvd",
+    "command": "/mvd",
+    "purpose": "Tra cứu hành trình đơn hàng Shopee Xpress (SPX) hoặc Giao Hàng Nhanh (GHN) xem hàng đang ở kho nào, shipper nào đang giao (áp dụng hỏa tốc). Có chế độ ghi chú theo dõi tự động miễn phí.",
+    "inputFormat": "• Thao tác tra cứu:\n  ▸ Gõ /mvd (hoặc bấm [📦 Tra Mã Vận Đơn], hoặc gõ /check_order)\n  ▸ Dán danh sách mã vận đơn (mỗi dòng 1 mã, tối đa 20 mã):\n  ▸ 🧡 Shopee Xpress (SPX): Nhập mã vận đơn bình thường (ví dụ: SPXVN061234567890)\n  ▸ 💚 Giao Hàng Nhanh (GHN): Nhập mã kèm SĐT người nhận cách nhau bằng dấu cách (ví dụ: GY123456 0901234567)\n  ▸ 📝 Ghi chú nhanh: Thêm dấu gạch đứng để note (ví dụ: SPXVN...|Đơn son môi)\n  ▸ Tiện ích đi kèm: Nút [📋 Danh Sách Theo Dõi] và [🔎 Chi Tiết Đơn Hàng]",
+    "inputSample": "SPXVN061234567890\nGY123456 0901234567\nSPXVN069876543210|Đơn phụ kiện điện thoại",
+    "outputFormat": "• Chi tiết hành trình: Vị trí kho bưu cục, lịch trình luân chuyển, SĐT shipper đang đi giao.\n• Nút bấm theo dõi: [ 📋 Danh Sách Theo Dõi ] và [ 📦 Check Thêm ] (nếu dùng chế độ ghi chú).",
+    "example": "Sếp mua hàng Shopee muốn biết kiện hàng đã về đến bưu cục gần nhà chưa ➔ Nhập mã SPX nhận kết quả tức thì kèm SĐT shipper (áp dụng hỏa tốc).",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Giới hạn: Tối đa 20 mã/lần.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Mã vận đơn không tồn tại trên hệ thống hoặc tra cứu lỗi ➔ Tự động hoàn tiền 100% cho mã đó."
+  },
+  {
+    "id": "13",
+    "name": "Xem Chi Tiết Đơn Hàng",
+    "icon": "🔎",
+    "cat": "cat_4",
+    "catName": "Đơn Hàng & Địa Chỉ",
+    "price": "50 VNĐ / acc",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": true,
+    "comboLabel": "💎 Có Quota",
+    "billingType": "Trừ trước, hoàn sau",
+    "payload": "chitiet",
+    "command": "/chitiet",
+    "purpose": "Xem danh sách các đơn hàng gần nhất trong tài khoản Shopee: Tên sản phẩm, tổng tiền, mã vận đơn và trạng thái (Đang giao, Đã giao...).",
+    "inputFormat": "• Thao tác soi chi tiết đơn:\n  ▸ Gõ /chitiet (hoặc bấm [🔎 Chi Tiết Đơn Hàng], hoặc gõ /order_detail)\n  ▸ Dán danh sách Cookie Shopee (mỗi dòng 1 Cookie [|proxy], tối đa 10 cookie)\n  ▸ Hệ thống tự nhận diện Cookie có tiền tố SPC_ST= hay không\n  ▸ Trích xuất chi tiết: Mã đơn, tên sản phẩm, số tiền, ngày tạo đơn và tiến trình vận chuyển",
+    "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nb1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass",
+    "outputFormat": "• Báo cáo đơn hàng: Mã đơn, tên sản phẩm, tổng tiền, trạng thái vận chuyển chi tiết.",
+    "example": "Sếp quản lý nhiều nick đặt hàng, cần kiểm tra nhanh xem nick nào đã được giao hàng ➔ Dán 10 Cookie ➔ Bot liệt kê danh sách đơn từng nick.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Cookie die hoặc lỗi kết nối ➔ Tự động hoàn tiền 100%."
+  },
+  {
+    "id": "14",
+    "name": "Thêm Địa Chỉ Mặc Định",
+    "icon": "📍",
+    "cat": "cat_4",
+    "catName": "Đơn Hàng & Địa Chỉ",
+    "price": "50 VNĐ / acc",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": false,
+    "comboLabel": "Không Quota",
+    "billingType": "Thêm thành công mới tính tiền",
+    "payload": "diachi",
+    "command": "/diachi",
+    "purpose": "Tự động thêm địa chỉ nhận hàng và đặt làm mặc định cho tài khoản Shopee, hỗ trợ tự nhận diện hành chính.",
+    "inputFormat": "• Thao tác thêm địa chỉ:\n  ▸ Gõ /diachi (hoặc bấm [📍 Thêm Địa Chỉ])\n  ▸ Dán dòng thông tin theo cấu trúc: Cookie|Tên|SĐT|Địa chỉ\n  ▸ Địa chỉ phân cách bằng dấu phẩy: Số nhà/đường, Phường/Xã, Quận/Huyện, Tỉnh/TP\n  ▸ Mẹo thông minh: Không bắt buộc viết chữ Phường/Xã/Quận/Huyện — hệ thống tự nhận diện chuẩn Wards/Districts Shopee\n  ▸ Tên và SĐT có thể để trống (Cookie|||Địa chỉ) để hệ thống tự sinh ngẫu nhiên",
+    "inputSample": "SPC_ST=WTdWUT...abc123|Nguyễn Văn A|0901234567|123 Nguyễn Trãi, Bến Thành, Quận 1, TP Hồ Chí Minh\nSPC_ST=AbCdEf...xyz789|||Số 45 Lê Lợi, Phường Bến Nghé, Quận 1, TP Hồ Chí Minh",
+    "outputFormat": "• Kết quả: Báo cáo thêm địa chỉ nhận hàng thành công và đã đặt làm mặc định.",
+    "example": "Sếp chuẩn bị kéo sale, cần điền sẵn địa chỉ nhận hàng cho nick Shopee ➔ Nhập cú pháp đủ 3 dấu phẩy ➔ Bot tự thêm địa chỉ chuẩn xác.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi (không trừ Quota Combo).\n• Cơ chế hoàn tiền: Thêm thành công mới trừ tiền, thất bại hoàn tiền 100%."
+  },
+  {
+    "id": "15",
+    "name": "Bấm Đã Nhận Hàng Tự Động",
+    "icon": "✅",
+    "cat": "cat_4",
+    "catName": "Đơn Hàng & Địa Chỉ",
+    "price": "50 VNĐ / acc",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": false,
+    "comboLabel": "Không Quota",
+    "billingType": "Trừ trước, hoàn sau",
+    "payload": "xacnhandon",
+    "command": "/xacnhandon",
+    "purpose": "Tự động quét toàn bộ các đơn hàng đang giao trên hàng loạt nick Shopee và bấm nút 'Đã nhận được hàng' nhanh chóng.",
+    "inputFormat": "• Thao tác xác nhận nhận hàng:\n  ▸ Gõ /xacnhandon (hoặc bấm [✅ Xác Nhận Nhận Hàng])\n  ▸ Dán danh sách tài khoản cần xác nhận đơn (mỗi dòng 1 tài khoản [|proxy])\n  ▸ Chấp nhận Cookie SPC_ST (tối đa 100 tài khoản) hoặc SPC_F=token|user|pass (tối đa 20 dòng)\n  ▸ Bot tự động tìm toàn bộ đơn đang giao và bấm nút 'Đã nhận được hàng' trên Shopee",
+    "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
+    "outputFormat": "• Báo cáo chi tiết: Danh sách các đơn hàng đã bấm nhận thành công kèm mã đơn.",
+    "example": "Sếp có 50 nick đều đã nhận được hàng và cần bấm nút xác nhận ➔ Dán 50 Cookie vào Bot ➔ Bấm nhận toàn bộ trong 30 giây.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi.\n• Hỗ trợ token SPC_F: Nhận tối đa 20 dòng SPC_F/lần gửi.\n• Cơ chế hoàn tiền: Tạm giữ phí trước, tự động hoàn lại 100% cho nick không có đơn đang giao hoặc cookie lỗi."
+  },
+  {
+    "id": "16",
+    "name": "Kiểm Tra Ví Shopee Voucher",
+    "icon": "🔎",
+    "cat": "cat_5",
+    "catName": "Săn & Lưu Voucher",
+    "price": "50 VNĐ / acc",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": false,
+    "comboLabel": "Không Quota",
+    "billingType": "Trừ trước, hoàn sau",
+    "payload": "vivc",
+    "command": "/vivc",
+    "purpose": "Soi toàn bộ kho voucher trong ví tài khoản Shopee: Lọc theo mã giảm tiền, mã FreeShip, hoặc kiểm tra mã chỉ định.",
+    "inputFormat": "• Thao tác quét ví voucher:\n  ▸ Gõ /vivc (hoặc bấm [🔎 Voucher Acc])\n  ▸ Bước 1: Chọn loại voucher cần lọc qua 6 nút Inline:\n    [🔥 Mã Hot] | [💰 Giảm 100K] | [💰 Giảm 80K] | [🏷️ Giảm 20/25K] | [🚚 FreeShip Hỏa Tốc] | [🔍 Mã Tự Nhập]\n  ▸ Bước 2: Dán danh sách tài khoản (Cookie SPC_ST hoặc SPC_F, tối đa 20 dòng [|proxy])\n  ▸ Mẹo nhanh: Nếu dán Cookie thẳng mà không chọn nút, hệ thống tự động lọc theo bộ [🔥 Mã Hot]",
+    "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
+    "outputFormat": "• Danh sách voucher khả dụng: Tên voucher, mức giảm, hạn sử dụng và điều kiện đơn tối thiểu.",
+    "example": "Sếp muốn biết nick của mình đã lưu được mã giảm 100k hôm nay chưa ➔ Bấm nút [ 💰 Giảm 100K ] ➔ Dán Cookie vào ➔ Bot liệt kê danh sách mã tương ứng.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi.\n• Hỗ trợ token SPC_F: Tự động nhận diện và đăng nhập giải mã.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Cookie die hoặc lỗi đăng nhập ➔ Tự động hoàn tiền 100%."
+  },
+  {
+    "id": "17",
+    "name": "Lưu Voucher Bằng Mã Code",
+    "icon": "🎟️",
+    "cat": "cat_5",
+    "catName": "Săn & Lưu Voucher",
+    "price": "700 VNĐ / lượt",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": false,
+    "comboLabel": "Không Quota",
+    "billingType": "Chỉ tính khi lưu thành công",
+    "payload": "luucode",
+    "command": "/luucode",
+    "purpose": "Lưu mã giảm giá ký tự (Voucher Code) vào ví tài khoản Shopee hàng loạt, chỉ tính phí khi lưu thành công.",
+    "inputFormat": "• Thao tác nạp voucher code tự do:\n  ▸ Gõ /luucode (hoặc bấm [🎟️ Lưu Voucher Code])\n  ▸ Gửi chung một tin nhắn chứa cả Mã Voucher và Danh Sách Cookie tài khoản\n  ▸ Hệ thống tự động phân tách Mã Voucher và Cookie\n  ▸ Hỗ trợ nạp cùng lúc tối đa 5 mã voucher vào tối đa 10 tài khoản Shopee",
+    "inputSample": "MAGIAMGIA50K\nFREESHIPTHANG10\nSPC_ST=WTdWUTBhS01wVz...cookie1\nSPC_ST=b1Z1c05rbk1xSj...cookie2|103.151.120.45:8080:user:pass",
+    "outputFormat": "• Báo cáo kết quả: ✅ Lưu thành công mã [CODE] vào ví tài khoản.",
+    "example": "Sếp săn được 2 mã code độc quyền, muốn nạp vào 10 nick Shopee (Tổng 2×10=20 lượt) ➔ Bot chạy song song và hoàn tất trong vài giây.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi.\n• Hỗ trợ token SPC_F: Tự động nhận diện và đăng nhập giải mã (tối đa 10 dòng SPC_F).\n• Cơ chế trừ tiền an toàn: CHỈ TÍNH TIỀN KHI LƯU VOUCHER THÀNH CÔNG. Lượt lưu lỗi (mã hết hạn, acc đã lưu trước đó, cookie die) ➔ Hoàn tiền 100%."
+  },
+  {
+    "id": "18",
+    "name": "Săn & Lưu Voucher Hot (Kho Bot)",
+    "icon": "🎁",
+    "cat": "cat_5",
+    "catName": "Săn & Lưu Voucher",
+    "price": "500 VNĐ / acc OK",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM",
+    "comboSupport": true,
+    "comboLabel": "💎 Có Quota",
+    "billingType": "Trừ trước, hoàn sau",
+    "payload": "luuvc",
+    "command": "/luuvc",
+    "purpose": "Săn và lưu các mã giảm giá HOT được bot cập nhật theo thời gian thực (Shopee Live, Video, FreeShip, Giảm 50k, 100k...).",
+    "inputFormat": "• Thao tác săn mã HOT hệ thống:\n  ▸ Bước 1: Gõ /luuvc (hoặc bấm [🎁 Lưu Voucher], hoặc gõ /voucher)\n  ▸ Bước 2: Xem danh sách voucher được phân nhóm kèm trạng thái real-time (% đã dùng, còn lượt/hết lượt)\n  ▸ Bước 3: Bấm vào nút mã muốn lưu (ví dụ: [🔥 Giảm 50K — Mã Siêu Hot] hoặc [⚡ Đang HOT])\n  ▸ Bước 4: Dán danh sách Cookie Shopee (SPC_ST) để hệ thống lưu mã vào ví tài khoản",
+    "inputSample": "/luuvc (Bấm chọn mã [🔥 Mã Siêu Hot] / [⚡ Đang HOT]) ➔ Dán danh sách Cookie:\nSPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def",
+    "outputFormat": "• Thông báo lưu mã thành công: ✅ Đã lưu [Tên Mã] vào ví tài khoản Shopee.",
+    "example": "Sếp muốn lưu mã giảm 50k vào 5 nick Shopee ➔ Gõ /luuvc ➔ Bấm nút chọn mã ➔ Dán 5 Cookie ➔ Cả 5 nick đều được nạp mã trong 10 giây.",
+    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Tỷ lệ thành công: Mã còn lượt trên Shopee ➔ Lưu thành công 100%.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Mã hết lượt hoặc tài khoản lỗi ➔ Tự động hoàn tiền 100%."
+  },
+  {
+    "id": "19",
+    "name": "Gói Combo Dịch Vụ 30 Ngày",
+    "icon": "💎",
+    "cat": "cat_5",
+    "catName": "Săn & Lưu Voucher",
+    "price": "10k - 80k / 30 ngày",
+    "walletType": "main",
+    "walletLabel": "💰 Chỉ TK Chính",
+    "comboSupport": true,
+    "comboLabel": "Cấp Quota 30 ngày",
+    "billingType": "Kích hoạt dùng 30 ngày",
+    "payload": "combo",
+    "command": "/combo",
+    "purpose": "Đăng ký gói Combo trọn gói 30 ngày để sử dụng 8+ dịch vụ hệ thống với giá siêu tiết kiệm tới 45% so với dùng lẻ từng lượt.",
+    "inputFormat": "• Thao tác mua hoặc gia hạn gói:\n  ▸ Gõ /combo (hoặc bấm [💎 Combo Dịch Vụ]) ➔ Hiện bảng giá & hạn ngạch các gói Combo\n  ▸ Bấm nút mua gói tương ứng: [💎 Mua Gói Combo 1...] | [💎 Mua Gói Combo 2...] | [💎 Mua Gói Combo 3...]\n  ▸ Hệ thống trừ tiền TK Chính và kích hoạt ngay hạn ngạch sử dụng trong 30 ngày",
+    "inputSample": "/combo (Bấm chọn [💎 Mua Gói Combo 1...] / [💎 Mua Gói Combo 2...])",
+    "outputFormat": "• Kích hoạt: Kích hoạt ngay gói Combo 30 ngày và cộng hạn mức Quota dịch vụ vào tài khoản.\n• Tra cứu lượt: Kiểm tra số lượt còn lại bất kỳ lúc nào qua lệnh /tk.",
+    "example": "Thay vì trả tiền cho từng lượt dùng lẻ ➔ Sếp đăng ký gói Combo Tối Thượng 30k ➔ Được cấp hạn mức dùng thả ga cho 8+ dịch vụ trong 30 ngày.",
+    "notes": "• Loại ví thanh toán: Chỉ thanh toán bằng TK Chính (không trừ TK KM).\n• Thời hạn sử dụng: 30 ngày kể từ lúc mua.\n• Nâng cấp linh hoạt: Sếp có thể nâng cấp lên gói cao hơn bất kỳ lúc nào, hệ thống tự động tính khấu trừ số tiền tương ứng theo số ngày chưa dùng của gói cũ.\n• Mở khóa hạn mức: Áp dụng cho 8+ dịch vụ (QR, SPC_F, Zin, Live, Thêm Mail, Đọc Mail, Lưu Voucher, Tra Đơn)."
+  }
+];
+
+    // STATE
+    let currentCategory = 'all';
+    let currentWalletFilter = 'all';
+    let searchQuery = '';
+    let activeFeatureId = '01'; // Default active card
+    let activeDetailTab = 'guide'; // guide | syntax | notes
+    let activeMobileTab = 'guide';
+
+    // TELEGRAM WEBAPP INIT
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      try {
+        tg.ready();
+        tg.expand();
+      } catch (e) {
+        console.warn("Telegram WebApp init warning:", e);
+      }
+    }
+
+    function hapticLight() {
+      try { tg?.HapticFeedback?.impactOccurred('light'); } catch (e) {}
+    }
+    function hapticMedium() {
+      try { tg?.HapticFeedback?.impactOccurred('medium'); } catch (e) {}
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast-popup');
+      const text = document.getElementById('toast-message');
+      text.textContent = msg;
+      toast.classList.add('visible');
+      setTimeout(() => {
+        toast.classList.remove('visible');
+      }, 2200);
+    }
+
+    function toggleTheme() {
+      hapticLight();
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+      document.getElementById('theme-text').textContent = isDark ? 'Tối' : 'Sáng';
+      localStorage.setItem('sfast_theme', newTheme);
+    }
+
+    // Restore Theme
+    (function initTheme() {
+      const saved = localStorage.getItem('sfast_theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+        if (saved === 'dark') {
+          document.getElementById('theme-icon').textContent = '☀️';
+          document.getElementById('theme-text').textContent = 'Sáng';
+        }
+      }
+    })();
+
+    function toggleRulesBanner() {
+      hapticLight();
+      const banner = document.getElementById('rules-banner');
+      banner.classList.toggle('collapsed');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeJs(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/\"/g, '\\"')
+        .replace(/\n/g, '\\n')
+        .replace(/\r/g, '');
+    }
+
+    function removeVietnameseDiacritics(str) {
+      if (!str) return '';
+      return str
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd')
+        .replace(/Đ/g, 'D')
+        .toLowerCase();
+    }
+
+    // TYPOGRAPHY RENDER ENGINE
+    function renderRichText(text) {
+      if (!text) return '';
+      const lines = text.split('\n');
+      return lines.map(line => {
+        let trimmed = line.trim();
+        if (!trimmed) return '<div class="bento-spacer"></div>';
+
+        const isSubBullet = line.startsWith('  ▸') || line.startsWith('    ▸') || trimmed.startsWith('▸');
+        const isBullet = trimmed.startsWith('•') || isSubBullet;
+
+        let bulletChar = '';
+        let content = trimmed;
+
+        if (isSubBullet) {
+          bulletChar = '▸';
+          content = trimmed.replace(/^[▸\s]+/, '').trim();
+        } else if (trimmed.startsWith('•')) {
+          bulletChar = '•';
+          content = trimmed.substring(1).trim();
+        }
+
+        // 1. Highlight lead title before colon (:) if present in first half
+        if (isBullet || isSubBullet) {
+          const colonIdx = content.indexOf(':');
+          if (colonIdx > 1 && colonIdx < 85) {
+            const lead = content.substring(0, colonIdx).trim();
+            const after = content.substring(colonIdx + 1).trim();
+            if (!lead.includes('http') && !lead.match(/^(?:1\d{2}|2[0-4]\d|25[0-5]|[1-9]?\d)\./)) {
+              content = `<strong class="bullet-lead">${lead}:</strong> ${after}`;
+            }
+          }
+        }
+
+        // 2. Highlight [ Button Name ] as stylish inline badges
+        content = content.replace(/\[\s*([^\]]+?)\s*\]/g, (match, p1) => {
+          return `<span class="inline-btn-tag">${p1}</span>`;
+        });
+
+        // 3. Highlight commands like /reg, /sim as inline code tags
+        content = content.replace(/(^|\s)(\/[a-zA-Z0-9_]+)/g, (match, p1, p2) => {
+          return `${p1}<code class="inline-cmd">${p2}</code>`;
+        });
+
+        // 4. Highlight technical syntax strings in single pass
+        const syntaxRegex = /(SPC_F=xxx\|username\|password|SPC_F=token\|user\|pass|SPC_ST=xxx|Cookie\|Tên\|SĐT\|Địa chỉ|email\|password\|token_auth\|client_key|ip:port:user:pass|\.txt|\bSPC_ST\b|\bSPC_F\b)/g;
+        content = content.replace(syntaxRegex, '<code class="inline-syntax">$1</code>');
+
+        // 5. Highlight arrow flow ➔
+        content = content.replace(/➔/g, '<span class="inline-arrow">➔</span>');
+
+        if (isSubBullet) {
+          return `
+            <div class="bento-bullet-row sub-bullet">
+              <span class="bento-bullet-char">▸</span>
+              <span class="bento-bullet-content">${content}</span>
+            </div>
+          `;
+        } else if (isBullet) {
+          return `
+            <div class="bento-bullet-row">
+              <span class="bento-bullet-char">•</span>
+              <span class="bento-bullet-content">${content}</span>
+            </div>
+          `;
+        } else {
+          return `<div class="bento-intro-line">${content}</div>`;
+        }
+      }).join('');
+    }
+
+    // MASTER LIST RENDERING
+    function renderMasterList() {
+      const container = document.getElementById('master-cards-list');
+      const emptyState = document.getElementById('empty-state');
+      const resultsCount = document.getElementById('results-count');
+
+      const normalizedSearch = removeVietnameseDiacritics(searchQuery.trim());
+
+      const filtered = FEATURES_DATA.filter(item => {
+        if (currentCategory !== 'all' && item.cat !== currentCategory) return false;
+        if (currentWalletFilter === 'km' && item.walletType !== 'km') return false;
+        if (currentWalletFilter === 'main' && item.walletType !== 'main') return false;
+        if (currentWalletFilter === 'combo' && !item.comboSupport) return false;
+
+        if (normalizedSearch) {
+          const haystack = removeVietnameseDiacritics(
+            `${item.id} ${item.name} ${item.purpose} ${item.command} ${item.payload} ${item.inputFormat} ${item.example} ${item.notes}`
+          );
+          if (!haystack.includes(normalizedSearch)) return false;
+        }
+        return true;
+      });
+
+      resultsCount.textContent = `Hiển thị: ${filtered.length} / 19 chức năng`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.add('visible');
+        return;
+      }
+
+      emptyState.classList.remove('visible');
+
+      // Ensure active item is valid
+      const hasActive = filtered.some(f => f.id === activeFeatureId);
+      if (!hasActive && filtered.length > 0) {
+        activeFeatureId = filtered[0].id;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const isActive = item.id === activeFeatureId;
+        const walletBadgeClass = item.walletType === 'km' ? 'tag-km' : 'tag-main';
+        const comboBadge = item.comboSupport 
+          ? `<span class="tag-badge tag-combo">💎 ${item.comboLabel}</span>` 
+          : '';
+
+        return `
+          <article class="master-card ${isActive ? 'active' : ''}" id="card-${item.id}" onclick="selectFeature('${item.id}')">
+            <div class="card-row-top">
+              <div class="card-title-group">
+                <span class="card-num-badge">#${item.id}</span>
+                <span class="card-icon">${item.icon}</span>
+                <h3 class="card-name">${item.name}</h3>
+              </div>
+              <span class="card-action-indicator">➔</span>
+            </div>
+            <div class="card-row-bottom">
+              <div class="card-tags">
+                <span class="tag-badge tag-price">💰 ${item.shortPrice || item.price}</span>
+                <span class="tag-badge ${walletBadgeClass}">${item.walletLabel}</span>
+                ${comboBadge}
+              </div>
+              <span class="card-cmd-badge" onclick="copyCommand('${item.command}', event)" title="Bấm để sao chép lệnh ${item.command}">${item.command}</span>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // Update Inspector view on Desktop
+      updateDesktopInspector();
+    }
+
+    // SELECT FEATURE (ON CLICK)
+    function selectFeature(id) {
+      hapticLight();
+      activeFeatureId = id;
+
+      // Update active card class in master list
+      document.querySelectorAll('.master-card').forEach(el => {
+        el.classList.toggle('active', el.id === `card-${id}`);
+      });
+
+      // If on mobile screen (< 860px), open Bottom Sheet Drawer!
+      if (window.innerWidth <= 860) {
+        openMobileDrawer(id);
+      } else {
+        // Desktop: update inspector
+        updateDesktopInspector();
+      }
+    }
+
+    // UPDATE DESKTOP INSPECTOR CONTENT
+    function updateDesktopInspector() {
+      const item = FEATURES_DATA.find(f => f.id === activeFeatureId);
+      if (!item) return;
+
+      const header = document.getElementById('inspector-header');
+      const body = document.getElementById('inspector-body');
+      const footer = document.getElementById('inspector-footer');
+
+      const walletBadgeClass = item.walletType === 'km' ? 'tag-km' : 'tag-main';
+      const comboBadge = item.comboSupport 
+        ? `<span class="tag-badge tag-combo">💎 ${item.comboLabel}</span>` 
+        : '';
+
+      header.innerHTML = `
+        <div class="inspector-title-group">
+          <div class="inspector-title-row">
+            <span class="card-num-badge">#${item.id}</span>
+            <span style="font-size: 24px;">${item.icon}</span>
+            <h2>${item.name}</h2>
+          </div>
+          <div class="inspector-meta-row">
+            <span class="tag-badge tag-price">💰 ${item.price}</span>
+            <span class="tag-badge ${walletBadgeClass}">${item.walletLabel}</span>
+            ${comboBadge}
+            <span class="tag-badge tag-billing">🛡️ ${item.billingType}</span>
+            <span class="card-cmd-badge" onclick="copyCommand('${item.command}', event)" title="Bấm để sao chép lệnh ${item.command}">${item.command}</span>
+          </div>
+        </div>
+      `;
+
+      body.innerHTML = `
+        <!-- TAB 1: GUIDE & BUTTONS -->
+        <div class="tab-content-panel ${activeDetailTab === 'guide' ? 'active' : ''}" id="tab-pane-guide">
+          <div class="detail-section">
+            <div class="section-heading">🎯 Công Dụng Chính</div>
+            <div class="bento-card-box">
+              <p style="font-size: 13.5px; font-weight: 500; color: var(--text-main);">${item.purpose}</p>
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="section-heading">📥 Cú Pháp & Nút Bấm Bot</div>
+            <div class="bento-card-box">
+              ${renderRichText(item.inputFormat)}
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="section-heading">📤 Kết Quả Trả Về & Thao Tác</div>
+            <div class="bento-card-box">
+              ${renderRichText(item.outputFormat)}
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: SYNTAX & COPY SAMPLE -->
+        <div class="tab-content-panel ${activeDetailTab === 'syntax' ? 'active' : ''}" id="tab-pane-syntax">
+          <div class="detail-section">
+            <div class="section-heading">📋 Cú Pháp Chuẩn & Mẫu Nhập</div>
+            <div class="code-box-wrapper">
+              <div class="code-box-header">
+                <span>CÚ PHÁP CHUẨN</span>
+                <button class="btn-copy-code" onclick="copyInputSample('${escapeJs(item.inputSample)}', this)">
+                  <span>📋 Sao chép mẫu</span>
+                </button>
+              </div>
+              <pre class="code-block">${escapeHtml(item.inputSample)}</pre>
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="section-heading">💡 Ví Dụ Thực Tế</div>
+            <div class="bento-card-box" style="background: var(--bg-card); border-left: 3px solid var(--brand-primary);">
+              ${renderRichText(item.example)}
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: NOTES & REFUND -->
+        <div class="tab-content-panel ${activeDetailTab === 'notes' ? 'active' : ''}" id="tab-pane-notes">
+          <div class="alert-box">
+            <div class="alert-title">⚠️ Lưu Ý & Chính Sách Hoàn Tiền</div>
+            <div class="alert-content">${renderRichText(item.notes)}</div>
+          </div>
+        </div>
+      `;
+
+      footer.innerHTML = `
+        <button class="btn-use-now" onclick="useFeatureNow('${item.payload}')">
+          <span>⚡ Dùng Ngay: ${item.command}</span>
+        </button>
+        <a href="${SFAST_CONFIG.supportGroup}" target="_blank" class="btn-secondary-action">
+          <span>👥 Nhóm</span>
+        </a>
+        <a href="${SFAST_CONFIG.adminSupport}" target="_blank" class="btn-secondary-action">
+          <span>💬 Admin</span>
+        </a>
+      `;
+    }
+
+    // SWITCH DETAIL TAB (PC)
+    function switchDetailTab(tabName, btn) {
+      hapticLight();
+      activeDetailTab = tabName;
+      document.querySelectorAll('#desktop-tabs-bar .seg-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
+      const activePane = document.getElementById(`tab-pane-${tabName}`);
+      if (activePane) activePane.classList.add('active');
+    }
+
+    // MOBILE DRAWER FUNCTIONS
+    function openMobileDrawer(id) {
+      const item = FEATURES_DATA.find(f => f.id === id);
+      if (!item) return;
+
+      const overlay = document.getElementById('drawer-overlay');
+      const drawer = document.getElementById('mobile-drawer');
+      const header = document.getElementById('drawer-header');
+      const body = document.getElementById('drawer-body');
+      const footer = document.getElementById('drawer-footer');
+
+      const walletBadgeClass = item.walletType === 'km' ? 'tag-km' : 'tag-main';
+      const comboBadge = item.comboSupport 
+        ? `<span class="tag-badge tag-combo">💎 ${item.comboLabel}</span>` 
+        : '';
+
+      header.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="card-num-badge">#${item.id}</span>
+          <span style="font-size: 20px;">${item.icon}</span>
+          <div>
+            <h3 style="font-size: 15px; font-weight: 800; color: var(--text-main);">${item.name}</h3>
+            <div style="display: flex; gap: 6px; margin-top: 2px; flex-wrap: wrap;">
+              <span class="tag-badge tag-price">💰 ${item.price}</span>
+              <span class="tag-badge ${walletBadgeClass}">${item.walletLabel}</span>
+              ${comboBadge}
+              <span class="tag-badge tag-billing">🛡️ ${item.billingType}</span>
+              <span class="card-cmd-badge" onclick="copyCommand('${item.command}', event)" title="Bấm để sao chép lệnh ${item.command}">${item.command}</span>
+            </div>
+          </div>
+        </div>
+        <button class="drawer-close-btn" onclick="closeMobileDrawer()">✕</button>
+      `;
+
+      renderMobileDrawerBody(item);
+
+      footer.innerHTML = `
+        <button class="btn-use-now" style="flex: 1; width: 100%; justify-content: center;" onclick="useFeatureNow('${item.payload}')"><span>⚡ Dùng Ngay Trên Bot (${item.command})</span></button>
+      `;
+
+      overlay.classList.add('active');
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function renderMobileDrawerBody(item) {
+      const body = document.getElementById('drawer-body');
+      body.innerHTML = `
+        <!-- TAB 1: GUIDE -->
+        <div class="tab-content-panel ${activeMobileTab === 'guide' ? 'active' : ''}" id="m-tab-guide">
+          <div class="detail-section">
+            <div class="section-heading">🎯 Công Dụng Chính</div>
+            <div class="bento-card-box">
+              <p style="font-size: 13px; font-weight: 500; color: var(--text-main);">${item.purpose}</p>
+            </div>
+          </div>
+          <div class="detail-section">
+            <div class="section-heading">📥 Cú Pháp & Nút Bấm Bot</div>
+            <div class="bento-card-box">
+              ${renderRichText(item.inputFormat)}
+            </div>
+          </div>
+          <div class="detail-section">
+            <div class="section-heading">📤 Kết Quả Trả Về</div>
+            <div class="bento-card-box">
+              ${renderRichText(item.outputFormat)}
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: SYNTAX -->
+        <div class="tab-content-panel ${activeMobileTab === 'syntax' ? 'active' : ''}" id="m-tab-syntax">
+          <div class="detail-section">
+            <div class="section-heading">📋 Cú Pháp Chuẩn & Mẫu Nhập</div>
+            <div class="code-box-wrapper">
+              <div class="code-box-header">
+                <span>CÚ PHÁP MẪU</span>
+                <button class="btn-copy-code" onclick="copyInputSample('${escapeJs(item.inputSample)}', this)">
+                  <span>📋 Sao chép mẫu</span>
+                </button>
+              </div>
+              <pre class="code-block">${escapeHtml(item.inputSample)}</pre>
+            </div>
+          </div>
+          <div class="detail-section">
+            <div class="section-heading">💡 Ví Dụ Thực Tế</div>
+            <div class="bento-card-box" style="border-left: 3px solid var(--brand-primary);">
+              ${renderRichText(item.example)}
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: NOTES -->
+        <div class="tab-content-panel ${activeMobileTab === 'notes' ? 'active' : ''}" id="m-tab-notes">
+          <div class="alert-box">
+            <div class="alert-title">⚠️ Lưu Ý & Hoàn Tiền</div>
+            <div class="alert-content">${renderRichText(item.notes)}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function switchMobileDrawerTab(tabName, btn) {
+      hapticLight();
+      activeMobileTab = tabName;
+      document.querySelectorAll('#mobile-tabs-bar .seg-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const item = FEATURES_DATA.find(f => f.id === activeFeatureId);
+      if (item) {
+        renderMobileDrawerBody(item);
+      }
+    }
+
+    function closeMobileDrawer() {
+      hapticLight();
+      const overlay = document.getElementById('drawer-overlay');
+      const drawer = document.getElementById('mobile-drawer');
+      overlay.classList.remove('active');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    
+    // COPY COMMAND HELPER
+    function copyCommand(cmd, event) {
+      if (event) event.stopPropagation();
+      hapticMedium();
+      navigator.clipboard.writeText(cmd).then(() => {
+        showToast(`Đã sao chép lệnh ${cmd}!`);
+      }).catch(() => {
+        showToast(`Lệnh: ${cmd}`);
+      });
+    }
+
+    // COPY HELPER
+    function copyInputSample(text, btn) {
+      hapticMedium();
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("Đã sao chép cú pháp mẫu!");
+        if (btn) {
+          const original = btn.innerHTML;
+          btn.innerHTML = '<span>✅ Đã copy!</span>';
+          setTimeout(() => {
+            btn.innerHTML = original;
+          }, 2000);
+        }
+      }).catch(err => {
+        console.error("Copy failed:", err);
+        showToast("Copy thất bại, vui lòng copy thủ công!");
+      });
+    }
+
+    // ACTIONS
+    function useFeatureNow(payload) {
+      hapticMedium();
+      const botUrl = `https://t.me/${SFAST_CONFIG.botUsername}?start=${encodeURIComponent(payload)}`;
+      if (tg) {
+        tg.openTelegramLink(botUrl);
+      } else {
+        window.open(botUrl, '_blank');
+      }
+    }
+
+    function openSupportGroup() {
+      hapticLight();
+      if (tg) tg.openTelegramLink(SFAST_CONFIG.supportGroup);
+      else window.open(SFAST_CONFIG.supportGroup, '_blank');
+    }
+
+    function openAdminSupport() {
+      hapticLight();
+      if (tg) tg.openTelegramLink(SFAST_CONFIG.adminSupport);
+      else window.open(SFAST_CONFIG.adminSupport, '_blank');
+    }
+
+    function scrollToTop() {
+      hapticLight();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // CATEGORY SELECTION
+    function selectCategory(cat, btn) {
+      hapticLight();
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderMasterList();
+    }
+
+    // WALLET FILTER SELECTION
+    function selectWalletFilter(filter, btn) {
+      hapticLight();
+      currentWalletFilter = filter;
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderMasterList();
+    }
+
+    // LIVE SEARCH
+    const searchInput = document.getElementById('search-input');
+    const searchClear = document.getElementById('search-clear-btn');
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      searchClear.classList.toggle('visible', searchQuery.length > 0);
+      renderMasterList();
+    });
+
+    function clearSearch() {
+      hapticLight();
+      searchInput.value = '';
+      searchQuery = '';
+      searchClear.classList.remove('visible');
+      renderMasterList();
+      searchInput.focus();
+    }
+
+    // KEYBOARD NAVIGATION (PC)
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMobileDrawer();
+      }
+      // Quick search focus with '/'
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+      // Arrow Up / Down in Master List
+      if (document.activeElement !== searchInput && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+        const visibleCards = Array.from(document.querySelectorAll('.master-card'));
+        if (visibleCards.length === 0) return;
+        const currentIndex = visibleCards.findIndex(c => c.classList.contains('active'));
+        let nextIndex = currentIndex;
+        if (e.key === 'ArrowDown') nextIndex = (currentIndex + 1) % visibleCards.length;
+        if (e.key === 'ArrowUp') nextIndex = (currentIndex - 1 + visibleCards.length) % visibleCards.length;
+        const nextId = visibleCards[nextIndex].id.replace('card-', '');
+        selectFeature(nextId);
+        visibleCards[nextIndex].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    });
+
+    // INIT
+    renderMasterList();
+  </script>
+</body>
+</html>

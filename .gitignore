@@ -1,0 +1,5 @@
+# Ignore local backups
+*_backup.html
+*.bak
+*.tmp
+.DS_Store
