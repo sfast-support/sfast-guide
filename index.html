@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Sfast Guide v2.0 — Hướng Dẫn Sử Dụng Chức Năng</title>
-  <meta name="description" content="Sổ tay tra cứu thế hệ mới: 19 chức năng SFast Bot tự động. Giao diện Master-Detail trên PC và Native Bottom Sheet trên Mobile.">
+  <meta name="description" content="Sổ tay tra cứu thế hệ mới: 20 chức năng SFast Bot tự động. Giao diện Master-Detail trên PC và Native Bottom Sheet trên Mobile.">
   <!-- SFAST Official Guide — Updated 2026-10-21 -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1331,17 +1331,17 @@
       <div class="controls-row">
         <div class="search-wrapper">
           <span class="search-icon-left">🔍</span>
-          <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm nhanh 19 chức năng (tên, lệnh /reg, cú pháp, ví dụ...)" autocomplete="off">
+          <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm nhanh 20 chức năng (tên, lệnh /reg, cú pháp, ví dụ...)" autocomplete="off">
           <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearch()">✕</button>
         </div>
 
         <div class="filter-bar-unified">
           <!-- CATEGORY TABS -->
           <div class="cat-scroll-container" id="category-scroll">
-            <button class="cat-pill active" data-cat="all" onclick="selectCategory('all', this)">Tất cả (19)</button>
+            <button class="cat-pill active" data-cat="all" onclick="selectCategory('all', this)">Tất cả (20)</button>
             <button class="cat-pill" data-cat="cat_1" onclick="selectCategory('cat_1', this)">1. Tạo Acc & SIM (3)</button>
             <button class="cat-pill" data-cat="cat_2" onclick="selectCategory('cat_2', this)">2. Quản Lý Email (3)</button>
-            <button class="cat-pill" data-cat="cat_3" onclick="selectCategory('cat_3', this)">3. Cookie & Kiểm Tra (5)</button>
+            <button class="cat-pill" data-cat="cat_3" onclick="selectCategory('cat_3', this)">3. Cookie & Kiểm Tra (6)</button>
             <button class="cat-pill" data-cat="cat_4" onclick="selectCategory('cat_4', this)">4. Đơn & Địa Chỉ (4)</button>
             <button class="cat-pill" data-cat="cat_5" onclick="selectCategory('cat_5', this)">5. Voucher & Combo (4)</button>
           </div>
@@ -1349,7 +1349,7 @@
           <!-- WALLET FILTERS -->
           <div class="filter-pills-row" id="wallet-filter-row">
             <button class="filter-pill active" data-filter="all" onclick="selectWalletFilter('all', this)">Tất cả</button>
-            <button class="filter-pill" data-filter="km" onclick="selectWalletFilter('km', this)">🎁 Hỗ trợ TK KM (15)</button>
+            <button class="filter-pill" data-filter="km" onclick="selectWalletFilter('km', this)">🎁 Hỗ trợ TK KM (16)</button>
             <button class="filter-pill" data-filter="main" onclick="selectWalletFilter('main', this)">💰 Chỉ TK Chính (4)</button>
             <button class="filter-pill" data-filter="combo" onclick="selectWalletFilter('combo', this)">💎 Có Combo</button>
           </div>
@@ -1991,6 +1991,28 @@
     "outputFormat": "• Kích hoạt: Kích hoạt ngay gói Combo 30 ngày và cộng hạn mức Quota dịch vụ vào tài khoản.\n• Tra cứu lượt: Kiểm tra số lượt còn lại bất kỳ lúc nào qua lệnh /tk.",
     "example": "Thay vì trả tiền cho từng lượt dùng lẻ ➔ Sếp đăng ký gói Combo Tối Thượng 30k ➔ Được cấp hạn mức dùng thả ga cho 8+ dịch vụ trong 30 ngày.",
     "notes": "• Loại ví thanh toán: Chỉ thanh toán bằng TK Chính (không trừ TK KM).\n• Thời hạn sử dụng: 30 ngày kể từ lúc mua.\n• Nâng cấp linh hoạt: Sếp có thể nâng cấp lên gói cao hơn bất kỳ lúc nào, hệ thống tự động tính khấu trừ số tiền tương ứng theo số ngày chưa dùng của gói cũ.\n• Mở khóa hạn mức: Áp dụng cho 8+ dịch vụ (QR, SPC_F, Zin, Live, Thêm Mail, Đọc Mail, Lưu Voucher, Tra Đơn)."
+  },
+  {
+    "id": "20",
+    "name": "Đổi Mật Khẩu Shopee",
+    "icon": "🔑",
+    "cat": "cat_3",
+    "catName": "Cookie & Kiểm Tra Acc",
+    "price": "100 VNĐ / acc",
+    "shortPrice": "100 VNĐ / acc",
+    "walletType": "km",
+    "walletLabel": "🎁 Hỗ trợ TK KM & Chính",
+    "comboSupport": false,
+    "comboLabel": "Không Quota",
+    "billingType": "Thành công mới tính tiền",
+    "payload": "doipass",
+    "command": "/doipass",
+    "purpose": "Hệ thống tự động đổi mật khẩu tài khoản Shopee hàng loạt qua Cookie SPC_ST hoặc mã SPC_F. Tự động sinh mật khẩu ngẫu nhiên 10 ký tự đạt 100% chuẩn Shopee nếu bỏ trống, hỗ trợ proxy riêng và tự động cập nhật mật khẩu mới lên Google Sheet nếu có liên kết ở /reg.",
+    "inputFormat": "• Thao tác chính qua lệnh /doipass (hoặc /spcf, hoặc bấm [🔑 Đổi Mật Khẩu]):\n  ▸ Kênh 1 — Nhập Text trực tiếp (tối đa 10 tài khoản / lần gửi chống tràn giới hạn 4096 Telegram):\n    • Cú pháp tự sinh pass: SPC_ST|pass_cu (Hệ thống tự tạo pass mới 10 ký tự đạt chuẩn Shopee)\n    • Cú pháp tự đặt pass: SPC_ST|pass_cu|pass_moi\n    • Kèm proxy riêng: SPC_ST|pass_cu|pass_moi|ip:port:user:pass\n    • Định dạng SPC_F: SPC_F=token|username|pass_cu[|pass_moi][|ip:port:user:pass]\n  ▸ Kênh 2 — Gửi File .txt đính kèm (hỗ trợ từ 10 đến 50 tài khoản / file):\n    • Soạn danh sách mỗi dòng 1 acc theo cú pháp trên và gửi file .txt trực tiếp vào bot.\n• Tự động đồng bộ Google Sheet: Nếu sếp đã liên kết Google Sheet ở /reg (mục cấu hình nâng cao), hệ thống tự động tìm và cập nhật mật khẩu mới vào cột D cùng Cookie SPC_ST mới vào cột G.\n• Quy chuẩn mật khẩu Shopee: Dài 8-16 ký tự, có ít nhất 1 chữ hoa, 1 chữ thường, chỉ gồm chữ cái, số và dấu câu. Khuyên dùng bỏ trống pass_moi để hệ thống tự tạo tự động an toàn.",
+    "inputSample": "Cú pháp dán text tự sinh pass (Khuyên dùng):\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123\nSPC_F=token_spcf_sample|0912345678|MatKhauCu@123\n\nCú pháp tự đặt pass mới:\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123|MatKhauMoi@456\nSPC_F=token_spcf_sample|0912345678|MatKhauCu@123|MatKhauMoi@456\n\nCú pháp kèm proxy riêng:\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123|Ph@123456|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|myusername|MatKhauCu@123|Ph@123456|103.151.120.45:8080:user:pass",
+    "outputFormat": "• Báo cáo Realtime (Streaming Card): Mỗi tài khoản xử lý xong được gửi ngay 1 thẻ Card độc lập báo Thành công (kèm Cookie SPC_ST mới đầy đủ để chạm copy dùng ngay) hoặc Thất bại (kèm lý do tiếng Việt rõ ràng).\n• Bảng kê 3 dòng minh bạch ở tin nhắn tổng kết: Tạm tính ban đầu ➔ Thực tế đã trừ ➔ Tự động hoàn tiền 100% tài khoản lỗi.\n• Xuất File .txt tự động (khi từ 3 acc trở lên): Tự động nạp file kết quả đính kèm gửi ngay cuối khung chat để tải về mở Excel/Notepad tiện lợi.",
+    "example": "Sếp có 10 nick Shopee cần đổi mật khẩu định kỳ ➔ Gõ /doipass ➔ Dán 10 dòng SPC_ST|pass_cu ➔ Bot đổi tuần tự từng nick, bắn thẻ card báo pass mới kèm Cookie SPC_ST sống, cập nhật luôn lên Google Sheet và hoàn tất trong chớp mắt.",
+    "notes": "• Loại ví thanh toán: Cố định 100đ/acc. Ưu tiên trừ TK Khuyến Mãi (TK KM 🎁) trước, thiếu mới trừ TK Chính.\n• Cơ chế hoàn tiền: Trừ tiền tạm tính trước, chỉ thu tiền các tài khoản THÀNH CÔNG. Tài khoản nào lỗi (sai pass cũ, cookie hết hạn, dính OTP xác minh, lỗi mạng...) ➔ Tự động hoàn lại 100% phí về đúng ví gốc đã trừ.\n• An toàn tài khoản: Mỗi tài khoản đổi pass được hệ thống dọn dẹp sạch sẽ dữ liệu phiên duyệt và bảo vệ đa tầng, đảm bảo tỷ lệ thành công tối đa."
   }
 ];
 
@@ -2183,7 +2205,7 @@
         return true;
       });
 
-      resultsCount.textContent = `Hiển thị: ${filtered.length} / 19 chức năng`;
+      resultsCount.textContent = `Hiển thị: ${filtered.length} / 20 chức năng`;
 
       if (filtered.length === 0) {
         container.innerHTML = '';
