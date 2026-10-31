@@ -738,6 +738,7 @@
     .inspector-body {
       padding: 18px 20px;
       overflow-y: auto;
+      overscroll-behavior-y: contain;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -1143,6 +1144,7 @@
       transform: translateY(100%);
       transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
       overflow: hidden;
+      overscroll-behavior-y: contain;
     }
     .bottom-sheet-drawer.open {
       transform: translateY(0);
@@ -1171,8 +1173,10 @@
       gap: 12px;
     }
     .drawer-close-btn {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      min-height: 36px;
       border-radius: 50%;
       background: var(--bg-subtle);
       border: 1px solid var(--border-color);
@@ -1181,13 +1185,16 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       flex-shrink: 0;
+      padding: 0;
+      touch-action: manipulation;
     }
     .drawer-body {
       padding: 16px;
       overflow-y: auto;
+      overscroll-behavior-y: contain;
       flex: 1;
       -webkit-overflow-scrolling: touch;
       display: flex;
@@ -1217,7 +1224,7 @@
       }
       .content-area {
         padding: 12px;
-        padding-bottom: 80px; /* space for mobile footer */
+        padding-bottom: calc(84px + env(safe-area-inset-bottom, 20px)); /* space for mobile floating nav + safe area */
       }
     }
 
@@ -1265,26 +1272,30 @@
       }
     }
 
-    /* TOAST NOTIFICATION */
+    /* TOAST NOTIFICATION — TOP DYNAMIC PILL */
     .toast-popup {
       position: fixed;
-      bottom: 70px;
+      top: calc(18px + env(safe-area-inset-top, 0px));
+      bottom: auto;
       left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #0F172A;
+      transform: translateX(-50%) translateY(-20px);
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       color: #FFF;
-      padding: 8px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 9px 20px;
       border-radius: var(--radius-full);
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 600;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-      z-index: 300;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      z-index: 500;
       opacity: 0;
       pointer-events: none;
       transition: all var(--transition-fast);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
     .toast-popup.visible {
       opacity: 1;
@@ -2033,6 +2044,9 @@
       try {
         tg.ready();
         tg.expand();
+        if (typeof tg.disableVerticalSwipes === 'function') {
+          tg.disableVerticalSwipes();
+        }
       } catch (e) {
         console.warn("Telegram WebApp init warning:", e);
       }
@@ -2387,12 +2401,23 @@
       document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
       const activePane = document.getElementById(`tab-pane-${tabName}`);
       if (activePane) activePane.classList.add('active');
+
+      const inspectorBody = document.getElementById('inspector-body');
+      if (inspectorBody) {
+        inspectorBody.scrollTop = 0;
+      }
     }
 
     // MOBILE DRAWER FUNCTIONS
     function openMobileDrawer(id) {
       const item = FEATURES_DATA.find(f => f.id === id);
       if (!item) return;
+
+      // Always reset to 'guide' tab when opening any card
+      activeMobileTab = 'guide';
+      document.querySelectorAll('#mobile-tabs-bar .seg-tab-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tab === 'guide');
+      });
 
       const overlay = document.getElementById('drawer-overlay');
       const drawer = document.getElementById('mobile-drawer');
@@ -2424,6 +2449,10 @@
       `;
 
       renderMobileDrawerBody(item);
+
+      if (body) {
+        body.scrollTop = 0;
+      }
 
       footer.innerHTML = `
         <button class="btn-use-now" style="flex: 1; width: 100%; justify-content: center;" onclick="useFeatureNow('${item.payload}')"><span>⚡ Dùng Ngay Trên Bot (${item.command})</span></button>
@@ -2489,6 +2518,7 @@
           </div>
         </div>
       `;
+      body.scrollTop = 0;
     }
 
     function switchMobileDrawerTab(tabName, btn) {
@@ -2500,6 +2530,16 @@
       const item = FEATURES_DATA.find(f => f.id === activeFeatureId);
       if (item) {
         renderMobileDrawerBody(item);
+      }
+
+      // Cưỡng chế cuộn ngay lập tức về đỉnh trang (2-Pass Scroll Reset: Sync + RequestAnimationFrame)
+      const body = document.getElementById('drawer-body');
+      if (body) {
+        body.scrollTop = 0;
+        body.scrollTo({ top: 0, behavior: 'instant' });
+        requestAnimationFrame(() => {
+          body.scrollTop = 0;
+        });
       }
     }
 
