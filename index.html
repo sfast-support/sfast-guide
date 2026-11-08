@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="vi" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Sfast Guide v2.0 — Hướng Dẫn Sử Dụng Chức Năng</title>
-  <meta name="description" content="Sổ tay tra cứu thế hệ mới: 20 chức năng SFast Bot tự động. Giao diện Master-Detail trên PC và Native Bottom Sheet trên Mobile.">
-  <!-- SFAST Official Guide — Updated 2026-10-31 -->
+  <meta name="description"
+    content="Sổ tay tra cứu thế hệ mới: 20 chức năng SFast Bot tự động. Giao diện Master-Detail trên PC và Native Bottom Sheet trên Mobile.">
+  <!-- SFAST Official Guide — Updated 2026-11-08 -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <style>
     /* ══════════════════════════════════════════════════════════════
        SFAST DESIGN SYSTEM v2.0 — NEO-FINTECH MASTER-DETAIL & DRAWER
@@ -148,6 +153,7 @@
       border-bottom: 1px solid var(--border-color);
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     }
+
     .header-inner {
       max-width: 1440px;
       margin: 0 auto;
@@ -156,12 +162,14 @@
       flex-direction: column;
       gap: 10px;
     }
+
     .header-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
+
     .brand-box {
       display: flex;
       align-items: center;
@@ -169,6 +177,7 @@
       text-decoration: none;
       color: inherit;
     }
+
     .brand-logo {
       width: 36px;
       height: 36px;
@@ -181,6 +190,7 @@
       color: white;
       box-shadow: 0 4px 12px var(--brand-glow);
     }
+
     .brand-title {
       font-size: 17px;
       font-weight: 800;
@@ -190,6 +200,7 @@
       gap: 6px;
       flex-wrap: wrap;
     }
+
     .brand-badge {
       font-size: 10.5px;
       font-weight: 700;
@@ -199,21 +210,25 @@
       border-radius: var(--radius-full);
       text-transform: uppercase;
     }
+
     .header-actions {
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
     .desktop-nav-links {
       display: flex;
       align-items: center;
       gap: 6px;
     }
+
     @media (max-width: 860px) {
       .desktop-nav-links {
         display: none;
       }
     }
+
     .nav-link-btn {
       font-family: inherit;
       font-size: 12px;
@@ -230,11 +245,13 @@
       transition: all var(--transition-fast);
       text-decoration: none;
     }
+
     .nav-link-btn:hover {
       border-color: var(--brand-primary);
       color: var(--brand-primary);
       background: var(--bg-subtle);
     }
+
     .btn-icon {
       font-family: inherit;
       background: var(--bg-card);
@@ -250,6 +267,7 @@
       gap: 6px;
       transition: all var(--transition-fast);
     }
+
     .btn-icon:hover {
       background: var(--bg-subtle);
     }
@@ -262,12 +280,14 @@
       flex-direction: column;
       gap: 8px;
     }
+
     .search-wrapper {
       position: relative;
       display: flex;
       align-items: center;
       width: 100%;
     }
+
     .search-icon-left {
       position: absolute;
       left: 14px;
@@ -275,6 +295,7 @@
       color: var(--text-muted);
       pointer-events: none;
     }
+
     .search-input {
       width: 100%;
       font-family: inherit;
@@ -287,11 +308,13 @@
       outline: none;
       transition: all var(--transition-fast);
     }
+
     .search-input:focus {
       background: var(--bg-card);
       border-color: var(--brand-primary);
       box-shadow: 0 0 0 3px var(--brand-glow);
     }
+
     .search-clear-btn {
       position: absolute;
       right: 12px;
@@ -307,6 +330,7 @@
       font-size: 11px;
       cursor: pointer;
     }
+
     .search-clear-btn.visible {
       display: flex;
     }
@@ -319,6 +343,7 @@
       gap: 12px;
       flex-wrap: wrap;
     }
+
     .cat-scroll-container {
       display: flex;
       align-items: center;
@@ -328,9 +353,11 @@
       -ms-overflow-style: none;
       padding-bottom: 2px;
     }
+
     .cat-scroll-container::-webkit-scrollbar {
       display: none;
     }
+
     .cat-pill {
       font-family: inherit;
       font-size: 13px;
@@ -347,10 +374,12 @@
       align-items: center;
       gap: 4px;
     }
+
     .cat-pill:hover {
       background: var(--bg-subtle);
       color: var(--text-main);
     }
+
     .cat-pill.active {
       background: var(--brand-gradient);
       border-color: transparent;
@@ -364,6 +393,7 @@
       gap: 6px;
       flex-wrap: wrap;
     }
+
     .filter-pill {
       font-family: inherit;
       font-size: 12.5px;
@@ -376,10 +406,12 @@
       cursor: pointer;
       transition: all var(--transition-fast);
     }
+
     .filter-pill:hover {
       background: var(--bg-subtle);
       color: var(--text-main);
     }
+
     .filter-pill.active {
       background: var(--text-main);
       border-color: var(--text-main);
@@ -397,6 +429,7 @@
       overflow: hidden;
       transition: all var(--transition-normal);
     }
+
     .rules-banner-header {
       padding: 10px 16px;
       display: flex;
@@ -405,6 +438,7 @@
       cursor: pointer;
       user-select: none;
     }
+
     .rules-banner-title {
       font-size: 13px;
       font-weight: 700;
@@ -413,31 +447,38 @@
       gap: 8px;
       color: var(--text-main);
     }
+
     .rules-banner-arrow {
       font-size: 11px;
       color: var(--text-muted);
       transition: transform var(--transition-normal);
     }
+
     .rules-banner.collapsed .rules-banner-arrow {
       transform: rotate(-90deg);
     }
+
     .rules-banner.collapsed .rules-banner-body {
       display: none;
     }
+
     .rules-banner-body {
       padding: 0 16px 14px 16px;
     }
+
     .rules-grid {
       display: grid;
       grid-template-columns: 1.35fr 1fr;
       gap: 16px;
     }
+
     @media (max-width: 960px) {
       .rules-grid {
         grid-template-columns: 1fr;
         gap: 12px;
       }
     }
+
     .rule-bento-box {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -446,6 +487,7 @@
       font-size: 12px;
       color: var(--text-sub);
     }
+
     .rule-bento-box h4 {
       font-size: 12.5px;
       font-weight: 700;
@@ -455,6 +497,7 @@
       align-items: center;
       gap: 6px;
     }
+
     .flow-steps {
       display: flex;
       align-items: center;
@@ -462,6 +505,7 @@
       gap: 4px;
       margin-bottom: 6px;
     }
+
     .flow-step-item {
       background: var(--bg-subtle);
       border: 1px solid var(--border-color);
@@ -471,6 +515,7 @@
       font-size: 11px;
       color: var(--text-main);
     }
+
     .flow-step-arrow {
       color: var(--brand-primary);
       font-weight: 700;
@@ -501,6 +546,7 @@
       flex-direction: column;
       gap: 8px;
     }
+
     .master-list-header {
       display: flex;
       align-items: center;
@@ -511,6 +557,7 @@
       padding: 0 4px 6px 4px;
       border-bottom: 1px solid var(--border-color);
     }
+
     .master-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -524,16 +571,19 @@
       position: relative;
       user-select: none;
     }
+
     .master-card:hover {
       background: var(--bg-card-hover);
       border-color: var(--border-focus);
       transform: translateY(-1px);
     }
+
     .master-card.active {
       border-color: var(--brand-primary);
       background: var(--bg-card);
       box-shadow: 0 0 0 2px var(--brand-glow), var(--card-shadow-active);
     }
+
     .master-card.active::before {
       content: '';
       position: absolute;
@@ -544,12 +594,14 @@
       border-radius: 0 4px 4px 0;
       background: var(--brand-gradient);
     }
+
     .card-row-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
     }
+
     .card-title-group {
       display: flex;
       align-items: center;
@@ -557,6 +609,7 @@
       flex: 1;
       min-width: 0;
     }
+
     .card-num-badge {
       font-family: var(--font-mono);
       font-size: 11.5px;
@@ -567,10 +620,12 @@
       border-radius: 6px;
       color: var(--text-sub);
     }
+
     .card-icon {
       font-size: 18px;
       line-height: 1;
     }
+
     .card-name {
       font-size: 15px;
       font-weight: 700;
@@ -579,15 +634,18 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .card-action-indicator {
       font-size: 14px;
       color: var(--text-muted);
       transition: transform var(--transition-fast), color var(--transition-fast);
     }
+
     .master-card.active .card-action-indicator {
       color: var(--brand-primary);
       transform: translateX(3px);
     }
+
     .card-row-bottom {
       display: flex;
       align-items: center;
@@ -595,12 +653,14 @@
       gap: 6px;
       flex-wrap: wrap;
     }
+
     .card-tags {
       display: flex;
       align-items: center;
       gap: 6px;
       flex-wrap: wrap;
     }
+
     .tag-badge {
       font-size: 12px;
       font-weight: 600;
@@ -608,27 +668,32 @@
       border-radius: 6px;
       white-space: nowrap;
     }
+
     .tag-price {
       background: var(--bg-subtle);
       color: var(--text-sub);
       border: 1px solid var(--border-color);
       font-family: var(--font-mono);
     }
+
     .tag-km {
       background: var(--badge-km-bg);
       color: var(--badge-km-text);
       border: 1px solid var(--badge-km-border);
     }
+
     .tag-main {
       background: var(--badge-main-bg);
       color: var(--badge-main-text);
       border: 1px solid var(--badge-main-border);
     }
+
     .tag-combo {
       background: var(--badge-combo-bg);
       color: var(--badge-combo-text);
       border: 1px solid var(--badge-combo-border);
     }
+
     .card-cmd-badge {
       font-family: var(--font-mono);
       font-size: 12px;
@@ -644,6 +709,7 @@
       align-items: center;
       gap: 4px;
     }
+
     .card-cmd-badge:hover {
       background: var(--brand-primary);
       color: #FFF;
@@ -665,6 +731,7 @@
       max-height: calc(100vh - 150px);
       overflow: hidden;
     }
+
     .inspector-header {
       padding: 16px 20px;
       border-bottom: 1px solid var(--border-color);
@@ -674,23 +741,27 @@
       justify-content: space-between;
       gap: 12px;
     }
+
     .inspector-title-group {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
+
     .inspector-title-row {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
     }
+
     .inspector-title-row h2 {
       font-size: 19px;
       font-weight: 800;
       color: var(--text-main);
       letter-spacing: -0.3px;
     }
+
     .inspector-meta-row {
       display: flex;
       align-items: center;
@@ -707,6 +778,7 @@
       padding: 4px 6px;
       border-bottom: 1px solid var(--border-color);
     }
+
     .seg-tab-btn {
       flex: 1;
       font-family: inherit;
@@ -725,9 +797,11 @@
       transition: all var(--transition-fast);
       white-space: nowrap;
     }
+
     .seg-tab-btn:hover {
       color: var(--text-main);
     }
+
     .seg-tab-btn.active {
       background: var(--bg-card);
       color: var(--brand-primary);
@@ -744,11 +818,13 @@
       flex-direction: column;
       gap: 16px;
     }
+
     .tab-content-panel {
       display: none;
       flex-direction: column;
       gap: 14px;
     }
+
     .tab-content-panel.active {
       display: flex;
     }
@@ -759,6 +835,7 @@
       flex-direction: column;
       gap: 8px;
     }
+
     .section-heading {
       font-size: 12.5px;
       font-weight: 700;
@@ -769,6 +846,7 @@
       align-items: center;
       gap: 6px;
     }
+
     .bento-card-box {
       background: var(--bg-subtle);
       border: 1px solid var(--border-color);
@@ -783,6 +861,7 @@
       margin-bottom: 10px;
       font-size: 14.5px;
     }
+
     .bento-bullet-row {
       display: flex;
       align-items: flex-start;
@@ -792,6 +871,7 @@
       color: var(--text-sub);
       margin-bottom: 8px;
     }
+
     .bento-bullet-row.sub-bullet {
       margin-left: 8px;
       border-left: 2px solid var(--border-color);
@@ -801,15 +881,18 @@
       margin-bottom: 6px;
       color: var(--text-muted);
     }
+
     .bento-bullet-char {
       color: var(--brand-primary);
       font-weight: 700;
       flex-shrink: 0;
       margin-top: 1px;
     }
+
     .bento-bullet-content {
       flex: 1;
     }
+
     .inline-btn-tag {
       display: inline-flex;
       align-items: center;
@@ -823,6 +906,7 @@
       margin: 0 2px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
+
     .inline-cmd {
       font-family: var(--font-mono);
       background: rgba(238, 77, 45, 0.1);
@@ -832,22 +916,25 @@
       font-size: 11.5px;
       font-weight: 600;
     }
+
     .bento-spacer {
       height: 6px;
     }
 
-    
+
     /* RICH TEXT ENHANCEMENTS */
     .bullet-lead {
       color: var(--text-main);
       font-weight: 700;
     }
+
     .inline-arrow {
       color: var(--brand-primary);
       font-weight: 700;
       margin: 0 4px;
       display: inline-block;
     }
+
     .inline-syntax {
       font-family: var(--font-mono);
       font-size: 12px;
@@ -859,6 +946,7 @@
       color: var(--text-main);
       word-break: break-all;
     }
+
     [data-theme="dark"] .inline-syntax {
       background: #111827;
       border-color: #374151;
@@ -873,6 +961,7 @@
       font-size: 12px;
       font-weight: 600;
     }
+
     [data-theme="dark"] .tag-billing {
       background: #1E293B;
       color: #CBD5E1;
@@ -885,14 +974,17 @@
       padding: 10px 12px;
       margin-top: 8px;
     }
+
     .rule-subcard.main-wallet {
       background: var(--badge-main-bg);
       border: 1px solid var(--badge-main-border);
     }
+
     .rule-subcard.km-wallet {
       background: var(--badge-km-bg);
       border: 1px solid var(--badge-km-border);
     }
+
     .rule-subcard-title {
       font-size: 12px;
       font-weight: 700;
@@ -901,17 +993,21 @@
       align-items: center;
       gap: 6px;
     }
+
     .rule-subcard.main-wallet .rule-subcard-title {
       color: var(--badge-main-text);
     }
+
     .rule-subcard.km-wallet .rule-subcard-title {
       color: var(--badge-km-text);
     }
+
     .rule-chips-wrap {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
     }
+
     .rule-chip {
       font-family: inherit;
       font-size: 12px;
@@ -926,26 +1022,31 @@
       border: 1px solid transparent;
       user-select: none;
     }
+
     .rule-chip.chip-main {
       background: var(--bg-card);
       color: var(--badge-main-text);
       border-color: var(--badge-main-border);
     }
+
     .rule-chip.chip-main:hover {
       background: var(--badge-main-text);
       color: #FFF;
       transform: translateY(-1px);
     }
+
     .rule-chip.chip-km {
       background: var(--bg-card);
       color: var(--badge-km-text);
       border-color: var(--badge-km-border);
     }
+
     .rule-chip.chip-km:hover {
       background: var(--badge-km-text);
       color: #FFF;
       transform: translateY(-1px);
     }
+
     .rule-chip.chip-spcf {
       background: var(--bg-card);
       color: var(--text-main);
@@ -953,6 +1054,7 @@
       font-size: 11.5px;
       padding: 3px 8px;
     }
+
     .rule-chip.chip-spcf:hover {
       border-color: var(--brand-primary);
       color: var(--brand-primary);
@@ -966,6 +1068,7 @@
       gap: 8px;
       margin-top: 6px;
     }
+
     .promo-mini-card {
       background: var(--bg-subtle);
       border: 1px solid var(--border-color);
@@ -976,11 +1079,13 @@
       flex-direction: column;
       gap: 4px;
     }
+
     .promo-card-tier {
       font-size: 11.5px;
       font-weight: 600;
       color: var(--text-muted);
     }
+
     .promo-card-bonus {
       font-size: 14px;
       font-weight: 800;
@@ -998,6 +1103,7 @@
       border-radius: var(--radius-md);
       overflow: hidden;
     }
+
     .code-box-header {
       display: flex;
       align-items: center;
@@ -1009,6 +1115,7 @@
       font-size: 11px;
       font-weight: 600;
     }
+
     .code-block {
       font-family: var(--font-mono);
       font-size: 13px;
@@ -1019,6 +1126,7 @@
       white-space: pre-wrap;
       word-break: break-all;
     }
+
     .btn-copy-code {
       font-family: inherit;
       background: rgba(255, 255, 255, 0.12);
@@ -1034,6 +1142,7 @@
       gap: 4px;
       transition: all var(--transition-fast);
     }
+
     .btn-copy-code:hover {
       background: rgba(255, 255, 255, 0.22);
     }
@@ -1045,6 +1154,7 @@
       border-radius: var(--radius-md);
       padding: 12px 14px;
     }
+
     .alert-title {
       font-size: 12.5px;
       font-weight: 700;
@@ -1064,6 +1174,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .btn-use-now {
       flex: 1;
       font-family: inherit;
@@ -1083,10 +1194,12 @@
       transition: all var(--transition-fast);
       text-decoration: none;
     }
+
     .btn-use-now:hover {
       transform: translateY(-1px);
       box-shadow: 0 6px 16px var(--brand-glow);
     }
+
     .btn-secondary-action {
       font-family: inherit;
       font-size: 12px;
@@ -1104,6 +1217,7 @@
       transition: all var(--transition-fast);
       white-space: nowrap;
     }
+
     .btn-secondary-action:hover {
       background: var(--bg-subtle);
       color: var(--text-main);
@@ -1123,6 +1237,7 @@
       pointer-events: none;
       transition: opacity var(--transition-normal);
     }
+
     .drawer-overlay.active {
       opacity: 1;
       pointer-events: auto;
@@ -1146,6 +1261,7 @@
       overflow: hidden;
       overscroll-behavior-y: contain;
     }
+
     .bottom-sheet-drawer.open {
       transform: translateY(0);
     }
@@ -1157,6 +1273,7 @@
       justify-content: center;
       cursor: grab;
     }
+
     .drawer-drag-pill {
       width: 40px;
       height: 4.5px;
@@ -1172,6 +1289,7 @@
       justify-content: space-between;
       gap: 12px;
     }
+
     .drawer-close-btn {
       width: 36px;
       height: 36px;
@@ -1191,6 +1309,7 @@
       padding: 0;
       touch-action: manipulation;
     }
+
     .drawer-body {
       padding: 16px;
       overflow-y: auto;
@@ -1201,6 +1320,7 @@
       flex-direction: column;
       gap: 14px;
     }
+
     .drawer-footer {
       padding: 12px 16px;
       padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
@@ -1216,15 +1336,20 @@
       .master-detail-container {
         grid-template-columns: 1fr;
       }
+
       .detail-inspector-panel {
-        display: none; /* Hidden on mobile; replaced by bottom sheet */
+        display: none;
+        /* Hidden on mobile; replaced by bottom sheet */
       }
+
       .rules-banner {
         margin-bottom: 12px;
       }
+
       .content-area {
         padding: 12px;
-        padding-bottom: calc(84px + env(safe-area-inset-bottom, 20px)); /* space for mobile floating nav + safe area */
+        padding-bottom: calc(84px + env(safe-area-inset-bottom, 20px));
+        /* space for mobile floating nav + safe area */
       }
     }
 
@@ -1234,6 +1359,7 @@
     .mobile-floating-nav {
       display: none;
     }
+
     @media (max-width: 860px) {
       .mobile-floating-nav {
         position: fixed;
@@ -1250,6 +1376,7 @@
         justify-content: space-around;
         padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px)) 8px;
       }
+
       .m-nav-item {
         display: flex;
         flex-direction: column;
@@ -1264,9 +1391,11 @@
         cursor: pointer;
         padding: 4px 8px;
       }
+
       .m-nav-item .icon {
         font-size: 16px;
       }
+
       .m-nav-item.active {
         color: var(--brand-primary);
       }
@@ -1297,6 +1426,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .toast-popup.visible {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
@@ -1309,11 +1439,13 @@
       padding: 40px 16px;
       color: var(--text-muted);
     }
+
     .empty-state.visible {
       display: block;
     }
   </style>
 </head>
+
 <body>
 
 
@@ -1345,7 +1477,8 @@
       <div class="controls-row">
         <div class="search-wrapper">
           <span class="search-icon-left">🔍</span>
-          <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm nhanh 20 chức năng (tên, lệnh /reg, cú pháp, ví dụ...)" autocomplete="off">
+          <input type="text" id="search-input" class="search-input"
+            placeholder="Tìm kiếm nhanh 20 chức năng (tên, lệnh /reg, cú pháp, ví dụ...)" autocomplete="off">
           <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearch()">✕</button>
         </div>
 
@@ -1353,19 +1486,28 @@
           <!-- CATEGORY TABS -->
           <div class="cat-scroll-container" id="category-scroll">
             <button class="cat-pill active" data-cat="all" onclick="selectCategory('all', this)">Tất cả (20)</button>
-            <button class="cat-pill" data-cat="cat_1" onclick="selectCategory('cat_1', this)">1. Tạo Acc & SIM (3)</button>
-            <button class="cat-pill" data-cat="cat_2" onclick="selectCategory('cat_2', this)">2. Quản Lý Email (3)</button>
-            <button class="cat-pill" data-cat="cat_3" onclick="selectCategory('cat_3', this)">3. Cookie & Kiểm Tra (6)</button>
-            <button class="cat-pill" data-cat="cat_4" onclick="selectCategory('cat_4', this)">4. Đơn & Địa Chỉ (4)</button>
-            <button class="cat-pill" data-cat="cat_5" onclick="selectCategory('cat_5', this)">5. Voucher & Combo (4)</button>
+            <button class="cat-pill" data-cat="cat_1" onclick="selectCategory('cat_1', this)">1. Tạo Acc & SIM
+              (3)</button>
+            <button class="cat-pill" data-cat="cat_2" onclick="selectCategory('cat_2', this)">2. Quản Lý Email
+              (3)</button>
+            <button class="cat-pill" data-cat="cat_3" onclick="selectCategory('cat_3', this)">3. Cookie & Kiểm Tra
+              (6)</button>
+            <button class="cat-pill" data-cat="cat_4" onclick="selectCategory('cat_4', this)">4. Đơn & Địa Chỉ
+              (4)</button>
+            <button class="cat-pill" data-cat="cat_5" onclick="selectCategory('cat_5', this)">5. Voucher & Combo
+              (4)</button>
           </div>
 
           <!-- WALLET FILTERS -->
           <div class="filter-pills-row" id="wallet-filter-row">
-            <button class="filter-pill active" data-filter="all" onclick="selectWalletFilter('all', this)">Tất cả</button>
-            <button class="filter-pill" data-filter="km" onclick="selectWalletFilter('km', this)">🎁 Hỗ trợ TK KM (16)</button>
-            <button class="filter-pill" data-filter="main" onclick="selectWalletFilter('main', this)">💰 Chỉ TK Chính (4)</button>
-            <button class="filter-pill" data-filter="combo" onclick="selectWalletFilter('combo', this)">💎 Có Combo</button>
+            <button class="filter-pill active" data-filter="all" onclick="selectWalletFilter('all', this)">Tất
+              cả</button>
+            <button class="filter-pill" data-filter="km" onclick="selectWalletFilter('km', this)">🎁 Hỗ trợ TK KM
+              (16)</button>
+            <button class="filter-pill" data-filter="main" onclick="selectWalletFilter('main', this)">💰 Chỉ TK Chính
+              (4)</button>
+            <button class="filter-pill" data-filter="combo" onclick="selectWalletFilter('combo', this)">💎 Có
+              Combo</button>
           </div>
         </div>
       </div>
@@ -1407,9 +1549,11 @@
                 <button class="rule-chip chip-main" onclick="selectFeature('02')">#02 Thuê SĐT Shopee</button>
                 <button class="rule-chip chip-main" onclick="selectFeature('03')">#03 Thuê SIM TikTok</button>
                 <button class="rule-chip chip-main" onclick="selectFeature('19')">#19 Gói Combo</button>
-                <button class="rule-chip chip-main" onclick="selectFeature('04')">#04 Mail Kho / iCloud / Mua lẻ</button>
+                <button class="rule-chip chip-main" onclick="selectFeature('04')">#04 Mail Kho / iCloud / Mua
+                  lẻ</button>
               </div>
-              <div style="color: var(--badge-main-text); font-size: 11.5px; font-weight: 600; margin-top: 6px;">💡 Riêng #01 Tạo ACC có hỗ trợ trừ Lượt Free khi chiến thắng trò chơi ở nhóm hỗ trợ của Sfast.</div>
+              <div style="color: var(--badge-main-text); font-size: 11.5px; font-weight: 600; margin-top: 6px;">💡 Riêng
+                #01 Tạo ACC (Gói Mặc Định) có hỗ trợ trừ Lượt Free khi chiến thắng trò chơi ở nhóm hỗ trợ của Sfast; chế độ Chọn Kho SIM (<code>/reg v30</code>) chỉ trừ TK Chính.</div>
             </div>
 
             <!-- Subcard 2: Nhóm Hỗ Trợ TK Khuyến Mãi -->
@@ -1460,10 +1604,14 @@
             <div class="rule-bento-box">
               <h4>🍪 Quy Chuẩn Cookie SPC_ST & Giải Mã SPC_F</h4>
               <div style="font-size: 13px; line-height: 1.6; color: var(--text-sub);">
-                <p style="margin-bottom: 6px;">• <strong>Chuẩn mặc định:</strong> Nhận Cookie <code>SPC_ST=xxx</code> hoặc token thuần <code>xxx</code> (hỗ trợ kèm <code>[|proxy]</code>).</p>
-                <p style="margin-bottom: 6px;">• <strong>Đổi hàng loạt:</strong> Dùng chức năng <button class="rule-chip chip-spcf" onclick="selectFeature('08')">#08 Đổi SPC_F</button> để đổi <code>SPC_F=token|user|pass</code> sang <code>SPC_ST</code>.</p>
+                <p style="margin-bottom: 6px;">• <strong>Chuẩn mặc định:</strong> Nhận Cookie <code>SPC_ST=xxx</code>
+                  hoặc token thuần <code>xxx</code> (hỗ trợ kèm <code>[|proxy]</code>).</p>
+                <p style="margin-bottom: 6px;">• <strong>Đổi hàng loạt:</strong> Dùng chức năng <button
+                    class="rule-chip chip-spcf" onclick="selectFeature('08')">#08 Đổi SPC_F</button> để đổi
+                  <code>SPC_F=token|user|pass</code> sang <code>SPC_ST</code>.</p>
                 <div>
-                  <p style="margin-bottom: 4px;">• <strong>Tự giải mã SPC_F trực tiếp (Không cần đổi trước):</strong></p>
+                  <p style="margin-bottom: 4px;">• <strong>Tự giải mã SPC_F trực tiếp (Không cần đổi trước):</strong>
+                  </p>
                   <div class="rule-chips-wrap">
                     <button class="rule-chip chip-spcf" onclick="selectFeature('04')">#04 Thêm Mail</button>
                     <button class="rule-chip chip-spcf" onclick="selectFeature('05')">#05 Đổi Mail</button>
@@ -1483,7 +1631,7 @@
 
     <!-- MASTER-DETAIL 2-COLUMN CONTAINER -->
     <div class="master-detail-container">
-      
+
       <!-- LEFT: MASTER CARDS LIST -->
       <section class="master-list-panel">
         <div class="master-list-header">
@@ -1605,430 +1753,430 @@
     };
 
     const FEATURES_DATA = [
-  {
-    "id": "01",
-    "name": "Tạo ACC Shopee Mới",
-    "icon": "🚀",
-    "cat": "cat_1",
-    "catName": "Tạo Acc & SIM",
-    "price": "4,000 VNĐ / acc",
-    "shortPrice": "4,000 VNĐ / acc",
-    "walletType": "main",
-    "walletLabel": "💰 Chỉ TK Chính",
-    "comboSupport": false,
-    "comboLabel": "Hỗ trợ Lượt Free",
-    "billingType": "Tạo xong mới tính tiền",
-    "payload": "reg",
-    "command": "/reg",
-    "purpose": "Hệ thống tự động tạo nick Shopee linh hoạt: Trọn gói hệ thống lo từ A-Z hoặc sếp tự nhập SĐT (hỗ trợ SĐT Việt Nam & Đông Nam Á +62, +66, +60...)/Proxy riêng, nhận OTP qua SMS hoặc Cuộc gọi (Voice Call) với giá siêu tiết kiệm.",
-    "inputFormat": "• Gói Mặc Định — Trọn Gói Hệ Thống (4,000đ / acc):\n  ▸ Gõ /reg (hoặc bấm [🚀 Tạo ACC Shopee]) ➔ Màn hình hiện bảng giá & số dư\n  ▸ Bấm chọn số lượng: [🔹 1 Acc] | [🔸 5 Acc] | [🔥 10 Acc]\n  ▸ Hoặc bấm [✏️ Nhập Số Lượng] để điền số lượng mong muốn\n  ▸ Hệ thống lo 100% SIM và Proxy.\n• Các Tùy Chọn Khi Reg Acc (Hỗ trợ SĐT VN & Đông Nam Á):\n  ▸ Gói A — Tự cấp SĐT riêng:\n    • Nhận OTP SMS: /regsdt 0901234567 hoặc /regsdt +628811542752\n    • Nhận OTP Cuộc gọi (Voice Call): /regsdtcall 0901234567 hoặc /regsdtcall +628811542752\n  ▸ Gói B — Tự cấp SĐT + Proxy riêng:\n    • Nhận OTP SMS: /regfull sđt|ip:port hoặc /regfull +628811542752|ip:port:user:pass\n    • Nhận OTP Cuộc gọi (Voice Call): /regfullcall sđt|ip:port\n  ▸ Gói C — Tự cấp Proxy riêng: Gõ /regproxy ip:port:user:pass ➔ Hệ thống lo SIM, kết hợp Proxy của Sếp.\n• Quản Lý Đa Phiên & Gửi Mã OTP (Gói A/B):\n  ▸ Hỗ trợ chạy cùng lúc nhiều số điện thoại (tối đa 3–10 phiên song song tùy cấp bậc tài khoản).\n  ▸ Gửi OTP đơn phiên: Gõ /otp 123456\n  ▸ Gửi OTP kèm SĐT: Gõ /otp &lt;sđt&gt; &lt;mã&gt; (Ví dụ: /otp 0901234567 123456) hoặc chạm copy dòng lệnh bot gửi sẵn.\n  ▸ Gán OTP nhanh qua nút: Khi chạy nhiều số mà chỉ gõ /otp 123456, bot sẽ tự hiện nút bấm SĐT để chạm chọn gán ngay.\n  ▸ Hủy phiên linh hoạt: Gõ /huyreg &lt;sđt&gt; (hủy 1 số), /huyreg all (hủy toàn bộ), hoặc gõ /huyreg để chọn nút bấm hủy.\n• Quản lý tài khoản đã tạo: Gõ /myacc hoặc bấm nút [📋 ACC Đã Tạo]",
-    "inputSample": "Gói Mặc Định: /reg (Chọn [🔹 1 Acc] / [🔸 5 Acc] / [🔥 10 Acc])\nHoặc Gói A (SMS): /regsdt 0901234567 hoặc /regsdt +628811542752\nHoặc Gói A (Voice Call): /regsdtcall +628811542752\nHoặc Gói B (SMS): /regfull +628811542752|103.151.120.45:8080:user:pass\nHoặc Gói B (Voice Call): /regfullcall +628811542752|103.151.120.45:8080:user:pass\nHoặc Gói C: /regproxy 103.151.120.45:8080:user:pass\n\n[GỬI OTP ĐA PHIÊN & HỦY]:\nGửi OTP kèm SĐT: /otp 0901234567 123456\nGửi OTP SĐT Đông Nam Á: /otp +628811542752 123456\nHủy 1 phiên: /huyreg 0901234567\nHủy toàn bộ phiên: /huyreg all",
-    "outputFormat": "• Kết quả bàn giao: Danh sách tài khoản tạo thành công gồm Cookie SPC_ST, SPC_F, Số điện thoại và Mật khẩu đăng nhập trực tiếp trên màn hình bot.\n• Quản lý tài khoản: Xem lại danh sách tài khoản đã tạo mọi lúc bằng lệnh /myacc hoặc bấm nút [📋 ACC Đã Tạo].",
-    "example": "• Ví Dụ 1 (Gói Mặc Định): Sếp cần tạo 5 nick mới ➔ Gõ /reg ➔ Bấm nút [ 5 Acc ] ➔ Bot tự động khởi chạy và bàn giao 5 tài khoản kèm đầy đủ Cookie, SĐT, Mật khẩu ra màn hình.\n• Ví Dụ 2 (Chạy Đa Phiên Gói A): Sếp cần tạo 2 nick bằng SĐT riêng ➔ Gửi lần lượt 2 lệnh:\n  1️⃣ /regsdt 0901111111\n  2️⃣ /regsdt 0902222222\n➔ Cả 2 phiên khởi chạy song song độc lập. Khi nhận mã cho số nào, Sếp chỉ cần chạm copy lệnh bot gửi kèm 6 số OTP (Ví dụ: /otp 0901111111 654321) ➔ Bot nhận diện gán chính xác và bàn giao acc ngay.",
-    "notes": "• Loại ví thanh toán: Chỉ thanh toán bằng TK Chính (không trừ TK KM). Hỗ trợ trừ Lượt Free khi chiến thắng trò chơi ở nhóm hỗ trợ của Sfast.\n• Chính sách hoàn tiền theo gói:\n  ▸ Gói Mặc Định & Gói C (SIM hệ thống): Lỗi hệ thống (chưa có OTP) hoặc hết 6 phút chờ ➔ Tự động hoàn 100% TK Chính. Kho số trả mã OTP sai định dạng / lỗi không xác định ➔ Hoàn vào TK KM. Không hỗ trợ hoàn tiền sau khi acc đã tạo thành công, hoặc lỗi từ phía Shopee (mã xác nhận hết hạn, tài khoản không đủ điều kiện lưu voucher).\n  ▸ Nút [🛑 Dừng Ngay]: Nếu Sếp chủ động bấm dừng khi bot đang chờ OTP ➔ Hiện cảnh báo mất phí (không hoàn tiền nếu xác nhận dừng). Sếp nên chờ hết 6 phút — nếu không có OTP, hệ thống sẽ tự động hoàn 100% tiền.\n  ▸ Gói A & Gói B (SĐT riêng của Sếp): Hỗ trợ chạy đa phiên đồng thời (khách thường tối đa 3–5 phiên, khách VIP lên tới 10 phiên). Khi nhận cuộc gọi hoặc SMS chứa mã OTP, gửi lại theo cú pháp <code>/otp &lt;sdt&gt; &lt;mã&gt;</code> (hoặc chỉ cần chạm vào dòng lệnh mẫu bot gửi để sao chép rồi gõ 6 số OTP). Khi chạy nhiều phiên cùng lúc, nếu chỉ gõ /otp 123456 bot sẽ hiện nút bấm để Sếp chạm chọn gán nhanh cho số tương ứng. Sếp có thể hủy linh hoạt: <code>/huyreg &lt;sdt&gt;</code>, <code>/huyreg all</code> hoặc gõ <code>/huyreg</code> để chọn phiên cần hủy trên nút bấm — chỉ trừ phí xử lý 50đ, phần dư hoàn về TK Chính.\n  ▸ ⚠️ Lưu ý SĐT Đông Nam Á & Phí tài nguyên: Hệ thống hỗ trợ SĐT Việt Nam và Đông Nam Á (Indonesia +62, Thái Lan +66, Malaysia +60...). Nếu nhập SĐT sai/không tồn tại, hệ thống sẽ trừ phí sử dụng tài nguyên (200đ) và hoàn phần dư về TK Chính. Sếp vui lòng kiểm tra kỹ trước khi nhập nhé ạ.\n• Lưu ý vận hành acc an toàn:\n  ▸ Sếp nên tạo thử vài acc để check chất lượng trước khi tạo số lượng lớn.\n  ▸ Không nên đăng nhập cùng lúc nhiều tài khoản trên nhiều thiết bị giống nhau trong thời gian ngắn để tránh bị Shopee quét khóa bất thường.\n  ▸ Chỉ liên kết email khi đã đăng nhập vào thiết bị điện thoại thật, tránh liên kết xong để đó không đăng nhập.\n  ▸ Các kho số hiện khá khan hiếm nên tỷ lệ mất liên kết số sau khi reg có thể phát sinh, các Sếp cân nhắc khi sử dụng.\n  ▸ 💡 Mẹo ngâm: Nên đăng nhập và để acc \"ngâm\" ít nhất 12–24h trước khi đặt đơn để tăng độ uy tín và giảm tối đa tỷ lệ bị Shopee hạn chế."
-  },
-  {
-    "id": "02",
-    "name": "Thuê SĐT Shopee",
-    "icon": "📱",
-    "cat": "cat_1",
-    "catName": "Tạo Acc & SIM",
-    "price": "Từ 3,100 VNĐ / số",
-    "walletType": "main",
-    "walletLabel": "💰 Chỉ TK Chính",
-    "comboSupport": false,
-    "comboLabel": "Không Quota",
-    "billingType": "Có OTP mới tính tiền",
-    "payload": "sim",
-    "command": "/sim",
-    "purpose": "Thuê số điện thoại nhận mã OTP đăng ký hoặc đăng nhập Shopee, có phân loại gói ZIN và gói Lấy Lại Được.",
-    "inputFormat": "• Thao tác nhanh qua Menu:\n  ▸ Gõ /sim (hoặc bấm [📱 Thuê SĐT Shopee]) ➔ Hiện bảng giá các gói V1 - Vn kèm thống kê Tỷ Lệ Mã Về hôm nay\n  ▸ Bấm chọn gói tương ứng: [Gói V1 ...] | [Gói V2 ...] | [Gói V3 ...]\n• Lệnh thuê SIM nhanh (Tắt):\n  ▸ Gõ trực tiếp: /v1, /v2, /v3... để lấy số ngay không cần qua menu\n• Các phân loại gói đặc biệt:\n  ▸ Gói Lấy Lại Được: Hỗ trợ thuê cả số đã từng đăng ký Shopee (gặp số đã ĐK ➔ bấm 'Lấy lại số' trên Shopee)\n  ▸ Gói Không Check Zin (⚠️): Lấy số siêu tốc khi kho khan hiếm, không bảo hành tài khoản nhưng không có OTP vẫn hoàn 100%",
-    "inputSample": "/sim (Bấm chọn gói [Gói V1 ...] / [Gói V2 ...])\nHoặc gõ tắt: /v1",
-    "outputFormat": "• Nhận số: Bot cấp số điện thoại (ví dụ: 0981234567) để dán vào Shopee.\n• Nhận mã OTP: Bot tự động hiển thị mã OTP kèm file ghi âm cuộc gọi [🔊 Nghe mã OTP (Audio)] (nếu có) ngay khi nhận được.\n• Nút tiện ích sau khi xong: [🔄 Thuê lại] • [📱 Chọn gói khác] • [🔄 Thuê lại số này].",
-    "example": "Sếp cần số tạo nick Shopee ➔ Gõ /sim chọn gói V1 ➔ Nhận ngay SĐT 098... ➔ Dán vào Shopee yêu cầu gửi mã ➔ Bot tự động hiển thị mã OTP kèm file ghi âm (nếu có) ngay khi nhận được.",
-    "notes": "• Thời gian chờ: Mỗi số chờ OTP tối đa 6 phút (hoặc theo timeout quy định của gói).\n• KHÔNG CÓ NÚT HỦY CHỦ ĐỘNG: Trong lúc đang chờ mã, không hỗ trợ bấm hủy giữa chừng.\n• Cơ chế hoàn tiền: Hết thời gian chờ mà không nhận được mã ➔ Tự động hủy đơn và hoàn 100% tiền về TK Chính ngay lập tức.\n• Không hỗ trợ hoàn tiền sau khi đã nhận được mã OTP hoặc file ghi âm cuộc gọi.\n• Các kho giá rẻ có tỷ lệ bị hủy liên kết SĐT cao hơn, Sếp nên cân nhắc khi sử dụng."
-  },
-  {
-    "id": "03",
-    "name": "Thuê SIM TikTok",
-    "icon": "🎵",
-    "cat": "cat_1",
-    "catName": "Tạo Acc & SIM",
-    "price": "Từ 2,500 VNĐ / số",
-    "walletType": "main",
-    "walletLabel": "💰 Chỉ TK Chính",
-    "comboSupport": false,
-    "comboLabel": "Không Quota",
-    "billingType": "Có OTP mới tính tiền",
-    "payload": "ttsim",
-    "command": "/ttsim",
-    "purpose": "Thuê số điện thoại nhận mã OTP đăng ký, đăng nhập tài khoản TikTok hoặc liên kết TikTok Shop.",
-    "inputFormat": "• Thao tác nhanh qua Menu:\n  ▸ Gõ /ttsim (hoặc bấm [🎵 Thuê SIM TikTok]) ➔ Hiện danh sách các gói TikTok SIM kèm tỷ lệ mã về\n  ▸ Bấm chọn gói tương ứng: [Gói V1 ...] | [Gói V2 ...] | [Gói V3 ...]\n• Lệnh thuê nhanh: Gõ tắt /ttv1, /ttv2, /ttv3... để nhận số ngay",
-    "inputSample": "/ttsim (Bấm chọn gói [Gói V1 ...] / [Gói V2 ...])\nHoặc gõ tắt: /ttv1",
-    "outputFormat": "• Cấp số: SĐT nhận mã hiển thị ngay trên màn hình.\n• Cập nhật OTP: Bot tự động hiển thị mã OTP kèm nút nghe ghi âm [🔊 Nghe mã OTP (Audio)] (nếu là cuộc gọi thoại) ngay khi nhận được.\n• Nút tiện ích: [🔄 Thuê lại] • [📱 Chọn gói khác].",
-    "example": "Sếp làm TikTok Shop cần số xác minh liên kết ➔ Gõ /ttsim chọn gói ➔ Lấy số dán vào TikTok ➔ Nhận mã OTP hoặc file ghi âm cuộc gọi tự động trên bot.",
-    "notes": "• Thời gian chờ: Chờ OTP tối đa 6 phút. Không có nút hủy chủ động trong khi chờ.\n• Cơ chế hoàn tiền: Không nhận được mã ➔ Tự động hủy và hoàn tiền 100% vào TK Chính. Không hoàn tiền sau khi đã nhận OTP hoặc file ghi âm."
-  },
-  {
-    "id": "04",
-    "name": "Quản Lý & Thêm Email Shopee",
-    "icon": "📧",
-    "cat": "cat_2",
-    "catName": "Quản Lý Email",
-    "price": "50 VNĐ - 500 VNĐ (tùy gói)",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM & Chính",
-    "comboSupport": true,
-    "comboLabel": "💎 Có Quota",
-    "billingType": "Thành công mới tính tiền",
-    "payload": "mail",
-    "command": "/mail",
-    "purpose": "Trung tâm quản lý Email Shopee: Tự động thêm mail vào Tài Khoản Shopee (Hotmail, Outlook, iCloud, Mail Free), hoặc sếp có thể điền email riêng.",
-    "inputFormat": "• Thao tác chính qua lệnh /mail (hoặc bấm [📧 Thêm Email]):\n  ▸ Gói 1 — Hotmail / Outlook Kho Bot (400đ / acc — Chỉ TK Chính): Bấm [📮 Hotmail — 400đ] hoặc [📩 Outlook — 400đ] ➔ Dán danh sách Cookie (tối đa 10 dòng). Bot tự động lấy mail từ kho thêm vào tài khoản.\n  ▸ Gói 2 — Mua Email Riêng Lẻ (350đ / email — Chỉ TK Chính): Bấm [🛒 Chỉ Mua Email — 350đ] ➔ Chọn [📮 Hotmail] hoặc [📩 Outlook] (hoặc gõ /muamail). Mua mail lẻ sạch có mật khẩu + token để tự dùng riêng, không cần dán Cookie. Có sẵn nút [📨 Đọc Email Vừa Mua].\n  ▸ Gói 3 — Thuê Mail iCloud 7 Ngày (500đ / 7 ngày — Chỉ TK Chính): Bấm [☁️ Thuê Mail iCloud — 500đ/7 ngày] ➔ Dán danh sách Cookie. Bot cấp Mail iCloud, gắn vào nick và bảo lưu hộp thư đọc OTP 7 ngày. Phù hợp nuôi acc trust cao.\n  ▸ Gói 4 — Mail Free Tạm Thời (50đ / acc — Hỗ trợ TK KM 🎁): Bấm [📨 Mail Free (Mail Tạm) — 50đ] (hoặc gõ /mailfree) ➔ Dán danh sách Cookie. Bot tự tạo mail tạm và đọc OTP tự động.\n  ▸ Gói 5 — Thêm Email Riêng Của Sếp (80đ / acc — Hỗ trợ TK KM 🎁): Không cần bấm nút, dán thẳng danh sách: email@domain|Cookie[|proxy]. Bot gửi yêu cầu đổi mail để Sếp tự nhập OTP.\n• Định dạng Cookie đầu vào: Chấp nhận Cookie SPC_ST hoặc dòng SPC_F=token|user|pass (hỗ trợ kèm proxy riêng).",
-    "inputSample": "Cú pháp dán Cookie thêm mail tự động (Gói 1, 3, 4):\nSPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123\n\nCú pháp tự điền email riêng (Gói 5):\nmyemail@gmail.com|SPC_ST=WTdWUTBhS01wVz...abc123def",
-    "outputFormat": "• Báo cáo chi tiết: Trạng thái thêm email thành công từng tài khoản.\n• Với Mua Email Riêng: Xuất đầy đủ email|password|token_auth|client_key kèm nút [📨 Đọc Email Vừa Mua].",
-    "example": "Sếp có 5 nick Shopee cần thêm mail ➔ Gõ /mail ➔ Bấm chọn [ 📮 Hotmail — 400đ ] ➔ Dán 5 Cookie ➔ Bot tự mua mail và liên kết hoàn tất trong 30 giây.",
-    "notes": "• Phân loại ví thanh toán:\n  - Chỉ dùng TK Chính: Hotmail/Outlook kho bot (400đ), Mua mail riêng (350đ), Thuê iCloud 7 ngày (500đ).\n  - Hỗ trợ TK Khuyến Mãi: Mail Free tạm thời (50đ), Thêm email riêng của Sếp (80đ).\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Chỉ tính tiền tài khoản thêm email thành công. Lỗi (đã có email, sai pass SPC_F hoặc cookie die) ➔ Tự động hoàn tiền 100% cho từng dòng lỗi."
-  },
-  {
-    "id": "05",
-    "name": "Đổi Email Tài Khoản Shopee",
-    "icon": "🔄",
-    "cat": "cat_2",
-    "catName": "Quản Lý Email",
-    "price": "50 VNĐ - 500 VNĐ / acc",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": false,
-    "comboLabel": "Không Quota",
-    "billingType": "Đổi xong mới tính tiền",
-    "payload": "doimail",
-    "command": "/doimail",
-    "purpose": "Đổi sang địa chỉ email mới cho tài khoản Shopee đã có sẵn email cũ. Tích hợp 3 tùy chọn: tự nhập email riêng, dùng mail tạm tự động, hoặc thuê mail iCloud cao cấp.",
-    "inputFormat": "• Thao tác chọn phương thức qua lệnh /doimail (hoặc bấm [🔄 Đổi Email]):\n  ▸ Gói 1 — Tự Nhập Email (50đ — Hỗ trợ TK KM 🎁): Bấm [🟢 Tự Nhập (50đ)] ➔ Dán theo định dạng email_moi@domain|Cookie_Shopee[|proxy] ➔ Nhập OTP thủ công gửi về email\n  ▸ Gói 2 — Mail Free Tự Động (50đ — Hỗ trợ TK KM 🎁): Bấm [📨 Mail Free (50đ)] ➔ Dán danh sách Cookie SPC_ST hoặc SPC_F (tối đa 10 dòng) ➔ Hệ thống tự tạo mail tạm và đọc OTP tự động\n  ▸ Gói 3 — Thuê Mail iCloud (500đ — Chỉ TK Chính 💰): Bấm [☁️ iCloud (500đ)] ➔ Dán danh sách Cookie SPC_ST hoặc SPC_F (tối đa 10 dòng) ➔ Hệ thống cấp Mail iCloud và tự đọc OTP hoàn tất",
-    "inputSample": "Cú pháp Tự Nhập Email Mới:\nemail_moi@gmail.com|SPC_ST=WTdWUTBhS01wVz...abc123def\nemail_moi@outlook.com|SPC_F=token_spcf|0912345678|MatKhau@123\n\nCú pháp Mail Free / iCloud:\nSPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
-    "outputFormat": "• Thông báo kết quả: Đổi email thành công kèm địa chỉ email mới đã liên kết.\n• Nút hủy chủ động: Trong lúc chờ OTP có nút [ ❌ Hủy Đổi Email ] để hủy phiên ngay.",
-    "example": "Sếp mua lại nick Shopee và muốn đổi sang email chính chủ ➔ Gõ /doimail ➔ Bấm [ 🟢 Tự Nhập (50đ) ] ➔ Gửi email mới kèm cookie ➔ Nhập OTP xác thực là xong.",
-    "notes": "• Lưu ý phạm vi: Chỉ áp dụng cho tài khoản ĐÃ CÓ email. Với tài khoản trắng chưa từng liên kết email, Sếp dùng lệnh /themmail (Thêm Email) nhé ạ.\n• Cơ chế trừ tiền: ĐỔI XONG 100% MỚI TÍNH TIỀN.\n• Nếu bấm [ ❌ Hủy Đổi Email ], sai mật khẩu SPC_F hoặc Shopee từ chối đổi ➔ Tự động hoàn tiền 100%."
-  },
-  {
-    "id": "06",
-    "name": "Đọc Hộp Thư Lấy Mã OTP",
-    "icon": "📬",
-    "cat": "cat_2",
-    "catName": "Quản Lý Email",
-    "price": "10 VNĐ / lần",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": true,
-    "comboLabel": "💎 Có Quota",
-    "billingType": "Chỉ trừ khi có thư / OTP",
-    "payload": "docmail",
-    "command": "/docmail",
-    "purpose": "Tự động kiểm tra hòm thư (Hotmail, Outlook, Mail Free hoặc iCloud thuê) và lấy ra mã OTP Shopee mới nhất.",
-    "inputFormat": "• Thao tác đọc email:\n  ▸ Gõ /docmail (hoặc bấm [📬 Đọc Email]) ➔ Dán data email theo định dạng tương ứng:\n  ▸ ☁️ Mail iCloud: tenmail@icloud.com (chỉ cần 1 dòng địa chỉ)\n  ▸ 📮 Hotmail / Outlook: email|password|token_auth|client_key\n  ▸ 📨 Mail Free: email|password|mailfree\n  ▸ Hệ thống tự động đọc hộp thư và trích xuất mã OTP hoặc link xác nhận mới nhất",
-    "inputSample": "abc123@icloud.com\nmyaccount@hotmail.com|Password123|token_auth_sample|client_key_sample\ntempmail123@domain.com|Password123|mailfree",
-    "outputFormat": "• Kết quả: Mã xác thực OTP Shopee: 123456 (hoặc link xác nhận trong thư).\n• Nút bấm tương tác: [ 🔄 Đọc Lại / Lấy Mã Mới ] • [ 🔄 Kiểm Tra Lại Hộp Thư ] • [ ☁️ Thuê Mail Mới ] • [ 🏠 Menu Chính ].",
-    "example": "Sếp đổi mật khẩu Shopee và Shopee gửi mã về email ➔ Gửi thông tin mail vào /docmail ➔ Bot đọc ngay mã OTP trong 3 giây.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế trừ tiền: CHỈ TRỪ TIỀN KHI ĐỌC ĐƯỢC THƯ CÓ MÃ OTP SHOPEE. Nếu hòm thư chưa nhận được thư mới hoặc tìm không thấy mã OTP ➔ Hoàn tiền 100% ngay lập tức (không tính phí)."
-  },
-  {
-    "id": "07",
-    "name": "Lấy Cookie Bằng Mã QR",
-    "icon": "🔑",
-    "cat": "cat_3",
-    "catName": "Cookie & Kiểm Tra Acc",
-    "price": "50 VNĐ / lần",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": true,
-    "comboLabel": "💎 Có Quota",
-    "billingType": "Chỉ tính khi quét thành công",
-    "payload": "cookie",
-    "command": "/cookie",
-    "purpose": "Lấy Cookie đăng nhập SPC_ST từ tài khoản Shopee cực nhanh bằng cách quét mã QR trên điện thoại (không cần nhập mật khẩu).",
-    "inputFormat": "• Thao tác qua Menu:\n  ▸ Bước 1: Gõ /cookie (hoặc bấm [🔑 Lấy Cookie])\n  ▸ Bước 2: Bấm nút [📷 Quét Mã QR Shopee  —  50đ/lần]\n  ▸ Bước 3: Mở App Shopee trên điện thoại ➔ Quét mã QR ➔ Bấm 'Xác nhận đăng nhập'\n• Lệnh quét QR nhanh:\n  ▸ Gõ trực tiếp: /qr (hoặc kèm proxy: /qr ip:port:user:pass)",
-    "inputSample": "/cookie (Bấm nút [📷 Quét Mã QR Shopee])\nHoặc gõ nhanh: /qr\nHoặc gõ kèm proxy: /qr 103.151.120.45:8080:user:pass",
-    "outputFormat": "• Kết quả: Quét mã thành công, bot trả về Cookie chuẩn SPC_ST và mã SPC_F.\n• Nút điều hướng nhanh: [ 🎁 Lưu Voucher ] • [ 📧 Thêm Email ] • [ 🔎 Chi Tiết Đơn ] • [ 🔑 Lấy Tiếp Cookie ].",
-    "example": "Sếp có nick trên điện thoại muốn lấy Cookie để chạy tool săn sale ➔ Gõ /qr ➔ Mở App Shopee quét mã ➔ Bấm xác nhận ➔ Nhận Cookie SPC_ST ngay.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Thời gian chờ quét mã: Tối đa 5 phút.\n• Cơ chế trừ tiền an toàn: CHỈ TRỪ TIỀN KHI QUÉT MÃ THÀNH CÔNG. Khách không quét, sau một thời gian sẽ hết hạn mã QR hoặc bấm nút [ ❌ Hủy ] ➔ Không bị trừ bất kỳ đồng nào."
-  },
-  {
-    "id": "08",
-    "name": "Đổi SPC_F Sang Cookie SPC_ST",
-    "icon": "🌐",
-    "cat": "cat_3",
-    "catName": "Cookie & Kiểm Tra Acc",
-    "price": "50 VNĐ / acc OK",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": true,
-    "comboLabel": "💎 Có Quota",
-    "billingType": "Chỉ tính acc thành công",
-    "payload": "spcf",
-    "command": "/spcf",
-    "purpose": "Chuyển đổi danh sách nick từ Mã định danh SPC_F sang Cookie chuẩn SPC_ST để lưu trữ hoặc dùng cho các chức năng khác.",
-    "inputFormat": "• Thao tác khởi chạy:\n  ▸ Gõ lệnh /spcf (hoặc /spc, hoặc bấm '🛡️ Nhập SPC_F' trong menu /cookie)\n• Định dạng nhập liệu (mỗi dòng 1 tài khoản, tối đa 50 dòng):\n  ▸ Cú pháp chuẩn: SPC_F=xxx|username|password\n  ▸ Kèm proxy HTTP: SPC_F=xxx|user|pass|ip:port:user:pass\n  ▸ Kèm proxy SOCKS5: SPC_F=xxx|user|pass|socks5://ip:port:user:pass\n  ▸ Trường username hỗ trợ SĐT (0912345678) hoặc Tên đăng nhập Shopee",
-    "inputSample": "SPC_F=abc123xyz|0912345678|MatKhau@123\nSPC_F=def456uvw|myusername|MatKhau@456|103.151.120.45:8080:user:pass",
-    "outputFormat": "• Danh sách Cookie SPC_ST đổi thành công: ✅ [user]: SPC_ST=WTdWUT...",
-    "example": "Sếp có 20 nick dạng SPC_F|user|pass ➔ Dán cả 20 dòng vào Bot ➔ Bot đổi và trả ra 20 Cookie SPC_ST để dùng cho các tool khác.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế hoàn tiền: Trừ tiền trước, hoàn sau. Chỉ tính tiền những tài khoản trích xuất thành công Cookie SPC_ST. Tài khoản sai mật khẩu hoặc lỗi proxy ➔ Tự động hoàn tiền 100% cho từng dòng lỗi."
-  },
-  {
-    "id": "09",
-    "name": "Kiểm Tra Sống / Chết (Check Live)",
-    "icon": "🛡️",
-    "cat": "cat_3",
-    "catName": "Cookie & Kiểm Tra Acc",
-    "price": "10 VNĐ / số",
-    "shortPrice": "",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": true,
-    "comboLabel": "💎 Có Quota",
-    "billingType": "Trừ trước, hoàn sau",
-    "payload": "live",
-    "command": "/live",
-    "purpose": "Kiểm tra danh sách số điện thoại Shopee xem tài khoản còn hoạt động (Live), chưa đăng ký hoặc đã bị khóa/hạn chế. Không cần mật khẩu hay Cookie.",
-    "inputFormat": "• Thao tác kiểm tra:\n  ▸ Gõ /live (hoặc bấm [🛡️ Check Live], hoặc gõ /check_live)\n  ▸ Dán danh sách số điện thoại cần kiểm tra (mỗi số 1 dòng, tối đa 10 dòng)\n  ▸ Hỗ trợ các định dạng SĐT Việt Nam: 84xxxxxxxxx, 0xxxxxxxxx, hoặc xxxxxxxx (9 số, hệ thống tự động bổ sung đầu 84)\n  ▸ Lưu ý: Chỉ nhận số điện thoại, không nhận Cookie, Username hay Email",
-    "inputSample": "0931307769\n84912345678\n0987654321",
-    "outputFormat": "• Báo cáo chi tiết từng SĐT:\n  ▸ 🍀 Live: ✅ Tài khoản đang hoạt động (Live) kèm thông tin che bảo mật: Username, SĐT, Email (nếu có)\n  ▸ ❌ Die / Chưa ĐK: Số điện thoại chưa đăng ký hoặc đã bị khóa\n  ▸ ⚠️ Lỗi: Không kiểm tra được (do mạng hoặc timeout)",
-    "example": "Sếp có 10 số điện thoại Shopee cần lọc ➔ Gõ /live dán 10 SĐT ➔ Bot kiểm tra trực tiếp và báo ngay từng số Live ✅ kèm thông tin nick hoặc Die ❌.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Giới hạn: Mỗi lần kiểm tra tối đa 10 dòng (mỗi dòng 1 số điện thoại).\n• Cơ chế trừ tiền: Chỉ trừ tiền những số kiểm tra thành công. Lỗi hệ thống hoặc timeout ➔ Tự động hoàn tiền 100%."
-  },
-  {
-    "id": "10",
-    "name": "Kiểm Tra SĐT Chưa Đăng Ký (Check Zin)",
-    "icon": "🔍",
-    "cat": "cat_3",
-    "catName": "Cookie & Kiểm Tra Acc",
-    "price": "80 VNĐ / số",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": true,
-    "comboLabel": "💎 Có Quota",
-    "billingType": "Trừ trước, hoàn sau",
-    "payload": "zin",
-    "command": "/zin",
-    "purpose": "Kiểm tra xem số điện thoại đã từng đăng ký Shopee chưa trước khi Sếp mua SIM hoặc nạp tiền tạo nick.",
-    "inputFormat": "• Thao tác kiểm tra:\n  ▸ Gõ /zin (hoặc bấm [🔍 Check SĐT Zin], hoặc gõ /check_zin)\n  ▸ Dán danh sách số điện thoại Việt Nam (mỗi dòng 1 số, tối đa 10 số)\n  ▸ Hệ thống kiểm tra trực tiếp trên Shopee và trả về trạng thái ZIN Chưa ĐK ✅ hoặc ĐÃ ĐK ❌",
-    "inputSample": "0912345678\n0987654321\n0345678901",
-    "outputFormat": "• Báo cáo kết quả: ✨ [SĐT]: ZIN (Chưa từng đăng ký - Tạo nick OK) hoặc ⚠️ [SĐT]: ĐÃ ĐĂNG KÝ SHOPEE.",
-    "example": "Sếp vừa mua 1 lô SIM vật lý về định tạo nick Shopee ➔ Dán danh sách vào check trước ➔ Lọc ngay số sạch chưa đăng ký.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Lỗi kết nối Shopee hoặc timeout không có kết quả ➔ Tự động hoàn tiền 100%."
-  },
-  {
-    "id": "11",
-    "name": "Xem Thông Tin Tài Khoản (Check Acc Info)",
-    "icon": "🔍",
-    "cat": "cat_3",
-    "catName": "Cookie & Kiểm Tra Acc",
-    "price": "50 VNĐ / acc",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": true,
-    "comboLabel": "💎 Có Quota",
-    "billingType": "Trừ trước, hoàn sau",
-    "payload": "checkacc",
-    "command": "/checkacc",
-    "purpose": "Trích xuất hồ sơ tài khoản Shopee đầy đủ: User ID, Shop ID, Tên đăng nhập, Email gốc, SĐT gốc, Ngày tạo tài khoản và trạng thái Live/Die.",
-    "inputFormat": "• Thao tác soi thông tin acc:\n  ▸ Gõ /checkacc (hoặc bấm [🔍 Check Acc Info])\n  ▸ Dán danh sách tài khoản (mỗi dòng 1 tài khoản [|proxy], tối đa 20 dòng)\n  ▸ Chấp nhận Cookie SPC_ST hoặc SPC_F=token|user|pass\n  ▸ Bot trích xuất đầy đủ: User ID, Shop ID, Tên đăng nhập, Email gốc, SĐT gốc, Ngày tạo và trạng thái Live/Die",
-    "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
-    "outputFormat": "• Hồ sơ trích xuất: User ID, Shop ID, Tên đăng nhập, Email gốc, SĐT gốc, Ngày tạo, Trạng thái (Live ✅ / Die ❌).",
-    "example": "Sếp có danh sách Cookie nhưng không nhớ tài khoản tên gì, tạo từ khi nào ➔ Dán vào ➔ Bot xuất ra thông tin rõ ràng.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Hỗ trợ token SPC_F: Tự động nhận diện và đăng nhập giải mã.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Dòng nào sai mật khẩu hoặc cookie die ➔ Hoàn tiền 100%."
-  },
-  {
-    "id": "12",
-    "name": "Tra Mã Vận Đơn (SPX / GHN)",
-    "icon": "📦",
-    "cat": "cat_4",
-    "catName": "Đơn Hàng & Địa Chỉ",
-    "price": "10 VNĐ / mã",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": true,
-    "comboLabel": "💎 Có Quota",
-    "billingType": "Trừ trước, hoàn sau",
-    "payload": "mvd",
-    "command": "/mvd",
-    "purpose": "Tra cứu hành trình đơn hàng Shopee Xpress (SPX) hoặc Giao Hàng Nhanh (GHN) xem hàng đang ở kho nào, shipper nào đang giao (áp dụng hỏa tốc). Có chế độ ghi chú theo dõi tự động miễn phí.",
-    "inputFormat": "• Thao tác tra cứu:\n  ▸ Gõ /mvd (hoặc bấm [📦 Tra Mã Vận Đơn], hoặc gõ /check_order)\n  ▸ Dán danh sách mã vận đơn (mỗi dòng 1 mã, tối đa 20 mã):\n  ▸ 🧡 Shopee Xpress (SPX): Nhập mã vận đơn bình thường (ví dụ: SPXVN061234567890)\n  ▸ 💚 Giao Hàng Nhanh (GHN): Nhập mã kèm SĐT người nhận cách nhau bằng dấu cách (ví dụ: GY123456 0901234567)\n  ▸ 📝 Ghi chú nhanh: Thêm dấu gạch đứng để note (ví dụ: SPXVN...|Đơn son môi)\n  ▸ Tiện ích đi kèm: Nút [📋 Danh Sách Theo Dõi] và [🔎 Chi Tiết Đơn Hàng]",
-    "inputSample": "SPXVN061234567890\nGY123456 0901234567\nSPXVN069876543210|Đơn phụ kiện điện thoại",
-    "outputFormat": "• Chi tiết hành trình: Vị trí kho bưu cục, lịch trình luân chuyển, SĐT shipper đang đi giao.\n• Nút bấm theo dõi: [ 📋 Danh Sách Theo Dõi ] và [ 📦 Check Thêm ] (nếu dùng chế độ ghi chú).",
-    "example": "Sếp mua hàng Shopee muốn biết kiện hàng đã về đến bưu cục gần nhà chưa ➔ Nhập mã SPX nhận kết quả tức thì kèm SĐT shipper (áp dụng hỏa tốc).",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Giới hạn: Tối đa 20 mã/lần.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Mã vận đơn không tồn tại trên hệ thống hoặc tra cứu lỗi ➔ Tự động hoàn tiền 100% cho mã đó."
-  },
-  {
-    "id": "13",
-    "name": "Xem Chi Tiết Đơn Hàng",
-    "icon": "🔎",
-    "cat": "cat_4",
-    "catName": "Đơn Hàng & Địa Chỉ",
-    "price": "50 VNĐ / acc",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": true,
-    "comboLabel": "💎 Có Quota",
-    "billingType": "Trừ trước, hoàn sau",
-    "payload": "chitiet",
-    "command": "/chitiet",
-    "purpose": "Xem danh sách các đơn hàng gần nhất trong tài khoản Shopee: Tên sản phẩm, tổng tiền, mã vận đơn và trạng thái (Đang giao, Đã giao...).",
-    "inputFormat": "• Thao tác soi chi tiết đơn:\n  ▸ Gõ /chitiet (hoặc bấm [🔎 Chi Tiết Đơn Hàng], hoặc gõ /order_detail)\n  ▸ Dán danh sách Cookie Shopee (mỗi dòng 1 Cookie [|proxy], tối đa 10 cookie)\n  ▸ Hệ thống tự nhận diện Cookie có tiền tố SPC_ST= hay không\n  ▸ Trích xuất chi tiết: Mã đơn, tên sản phẩm, số tiền, ngày tạo đơn và tiến trình vận chuyển",
-    "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nb1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass",
-    "outputFormat": "• Báo cáo đơn hàng: Mã đơn, tên sản phẩm, tổng tiền, trạng thái vận chuyển chi tiết.",
-    "example": "Sếp quản lý nhiều nick đặt hàng, cần kiểm tra nhanh xem nick nào đã được giao hàng ➔ Dán 10 Cookie ➔ Bot liệt kê danh sách đơn từng nick.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Cookie die hoặc lỗi kết nối ➔ Tự động hoàn tiền 100%."
-  },
-  {
-    "id": "14",
-    "name": "Thêm Địa Chỉ Mặc Định",
-    "icon": "📍",
-    "cat": "cat_4",
-    "catName": "Đơn Hàng & Địa Chỉ",
-    "price": "50 VNĐ / acc",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": false,
-    "comboLabel": "Không Quota",
-    "billingType": "Thêm thành công mới tính tiền",
-    "payload": "diachi",
-    "command": "/diachi",
-    "purpose": "Tự động thêm địa chỉ nhận hàng và đặt làm mặc định cho tài khoản Shopee, hỗ trợ tự nhận diện hành chính.",
-    "inputFormat": "• Thao tác thêm địa chỉ:\n  ▸ Gõ /diachi (hoặc bấm [📍 Thêm Địa Chỉ])\n  ▸ Dán dòng thông tin theo cấu trúc: Cookie|Tên|SĐT|Địa chỉ\n  ▸ Địa chỉ phân cách bằng dấu phẩy: Số nhà/đường, Phường/Xã, Quận/Huyện, Tỉnh/TP\n  ▸ Mẹo thông minh: Không bắt buộc viết chữ Phường/Xã/Quận/Huyện — hệ thống tự nhận diện chuẩn Wards/Districts Shopee\n  ▸ Tên và SĐT có thể để trống (Cookie|||Địa chỉ) để hệ thống tự sinh ngẫu nhiên",
-    "inputSample": "SPC_ST=WTdWUT...abc123|Nguyễn Văn A|0901234567|123 Nguyễn Trãi, Bến Thành, Quận 1, TP Hồ Chí Minh\nSPC_ST=AbCdEf...xyz789|||Số 45 Lê Lợi, Phường Bến Nghé, Quận 1, TP Hồ Chí Minh",
-    "outputFormat": "• Kết quả: Báo cáo thêm địa chỉ nhận hàng thành công và đã đặt làm mặc định.",
-    "example": "Sếp chuẩn bị kéo sale, cần điền sẵn địa chỉ nhận hàng cho nick Shopee ➔ Nhập cú pháp đủ 3 dấu phẩy ➔ Bot tự thêm địa chỉ chuẩn xác.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi (không trừ Quota Combo).\n• Cơ chế hoàn tiền: Thêm thành công mới trừ tiền, thất bại hoàn tiền 100%."
-  },
-  {
-    "id": "15",
-    "name": "Bấm Đã Nhận Hàng Tự Động",
-    "icon": "✅",
-    "cat": "cat_4",
-    "catName": "Đơn Hàng & Địa Chỉ",
-    "price": "50 VNĐ / acc",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": false,
-    "comboLabel": "Không Quota",
-    "billingType": "Trừ trước, hoàn sau",
-    "payload": "xacnhandon",
-    "command": "/xacnhandon",
-    "purpose": "Tự động quét toàn bộ các đơn hàng đang giao trên hàng loạt nick Shopee và bấm nút 'Đã nhận được hàng' nhanh chóng.",
-    "inputFormat": "• Thao tác xác nhận nhận hàng:\n  ▸ Gõ /xacnhandon (hoặc bấm [✅ Xác Nhận Nhận Hàng])\n  ▸ Dán danh sách tài khoản cần xác nhận đơn (mỗi dòng 1 tài khoản [|proxy])\n  ▸ Chấp nhận Cookie SPC_ST (tối đa 100 tài khoản) hoặc SPC_F=token|user|pass (tối đa 20 dòng)\n  ▸ Bot tự động tìm toàn bộ đơn đang giao và bấm nút 'Đã nhận được hàng' trên Shopee",
-    "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
-    "outputFormat": "• Báo cáo chi tiết: Danh sách các đơn hàng đã bấm nhận thành công kèm mã đơn.",
-    "example": "Sếp có 50 nick đều đã nhận được hàng và cần bấm nút xác nhận ➔ Dán 50 Cookie vào Bot ➔ Bấm nhận toàn bộ trong 30 giây.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi.\n• Hỗ trợ token SPC_F: Nhận tối đa 20 dòng SPC_F/lần gửi.\n• Cơ chế hoàn tiền: Tạm giữ phí trước, tự động hoàn lại 100% cho nick không có đơn đang giao hoặc cookie lỗi."
-  },
-  {
-    "id": "16",
-    "name": "Kiểm Tra Ví Shopee Voucher",
-    "icon": "🔎",
-    "cat": "cat_5",
-    "catName": "Săn & Lưu Voucher",
-    "price": "50 VNĐ / acc",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": false,
-    "comboLabel": "Không Quota",
-    "billingType": "Trừ trước, hoàn sau",
-    "payload": "vivc",
-    "command": "/vivc",
-    "purpose": "Soi toàn bộ kho voucher trong ví tài khoản Shopee: Lọc theo mã giảm tiền, mã FreeShip, hoặc kiểm tra mã chỉ định.",
-    "inputFormat": "• Thao tác quét ví voucher:\n  ▸ Gõ /vivc (hoặc bấm [🔎 Voucher Acc])\n  ▸ Bước 1: Chọn loại voucher cần lọc qua 6 nút Inline:\n    [🔥 Mã Hot] | [💰 Giảm 100K] | [💰 Giảm 80K] | [🏷️ Giảm 20/25K] | [🚚 FreeShip Hỏa Tốc] | [🔍 Mã Tự Nhập]\n  ▸ Bước 2: Dán danh sách tài khoản (Cookie SPC_ST hoặc SPC_F, tối đa 20 dòng [|proxy])\n  ▸ Mẹo nhanh: Nếu dán Cookie thẳng mà không chọn nút, hệ thống tự động lọc theo bộ [🔥 Mã Hot]",
-    "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
-    "outputFormat": "• Danh sách voucher khả dụng: Tên voucher, mức giảm, hạn sử dụng và điều kiện đơn tối thiểu.",
-    "example": "Sếp muốn biết nick của mình đã lưu được mã giảm 100k hôm nay chưa ➔ Bấm nút [ 💰 Giảm 100K ] ➔ Dán Cookie vào ➔ Bot liệt kê danh sách mã tương ứng.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi.\n• Hỗ trợ token SPC_F: Tự động nhận diện và đăng nhập giải mã.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Cookie die hoặc lỗi đăng nhập ➔ Tự động hoàn tiền 100%."
-  },
-  {
-    "id": "17",
-    "name": "Lưu Voucher Bằng Mã Code",
-    "icon": "🎟️",
-    "cat": "cat_5",
-    "catName": "Săn & Lưu Voucher",
-    "price": "700 VNĐ / lượt",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": false,
-    "comboLabel": "Không Quota",
-    "billingType": "Chỉ tính khi lưu thành công",
-    "payload": "luucode",
-    "command": "/luucode",
-    "purpose": "Lưu mã giảm giá ký tự (Voucher Code) vào ví tài khoản Shopee hàng loạt, chỉ tính phí khi lưu thành công.",
-    "inputFormat": "• Thao tác nạp voucher code tự do:\n  ▸ Gõ /luucode (hoặc bấm [🎟️ Lưu Voucher Code])\n  ▸ Gửi chung một tin nhắn chứa cả Mã Voucher và Danh Sách Cookie tài khoản\n  ▸ Hệ thống tự động phân tách Mã Voucher và Cookie\n  ▸ Hỗ trợ nạp cùng lúc tối đa 5 mã voucher vào tối đa 10 tài khoản Shopee",
-    "inputSample": "MAGIAMGIA50K\nFREESHIPTHANG10\nSPC_ST=WTdWUTBhS01wVz...cookie1\nSPC_ST=b1Z1c05rbk1xSj...cookie2|103.151.120.45:8080:user:pass",
-    "outputFormat": "• Báo cáo kết quả: ✅ Lưu thành công mã [CODE] vào ví tài khoản.",
-    "example": "Sếp săn được 2 mã code độc quyền, muốn nạp vào 10 nick Shopee (Tổng 2×10=20 lượt) ➔ Bot chạy song song và hoàn tất trong vài giây.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi.\n• Hỗ trợ token SPC_F: Tự động nhận diện và đăng nhập giải mã (tối đa 10 dòng SPC_F).\n• Cơ chế trừ tiền an toàn: CHỈ TÍNH TIỀN KHI LƯU VOUCHER THÀNH CÔNG. Lượt lưu lỗi (mã hết hạn, acc đã lưu trước đó, cookie die) ➔ Hoàn tiền 100%."
-  },
-  {
-    "id": "18",
-    "name": "Săn & Lưu Voucher Hot (Kho Bot)",
-    "icon": "🎁",
-    "cat": "cat_5",
-    "catName": "Săn & Lưu Voucher",
-    "price": "500 VNĐ / acc OK",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM",
-    "comboSupport": true,
-    "comboLabel": "💎 Có Quota",
-    "billingType": "Trừ trước, hoàn sau",
-    "payload": "luuvc",
-    "command": "/luuvc",
-    "purpose": "Săn và lưu các mã giảm giá HOT được bot cập nhật theo thời gian thực (Shopee Live, Video, FreeShip, Giảm 50k, 100k...).",
-    "inputFormat": "• Thao tác săn mã HOT hệ thống:\n  ▸ Bước 1: Gõ /luuvc (hoặc bấm [🎁 Lưu Voucher], hoặc gõ /voucher)\n  ▸ Bước 2: Xem danh sách voucher được phân nhóm kèm trạng thái real-time (% đã dùng, còn lượt/hết lượt)\n  ▸ Bước 3: Bấm vào nút mã muốn lưu (ví dụ: [🔥 Giảm 50K — Mã Siêu Hot] hoặc [⚡ Đang HOT])\n  ▸ Bước 4: Dán danh sách Cookie Shopee (SPC_ST) để hệ thống lưu mã vào ví tài khoản",
-    "inputSample": "/luuvc (Bấm chọn mã [🔥 Mã Siêu Hot] / [⚡ Đang HOT]) ➔ Dán danh sách Cookie:\nSPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def",
-    "outputFormat": "• Thông báo lưu mã thành công: ✅ Đã lưu [Tên Mã] vào ví tài khoản Shopee.",
-    "example": "Sếp muốn lưu mã giảm 50k vào 5 nick Shopee ➔ Gõ /luuvc ➔ Bấm nút chọn mã ➔ Dán 5 Cookie ➔ Cả 5 nick đều được nạp mã trong 10 giây.",
-    "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Tỷ lệ thành công: Mã còn lượt trên Shopee ➔ Lưu thành công 100%.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Mã hết lượt hoặc tài khoản lỗi ➔ Tự động hoàn tiền 100%."
-  },
-  {
-    "id": "19",
-    "name": "Gói Combo Dịch Vụ 30 Ngày",
-    "icon": "💎",
-    "cat": "cat_5",
-    "catName": "Săn & Lưu Voucher",
-    "price": "10k - 80k / 30 ngày",
-    "walletType": "main",
-    "walletLabel": "💰 Chỉ TK Chính",
-    "comboSupport": true,
-    "comboLabel": "Cấp Quota 30 ngày",
-    "billingType": "Kích hoạt dùng 30 ngày",
-    "payload": "combo",
-    "command": "/combo",
-    "purpose": "Đăng ký gói Combo trọn gói 30 ngày để sử dụng 8+ dịch vụ hệ thống với giá siêu tiết kiệm tới 45% so với dùng lẻ từng lượt.",
-    "inputFormat": "• Thao tác mua hoặc gia hạn gói:\n  ▸ Gõ /combo (hoặc bấm [💎 Combo Dịch Vụ]) ➔ Hiện bảng giá & hạn ngạch các gói Combo\n  ▸ Bấm nút mua gói tương ứng: [💎 Mua Gói Combo 1...] | [💎 Mua Gói Combo 2...] | [💎 Mua Gói Combo 3...]\n  ▸ Hệ thống trừ tiền TK Chính và kích hoạt ngay hạn ngạch sử dụng trong 30 ngày",
-    "inputSample": "/combo (Bấm chọn [💎 Mua Gói Combo 1...] / [💎 Mua Gói Combo 2...])",
-    "outputFormat": "• Kích hoạt: Kích hoạt ngay gói Combo 30 ngày và cộng hạn mức Quota dịch vụ vào tài khoản.\n• Tra cứu lượt: Kiểm tra số lượt còn lại bất kỳ lúc nào qua lệnh /tk.",
-    "example": "Thay vì trả tiền cho từng lượt dùng lẻ ➔ Sếp đăng ký gói Combo Tối Thượng 30k ➔ Được cấp hạn mức dùng thả ga cho 8+ dịch vụ trong 30 ngày.",
-    "notes": "• Loại ví thanh toán: Chỉ thanh toán bằng TK Chính (không trừ TK KM).\n• Thời hạn sử dụng: 30 ngày kể từ lúc mua.\n• Nâng cấp linh hoạt: Sếp có thể nâng cấp lên gói cao hơn bất kỳ lúc nào, hệ thống tự động tính khấu trừ số tiền tương ứng theo số ngày chưa dùng của gói cũ.\n• Mở khóa hạn mức: Áp dụng cho 8+ dịch vụ (QR, SPC_F, Zin, Live, Thêm Mail, Đọc Mail, Lưu Voucher, Tra Đơn)."
-  },
-  {
-    "id": "20",
-    "name": "Đổi Mật Khẩu Shopee",
-    "icon": "🔑",
-    "cat": "cat_3",
-    "catName": "Cookie & Kiểm Tra Acc",
-    "price": "100 VNĐ / acc",
-    "shortPrice": "100 VNĐ / acc",
-    "walletType": "km",
-    "walletLabel": "🎁 Hỗ trợ TK KM & Chính",
-    "comboSupport": false,
-    "comboLabel": "Không Quota",
-    "billingType": "Thành công mới tính tiền",
-    "payload": "doipass",
-    "command": "/doipass",
-    "purpose": "Hệ thống tự động đổi mật khẩu tài khoản Shopee hàng loạt qua Cookie SPC_ST hoặc mã SPC_F. Tự động sinh mật khẩu ngẫu nhiên 10 ký tự đạt 100% chuẩn Shopee nếu bỏ trống, hỗ trợ proxy riêng và tự động cập nhật mật khẩu mới lên Google Sheet nếu có liên kết ở /reg.",
-    "inputFormat": "• Thao tác chính qua lệnh /doipass (hoặc /spcf, hoặc bấm [🔑 Đổi Mật Khẩu]):\n  ▸ Kênh 1 — Nhập Text trực tiếp (tối đa 10 tài khoản / lần gửi chống tràn trần 4096 Telegram):\n    • Cú pháp tự sinh pass: SPC_ST|pass_cu (Hệ thống tự tạo pass mới 10 ký tự chuẩn Shopee)\n    • Cú pháp tự đặt pass: SPC_ST|pass_cu|pass_moi\n    • Kèm Proxy HTTP: SPC_ST|pass_cu[|pass_moi]|ip:port:user:pass\n    • Kèm Proxy SOCKS5: SPC_ST|pass_cu[|pass_moi]|socks5://ip:port:user:pass (hoặc socks5://ip:port)\n    • Định dạng SPC_F: SPC_F=token|username|pass_cu[|pass_moi][|proxy]\n  ▸ Kênh 2 — Gửi File .txt đính kèm (hỗ trợ từ 11 đến 50 tài khoản / file):\n    • Soạn danh sách mỗi dòng 1 acc theo cú pháp trên và gửi file .txt trực tiếp vào bot.\n• Hỗ trợ Proxy đa giao thức (HTTP & SOCKS5): Tương tự lệnh /vivc, Sếp có thể dùng HTTP Proxy hoặc SOCKS5 Proxy (kèm tiền tố socks5://). Nếu không kèm proxy, hệ thống tự động xoay proxy pool ngầm.\n• Tự động đồng bộ Google Sheet: Nếu sếp đã liên kết Google Sheet ở /reg (mục cấu hình nâng cao), hệ thống tự động cập nhật pass mới vào cột D và Cookie SPC_ST mới vào cột G.\n• Quy chuẩn mật khẩu Shopee: Dài 8-16 ký tự, có ít nhất 1 chữ hoa, 1 chữ thường, gồm chữ cái, số, dấu câu. Khuyên dùng bỏ trống pass_moi để hệ thống tự tạo an toàn 100%.",
-    "inputSample": "Cú pháp dán text tự sinh pass (Khuyên dùng):\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123\nSPC_F=token_spcf_sample|0912345678|MatKhauCu@123\n\nCú pháp kèm Proxy SOCKS5 (Hỗ trợ có auth hoặc không auth):\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123|socks5://103.151.120.45:1080\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123|Ph@123456|socks5://103.151.120.45:1080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhauCu@123|socks5://103.151.120.45:1080:user:pass\n\nCú pháp kèm Proxy HTTP chuẩn:\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|myuser|MatKhauCu@123|Ph@123456|http://103.151.120.45:8080:user:pass",
-    "outputFormat": "• Báo cáo Realtime (Streaming Card): Mỗi tài khoản xử lý xong được gửi ngay 1 thẻ Card độc lập báo Thành công (kèm Cookie SPC_ST mới đầy đủ để chạm copy dùng ngay) hoặc Thất bại (kèm lý do tiếng Việt rõ ràng).\n• Bảng kê 3 dòng minh bạch ở tin nhắn tổng kết: Tạm tính ban đầu ➔ Thực tế đã trừ ➔ Tự động hoàn tiền 100% tài khoản lỗi.\n• Xuất File .txt tự động (khi từ 3 acc trở lên): Tự động nạp file kết quả đính kèm gửi ngay cuối khung chat để tải về mở Excel/Notepad tiện lợi.",
-    "example": "Sếp có 10 nick Shopee cần đổi mật khẩu định kỳ ➔ Gõ /doipass ➔ Dán 10 dòng SPC_ST|pass_cu ➔ Bot đổi tuần tự từng nick, bắn thẻ card báo pass mới kèm Cookie SPC_ST sống, cập nhật luôn lên Google Sheet và hoàn tất trong chớp mắt.",
-    "notes": "• Loại ví thanh toán: Cố định 100đ/acc. Ưu tiên trừ TK Khuyến Mãi (TK KM 🎁) trước, thiếu mới trừ TK Chính.\n• Cơ chế hoàn tiền: Trừ tiền tạm tính trước, chỉ thu tiền các tài khoản THÀNH CÔNG. Tài khoản nào lỗi (sai pass cũ, cookie hết hạn, dính OTP xác minh, lỗi mạng...) ➔ Tự động hoàn lại 100% phí về đúng ví gốc đã trừ.\n• An toàn tài khoản: Mỗi tài khoản đổi pass được hệ thống dọn dẹp sạch sẽ dữ liệu phiên duyệt và bảo vệ đa tầng, đảm bảo tỷ lệ thành công tối đa."
-  }
-];
+      {
+        "id": "01",
+        "name": "Tạo ACC Shopee Mới",
+        "icon": "🚀",
+        "cat": "cat_1",
+        "catName": "Tạo Acc & SIM",
+        "price": "4,000 VNĐ / acc",
+        "shortPrice": "4,000 VNĐ / acc",
+        "walletType": "main",
+        "walletLabel": "💰 Chỉ TK Chính",
+        "comboSupport": false,
+        "comboLabel": "Hỗ trợ Lượt Free",
+        "billingType": "Tạo xong mới tính tiền",
+        "payload": "reg",
+        "command": "/reg",
+        "purpose": "Hệ thống tự động tạo nick Shopee linh hoạt với 3 chế độ: (1) Gói Mặc Định trọn gói hệ thống 4,000 VNĐ/acc, (2) Chọn Kho SIM Thủ Công theo gói trong /sim (/reg v30 5), hoặc (3) Tự nhập SĐT (Việt Nam & Đông Nam Á +62, +66, +60...)/Proxy riêng nhận OTP qua SMS hoặc Cuộc gọi (Voice Call).",
+        "inputFormat": "• 1️⃣ Gói Mặc Định — Kho SIM Hệ Thống Tối Ưu (4,000 VNĐ / acc — Hỗ trợ trừ Lượt Free):\n  ▸ Cách 1 (Bấm nút): Gõ /reg (hoặc bấm [🚀 Tạo ACC Shopee]) ➔ Chọn [🔹 1 Acc] | [🔸 5 Acc] | [🔥 10 Acc] hoặc [✏️ Nhập Số Lượng].\n  ▸ Cách 2 (Gõ lệnh nhanh): Gõ /reg &lt;số_lượng&gt; (Ví dụ: /reg 5 để tạo 5 acc, /reg 20 để tạo 20 acc).\n• 2️⃣ Chọn Kho SIM Thủ Công — Theo gói trong /sim (Giá gói SIM + 1,000 VNĐ phí tài nguyên / acc — Chỉ trừ TK Chính):\n  ▸ Gõ /sim để xem danh sách các gói SIM đang mở và giá từng gói (VD: Gói V30 giá 3,100 VNĐ + 1,000 VNĐ phí tài nguyên = 4,100 VNĐ/acc).\n  ▸ Cú pháp: /reg v&lt;gói&gt; &lt;số_lượng&gt; (Ví dụ: /reg v30 5 để tạo 5 acc bằng kho V30, hoặc /reg v30 để tạo 1 acc).\n• 3️⃣ Dùng SĐT / Proxy Riêng Của Sếp (Hỗ trợ SĐT VN & Đông Nam Á, chạy đa phiên 3–10 luồng song song):\n  ▸ Gói A — SĐT Sếp + Proxy Hệ Thống (700 VNĐ / lượt):\n    • Nhận OTP SMS: /regsdt 0901234567 hoặc /regsdt +628811542752\n    • Nhận OTP Cuộc gọi (Voice Call): /regsdtcall 0901234567 hoặc /regsdtcall +628811542752\n  ▸ Gói B — SĐT Sếp + Proxy riêng (500 VNĐ / lượt):\n    • Nhận OTP SMS: /regfull sđt|ip:port hoặc /regfull +628811542752|ip:port:user:pass\n    • Nhận OTP Cuộc gọi (Voice Call): /regfullcall sđt|ip:port\n  ▸ Gói C — SĐT Hệ Thống + Proxy Sếp (3,800 VNĐ / lượt):\n    • Cú pháp: /regproxy ip:port hoặc /regproxy ip:port:user:pass (SOCKS5: /regproxy socks5://ip:port:user:pass)\n• Quản Lý Đa Phiên, Gửi Mã OTP & Hủy Phiên:\n  ▸ Gửi OTP đơn phiên: /otp 123456 | Nhiều phiên: /otp &lt;sđt&gt; &lt;mã&gt; (Ví dụ: /otp 0901234567 123456).\n  ▸ Hủy phiên: /huyreg &lt;sđt&gt; (hủy 1 số), /huyreg all (hủy tất cả), hoặc /huyreg để hiện nút chọn.\n• Xem lại tài khoản đã tạo: Gõ /myacc hoặc bấm nút [📋 ACC Đã Tạo]",
+        "inputSample": "[1. GÓI MẶC ĐỊNH — 4,000 VNĐ/ACC]:\nMở menu: /reg\nChạy nhanh 5 acc: /reg 5\nChạy nhanh 10 acc: /reg 10\n\n[2. CHỌN KHO SIM THỦ CÔNG (/sim) — GIÁ GÓI SIM + 1,000 VNĐ PHÍ TÀI NGUYÊN]:\nTạo 5 acc bằng kho V30: /reg v30 5\nTạo 1 acc bằng kho V30: /reg v30\n\n[3. DÙNG SĐT / PROXY RIÊNG (GÓI A: 700 VNĐ · GÓI B: 500 VNĐ · GÓI C: 3,800 VNĐ)]:\nGói A (SMS): /regsdt 0901234567 hoặc /regsdt +628811542752\nGói A (Voice Call): /regsdtcall +628811542752\nGói B (SMS): /regfull +628811542752|103.151.120.45:8080:user:pass\nGói B (Voice Call): /regfullcall +628811542752|103.151.120.45:8080:user:pass\nGói C (Proxy riêng): /regproxy 103.151.120.45:8080:user:pass\n\n[GỬI OTP ĐA PHIÊN & HỦY]:\nGửi OTP kèm SĐT: /otp 0901234567 123456\nHủy 1 phiên: /huyreg 0901234567\nHủy toàn bộ phiên: /huyreg all",
+        "outputFormat": "• Kết quả bàn giao: Danh sách tài khoản tạo thành công gồm Cookie SPC_ST, SPC_F, Số điện thoại và Mật khẩu đăng nhập trực tiếp trên màn hình bot.\n• Quản lý tài khoản: Xem lại danh sách tài khoản đã tạo mọi lúc bằng lệnh /myacc hoặc bấm nút [📋 ACC Đã Tạo].",
+        "example": "• Ví Dụ 1 (Gói Mặc Định — 4,000 VNĐ/acc): Sếp cần tạo nhanh 5 nick mới ➔ Gõ /reg 5 (hoặc gõ /reg rồi bấm nút [🔸 5 Acc]) ➔ Tổng phí 20,000 VNĐ, Bot tự động chạy và bàn giao 5 tài khoản kèm Cookie SPC_ST, SĐT, Mật khẩu.\n• Ví Dụ 2 (Chọn Kho SIM V30 — 4,100 VNĐ/acc): Sếp xem trong /sim thấy gói V30 giá 3,100 VNĐ đang nhạy OTP ➔ Gõ /reg v30 5 ➔ Đơn giá = 3,100 + 1,000 phí tài nguyên = 4,100 VNĐ/acc (Tổng 5 acc = 20,500 VNĐ) ➔ Bot tự thuê đúng kho V30 và tạo 5 acc tự động.\n• Ví Dụ 3 (Chạy Đa Phiên Gói A — 700 VNĐ/lượt): Sếp gửi lần lượt /regsdt 0901111111 và /regsdt 0902222222 ➔ Khi nhận mã OTP cho số nào, Sếp gõ /otp 0901111111 654321 ➔ Bot gán chính xác và bàn giao acc ngay.",
+        "notes": "• Loại ví thanh toán: Chỉ thanh toán bằng TK Chính (không trừ TK Khuyến Mãi). Gói Mặc Định (/reg, /reg 5) hỗ trợ ưu tiên trừ Lượt Free; chế độ Chọn Kho SIM (/reg v30 5) chỉ trừ TK Chính.\n• Chính sách hoàn tiền (Chờ OTP tối đa 6 phút):\n  ▸ Gói Mặc Định (/reg, /reg 5) & Gói C (/regproxy): Lỗi hệ thống (chưa có OTP) hoặc hết 6 phút chờ không có OTP ➔ Tự động hoàn 100% về TK Chính.\n  ▸ Chọn Kho SIM Thủ Công (/reg v30 5): Kho hết số hoặc lỗi kỹ thuật trước khi chờ OTP ➔ Hoàn 100% về TK Chính. Nếu đã lấy số và chờ hết 6 phút không có mã OTP ➔ Hệ thống tự hủy đơn SIM và trừ 200 VNĐ phí tài nguyên, hoàn phần dư về TK Chính.\n  ▸ Quy định chung khi dùng SIM Hệ Thống (Gói Mặc Định, Chọn Kho SIM, Gói C): Không hỗ trợ /huyreg hoặc bấm [🛑 Dừng Ngay] hoàn tiền sau khi hệ thống đã thuê SĐT (nếu tự ý hủy khi đã thuê số sẽ không được hoàn phí; hủy lúc đang xếp hàng chờ chưa thuê số ➔ hoàn 100% TK Chính). Kho Số trả mã OTP sai định dạng, lỗi không xác định ➔ Hoàn vào TK Khuyến Mãi. Không hỗ trợ hoàn tiền cho lỗi từ phía Shopee & Kho Số (Shopee báo mã xác nhận hết hạn, tài khoản không đủ điều kiện lưu voucher, hoặc sau khi acc đã tạo thành công).\n  ▸ Gói A & Gói B (SĐT riêng của Sếp): Khi Sếp hủy (/huyreg), hết 6 phút chờ OTP, OTP sai hoặc báo hết hạn, hoặc nhập SĐT Đông Nam Á sai/không tồn tại ➔ Trừ 200 VNĐ phí tài nguyên, hoàn phần dư về TK Chính.\n• Lưu ý vận hành acc an toàn:\n  ▸ Sếp nên tạo thử vài acc để check chất lượng trước khi tạo số lượng lớn.\n  ▸ Không nên đăng nhập cùng lúc nhiều tài khoản trên nhiều thiết bị giống nhau trong thời gian ngắn để tránh bị Shopee quét khóa bất thường.\n  ▸ Chỉ liên kết email khi đã đăng nhập vào thiết bị điện thoại thật, tránh liên kết xong để đó không đăng nhập.\n  ▸ Các kho số hiện khá khan hiếm nên tỷ lệ mất liên kết số sau khi reg có thể phát sinh, các Sếp cân nhắc khi sử dụng.\n  ▸ 💡 Mẹo ngâm: Nên đăng nhập và để acc \"ngâm\" ít nhất 12–24h trước khi đặt đơn để tăng độ uy tín và giảm tối đa tỷ lệ bị Shopee hạn chế."
+      },
+      {
+        "id": "02",
+        "name": "Thuê SĐT Shopee",
+        "icon": "📱",
+        "cat": "cat_1",
+        "catName": "Tạo Acc & SIM",
+        "price": "Từ 3,100 VNĐ / số",
+        "walletType": "main",
+        "walletLabel": "💰 Chỉ TK Chính",
+        "comboSupport": false,
+        "comboLabel": "Không Quota",
+        "billingType": "Có OTP mới tính tiền",
+        "payload": "sim",
+        "command": "/sim",
+        "purpose": "Thuê số điện thoại nhận mã OTP đăng ký hoặc đăng nhập Shopee, có phân loại gói ZIN và gói Lấy Lại Được (hỗ trợ cả kho số Việt Nam và Quốc tế/Đông Nam Á).",
+        "inputFormat": "• Thao tác nhanh qua Menu:\n  ▸ Gõ /sim (hoặc bấm [📱 Thuê SĐT Shopee]) ➔ Hiện bảng giá các gói V1 - Vn kèm thống kê Tỷ Lệ Mã Về hôm nay\n  ▸ Bấm chọn gói tương ứng: [Gói V1 ...] | [Gói V2 ...] | [Gói V3 ...]\n• Lệnh thuê SIM nhanh (Tắt):\n  ▸ Gõ trực tiếp: /v1, /v2, /v3... để lấy số ngay không cần qua menu\n• Các phân loại gói đặc biệt:\n  ▸ Gói Lấy Lại Được: Hỗ trợ thuê cả số đã từng đăng ký Shopee (gặp số đã ĐK ➔ bấm 'Lấy lại số' trên Shopee)\n  ▸ Gói Không Check Zin (⚠️): Lấy số siêu tốc khi kho khan hiếm, không bảo hành tài khoản nhưng không có OTP vẫn hoàn 100%\n  ▸ Gói Quốc Tế / Đông Nam Á: Hỗ trợ nhận mã OTP cho đầu số khu vực (+62...)",
+        "inputSample": "/sim (Bấm chọn gói [Gói V1 ...] / [Gói V2 ...])\nHoặc gõ tắt: /v1",
+        "outputFormat": "• Nhận số: Bot cấp số điện thoại (ví dụ: 0981234567 hoặc +628811542752) để dán vào Shopee.\n• Nhận mã OTP: Bot tự động hiển thị mã OTP kèm file ghi âm cuộc gọi [🔊 Nghe mã OTP (Audio)] (nếu có) ngay khi nhận được.\n• Nút tiện ích sau khi xong: [🔄 Thuê lại] • [📱 Chọn gói khác] • [🔄 Thuê lại số này].",
+        "example": "Sếp cần số tạo nick Shopee ➔ Gõ /sim chọn gói V1 ➔ Nhận ngay SĐT 098... ➔ Dán vào Shopee yêu cầu gửi mã ➔ Bot tự động hiển thị mã OTP kèm file ghi âm (nếu có) ngay khi nhận được.",
+        "notes": "• Thời gian chờ: Mỗi số chờ OTP tối đa 6 phút (hoặc theo timeout quy định của gói).\n• KHÔNG CÓ NÚT HỦY CHỦ ĐỘNG: Trong lúc đang chờ mã, không hỗ trợ bấm hủy giữa chừng.\n• Cơ chế hoàn tiền: Hết thời gian chờ mà không nhận được mã ➔ Tự động hủy đơn và hoàn 100% tiền về TK Chính ngay lập tức.\n• Không hỗ trợ hoàn tiền sau khi đã nhận được mã OTP hoặc file ghi âm cuộc gọi.\n• Các kho giá rẻ có tỷ lệ bị hủy liên kết SĐT cao hơn, Sếp nên cân nhắc khi sử dụng."
+      },
+      {
+        "id": "03",
+        "name": "Thuê SIM TikTok",
+        "icon": "🎵",
+        "cat": "cat_1",
+        "catName": "Tạo Acc & SIM",
+        "price": "Từ 2,500 VNĐ / số",
+        "walletType": "main",
+        "walletLabel": "💰 Chỉ TK Chính",
+        "comboSupport": false,
+        "comboLabel": "Không Quota",
+        "billingType": "Có OTP mới tính tiền",
+        "payload": "ttsim",
+        "command": "/ttsim",
+        "purpose": "Thuê số điện thoại nhận mã OTP đăng ký, đăng nhập tài khoản TikTok hoặc liên kết TikTok Shop.",
+        "inputFormat": "• Thao tác nhanh qua Menu:\n  ▸ Gõ /ttsim (hoặc bấm [🎵 Thuê SIM TikTok]) ➔ Hiện danh sách các gói TikTok SIM kèm tỷ lệ mã về\n  ▸ Bấm chọn gói tương ứng: [Gói V1 ...] | [Gói V2 ...] | [Gói V3 ...]\n• Lệnh thuê nhanh: Gõ tắt /ttv1, /ttv2, /ttv3... để nhận số ngay",
+        "inputSample": "/ttsim (Bấm chọn gói [Gói V1 ...] / [Gói V2 ...])\nHoặc gõ tắt: /ttv1",
+        "outputFormat": "• Cấp số: SĐT nhận mã hiển thị ngay trên màn hình.\n• Cập nhật OTP: Bot tự động hiển thị mã OTP kèm nút nghe ghi âm [🔊 Nghe mã OTP (Audio)] (nếu là cuộc gọi thoại) ngay khi nhận được.\n• Nút tiện ích: [🔄 Thuê lại] • [📱 Chọn gói khác].",
+        "example": "Sếp làm TikTok Shop cần số xác minh liên kết ➔ Gõ /ttsim chọn gói ➔ Lấy số dán vào TikTok ➔ Nhận mã OTP hoặc file ghi âm cuộc gọi tự động trên bot.",
+        "notes": "• Thời gian chờ: Chờ OTP tối đa 6 phút. Không có nút hủy chủ động trong khi chờ.\n• Cơ chế hoàn tiền: Không nhận được mã ➔ Tự động hủy và hoàn tiền 100% vào TK Chính. Không hoàn tiền sau khi đã nhận OTP hoặc file ghi âm."
+      },
+      {
+        "id": "04",
+        "name": "Quản Lý & Thêm Email Shopee",
+        "icon": "📧",
+        "cat": "cat_2",
+        "catName": "Quản Lý Email",
+        "price": "50 VNĐ - 500 VNĐ (tùy gói)",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM & Chính",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Thành công mới tính tiền",
+        "payload": "mail",
+        "command": "/mail",
+        "purpose": "Trung tâm quản lý Email Shopee: Tự động thêm mail vào Tài Khoản Shopee (Hotmail, Outlook, iCloud, Mail Free), hoặc sếp có thể điền email riêng.",
+        "inputFormat": "• Thao tác chính qua lệnh /mail (hoặc bấm [📧 Thêm Email]):\n  ▸ Gói 1 — Hotmail / Outlook Kho Bot (400đ / acc — Chỉ TK Chính): Bấm [📮 Hotmail — 400đ] hoặc [📩 Outlook — 400đ] ➔ Dán danh sách Cookie (tối đa 10 dòng). Bot tự động lấy mail từ kho thêm vào tài khoản.\n  ▸ Gói 2 — Mua Email Riêng Lẻ (350đ / email — Chỉ TK Chính): Bấm [🛒 Chỉ Mua Email — 350đ] ➔ Chọn [📮 Hotmail] hoặc [📩 Outlook] (hoặc gõ /muamail). Mua mail lẻ sạch có mật khẩu + token để tự dùng riêng, không cần dán Cookie. Có sẵn nút [📨 Đọc Email Vừa Mua].\n  ▸ Gói 3 — Thuê Mail iCloud 7 Ngày (500đ / 7 ngày — Chỉ TK Chính): Bấm [☁️ Thuê Mail iCloud — 500đ/7 ngày] ➔ Dán danh sách Cookie. Bot cấp Mail iCloud, gắn vào nick và bảo lưu hộp thư đọc OTP 7 ngày. Phù hợp nuôi acc trust cao.\n  ▸ Gói 4 — Mail Free Tạm Thời (50đ / acc — Hỗ trợ TK KM 🎁): Bấm [📨 Mail Free (Mail Tạm) — 50đ] (hoặc gõ /mailfree) ➔ Dán danh sách Cookie. Bot tự tạo mail tạm và đọc OTP tự động.\n  ▸ Gói 5 — Thêm Email Riêng Của Sếp (80đ / acc — Hỗ trợ TK KM 🎁): Không cần bấm nút, dán thẳng danh sách: email@domain|Cookie[|proxy]. Bot gửi yêu cầu đổi mail để Sếp tự nhập OTP.\n• Định dạng Cookie đầu vào: Chấp nhận Cookie SPC_ST hoặc dòng SPC_F=token|user|pass (hỗ trợ kèm proxy riêng).",
+        "inputSample": "Cú pháp dán Cookie thêm mail tự động (Gói 1, 3, 4):\nSPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123\n\nCú pháp tự điền email riêng (Gói 5):\nmyemail@gmail.com|SPC_ST=WTdWUTBhS01wVz...abc123def",
+        "outputFormat": "• Báo cáo chi tiết: Trạng thái thêm email thành công từng tài khoản.\n• Với Mua Email Riêng: Xuất đầy đủ email|password|token_auth|client_key kèm nút [📨 Đọc Email Vừa Mua].",
+        "example": "Sếp có 5 nick Shopee cần thêm mail ➔ Gõ /mail ➔ Bấm chọn [ 📮 Hotmail — 400đ ] ➔ Dán 5 Cookie ➔ Bot tự mua mail và liên kết hoàn tất trong 30 giây.",
+        "notes": "• Phân loại ví thanh toán:\n  - Chỉ dùng TK Chính: Hotmail/Outlook kho bot (400đ), Mua mail riêng (350đ), Thuê iCloud 7 ngày (500đ).\n  - Hỗ trợ TK Khuyến Mãi: Mail Free tạm thời (50đ), Thêm email riêng của Sếp (80đ).\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Chỉ tính tiền tài khoản thêm email thành công. Lỗi (đã có email, sai pass SPC_F hoặc cookie die) ➔ Tự động hoàn tiền 100% cho từng dòng lỗi."
+      },
+      {
+        "id": "05",
+        "name": "Đổi Email Tài Khoản Shopee",
+        "icon": "🔄",
+        "cat": "cat_2",
+        "catName": "Quản Lý Email",
+        "price": "50 VNĐ - 500 VNĐ / acc",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": false,
+        "comboLabel": "Không Quota",
+        "billingType": "Đổi xong mới tính tiền",
+        "payload": "doimail",
+        "command": "/doimail",
+        "purpose": "Đổi sang địa chỉ email mới cho tài khoản Shopee đã có sẵn email cũ. Tích hợp 3 tùy chọn: tự nhập email riêng, dùng mail tạm tự động, hoặc thuê mail iCloud cao cấp.",
+        "inputFormat": "• Thao tác chọn phương thức qua lệnh /doimail (hoặc bấm [🔄 Đổi Email]):\n  ▸ Gói 1 — Tự Nhập Email (50đ — Hỗ trợ TK KM 🎁): Bấm [🟢 Tự Nhập (50đ)] ➔ Dán theo định dạng email_moi@domain|Cookie_Shopee[|proxy] ➔ Nhập OTP thủ công gửi về email\n  ▸ Gói 2 — Mail Free Tự Động (50đ — Hỗ trợ TK KM 🎁): Bấm [📨 Mail Free (50đ)] ➔ Dán danh sách Cookie SPC_ST hoặc SPC_F (tối đa 10 dòng) ➔ Hệ thống tự tạo mail tạm và đọc OTP tự động\n  ▸ Gói 3 — Thuê Mail iCloud (500đ — Chỉ TK Chính 💰): Bấm [☁️ iCloud (500đ)] ➔ Dán danh sách Cookie SPC_ST hoặc SPC_F (tối đa 10 dòng) ➔ Hệ thống cấp Mail iCloud và tự đọc OTP hoàn tất",
+        "inputSample": "Cú pháp Tự Nhập Email Mới:\nemail_moi@gmail.com|SPC_ST=WTdWUTBhS01wVz...abc123def\nemail_moi@outlook.com|SPC_F=token_spcf|0912345678|MatKhau@123\n\nCú pháp Mail Free / iCloud:\nSPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
+        "outputFormat": "• Thông báo kết quả: Đổi email thành công kèm địa chỉ email mới đã liên kết.\n• Nút hủy chủ động: Trong lúc chờ OTP có nút [ ❌ Hủy Đổi Email ] để hủy phiên ngay.",
+        "example": "Sếp mua lại nick Shopee và muốn đổi sang email chính chủ ➔ Gõ /doimail ➔ Bấm [ 🟢 Tự Nhập (50đ) ] ➔ Gửi email mới kèm cookie ➔ Nhập OTP xác thực là xong.",
+        "notes": "• Lưu ý phạm vi: Chỉ áp dụng cho tài khoản ĐÃ CÓ email. Với tài khoản trắng chưa từng liên kết email, Sếp dùng lệnh /themmail (Thêm Email) nhé ạ.\n• Cơ chế trừ tiền: ĐỔI XONG 100% MỚI TÍNH TIỀN.\n• Nếu bấm [ ❌ Hủy Đổi Email ], sai mật khẩu SPC_F hoặc Shopee từ chối đổi ➔ Tự động hoàn tiền 100%."
+      },
+      {
+        "id": "06",
+        "name": "Đọc Hộp Thư Lấy Mã OTP",
+        "icon": "📬",
+        "cat": "cat_2",
+        "catName": "Quản Lý Email",
+        "price": "10 VNĐ / lần",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Chỉ trừ khi có thư / OTP",
+        "payload": "docmail",
+        "command": "/docmail",
+        "purpose": "Tự động kiểm tra hòm thư (Hotmail, Outlook, Mail Free hoặc iCloud thuê) và lấy ra mã OTP Shopee mới nhất.",
+        "inputFormat": "• Thao tác đọc email:\n  ▸ Gõ /docmail (hoặc bấm [📬 Đọc Email]) ➔ Dán data email theo định dạng tương ứng:\n  ▸ ☁️ Mail iCloud: tenmail@icloud.com (chỉ cần 1 dòng địa chỉ)\n  ▸ 📮 Hotmail / Outlook: email|password|token_auth|client_key\n  ▸ 📨 Mail Free: email|password|mailfree\n  ▸ Hệ thống tự động đọc hộp thư và trích xuất mã OTP hoặc link xác nhận mới nhất",
+        "inputSample": "abc123@icloud.com\nmyaccount@hotmail.com|Password123|token_auth_sample|client_key_sample\ntempmail123@domain.com|Password123|mailfree",
+        "outputFormat": "• Kết quả: Mã xác thực OTP Shopee: 123456 (hoặc link xác nhận trong thư).\n• Nút bấm tương tác: [ 🔄 Đọc Lại / Lấy Mã Mới ] • [ 🔄 Kiểm Tra Lại Hộp Thư ] • [ ☁️ Thuê Mail Mới ] • [ 🏠 Menu Chính ].",
+        "example": "Sếp đổi mật khẩu Shopee và Shopee gửi mã về email ➔ Gửi thông tin mail vào /docmail ➔ Bot đọc ngay mã OTP trong 3 giây.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế trừ tiền: CHỈ TRỪ TIỀN KHI ĐỌC ĐƯỢC THƯ CÓ MÃ OTP SHOPEE. Nếu hòm thư chưa nhận được thư mới hoặc tìm không thấy mã OTP ➔ Hoàn tiền 100% ngay lập tức (không tính phí)."
+      },
+      {
+        "id": "07",
+        "name": "Lấy Cookie Bằng Mã QR",
+        "icon": "🔑",
+        "cat": "cat_3",
+        "catName": "Cookie & Kiểm Tra Acc",
+        "price": "50 VNĐ / lần",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Chỉ tính khi quét thành công",
+        "payload": "cookie",
+        "command": "/cookie",
+        "purpose": "Lấy Cookie đăng nhập SPC_ST từ tài khoản Shopee cực nhanh bằng cách quét mã QR trên điện thoại (không cần nhập mật khẩu).",
+        "inputFormat": "• Thao tác qua Menu:\n  ▸ Bước 1: Gõ /cookie (hoặc bấm [🔑 Lấy Cookie])\n  ▸ Bước 2: Bấm nút [📷 Quét Mã QR Shopee  —  50đ/lần]\n  ▸ Bước 3: Mở App Shopee trên điện thoại ➔ Quét mã QR ➔ Bấm 'Xác nhận đăng nhập'\n• Lệnh quét QR nhanh:\n  ▸ Gõ trực tiếp: /qr (hoặc kèm proxy: /qr ip:port:user:pass)",
+        "inputSample": "/cookie (Bấm nút [📷 Quét Mã QR Shopee])\nHoặc gõ nhanh: /qr\nHoặc gõ kèm proxy: /qr 103.151.120.45:8080:user:pass",
+        "outputFormat": "• Kết quả: Quét mã thành công, bot trả về Cookie chuẩn SPC_ST và mã SPC_F.\n• Nút điều hướng nhanh: [ 🎁 Lưu Voucher ] • [ 📧 Thêm Email ] • [ 🔎 Chi Tiết Đơn ] • [ 🔑 Lấy Tiếp Cookie ].",
+        "example": "Sếp có nick trên điện thoại muốn lấy Cookie để chạy tool săn sale ➔ Gõ /qr ➔ Mở App Shopee quét mã ➔ Bấm xác nhận ➔ Nhận Cookie SPC_ST ngay.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Thời gian chờ quét mã: Tối đa 5 phút.\n• Cơ chế trừ tiền an toàn: CHỈ TRỪ TIỀN KHI QUÉT MÃ THÀNH CÔNG. Khách không quét, sau một thời gian sẽ hết hạn mã QR hoặc bấm nút [ ❌ Hủy ] ➔ Không bị trừ bất kỳ đồng nào."
+      },
+      {
+        "id": "08",
+        "name": "Đổi SPC_F Sang Cookie SPC_ST",
+        "icon": "🌐",
+        "cat": "cat_3",
+        "catName": "Cookie & Kiểm Tra Acc",
+        "price": "50 VNĐ / acc OK",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Chỉ tính acc thành công",
+        "payload": "spcf",
+        "command": "/spcf",
+        "purpose": "Chuyển đổi danh sách nick từ Mã định danh SPC_F sang Cookie chuẩn SPC_ST để lưu trữ hoặc dùng cho các chức năng khác.",
+        "inputFormat": "• Thao tác khởi chạy:\n  ▸ Gõ lệnh /spcf (hoặc /spc, hoặc bấm '🛡️ Nhập SPC_F' trong menu /cookie)\n• Định dạng nhập liệu (mỗi dòng 1 tài khoản, tối đa 50 dòng):\n  ▸ Cú pháp chuẩn: SPC_F=xxx|username|password\n  ▸ Kèm proxy HTTP: SPC_F=xxx|user|pass|ip:port:user:pass\n  ▸ Kèm proxy SOCKS5: SPC_F=xxx|user|pass|socks5://ip:port:user:pass\n  ▸ Trường username hỗ trợ SĐT (0912345678) hoặc Tên đăng nhập Shopee",
+        "inputSample": "SPC_F=abc123xyz|0912345678|MatKhau@123\nSPC_F=def456uvw|myusername|MatKhau@456|103.151.120.45:8080:user:pass",
+        "outputFormat": "• Danh sách Cookie SPC_ST đổi thành công: ✅ [user]: SPC_ST=WTdWUT...",
+        "example": "Sếp có 20 nick dạng SPC_F|user|pass ➔ Dán cả 20 dòng vào Bot ➔ Bot đổi và trả ra 20 Cookie SPC_ST để dùng cho các tool khác.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế hoàn tiền: Trừ tiền trước, hoàn sau. Chỉ tính tiền những tài khoản trích xuất thành công Cookie SPC_ST. Tài khoản sai mật khẩu hoặc lỗi proxy ➔ Tự động hoàn tiền 100% cho từng dòng lỗi."
+      },
+      {
+        "id": "09",
+        "name": "Kiểm Tra Sống / Chết (Check Live)",
+        "icon": "🛡️",
+        "cat": "cat_3",
+        "catName": "Cookie & Kiểm Tra Acc",
+        "price": "10 VNĐ / số",
+        "shortPrice": "",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Trừ trước, hoàn sau",
+        "payload": "live",
+        "command": "/live",
+        "purpose": "Kiểm tra danh sách số điện thoại Shopee xem tài khoản còn hoạt động (Live), chưa đăng ký hoặc đã bị khóa/hạn chế. Không cần mật khẩu hay Cookie.",
+        "inputFormat": "• Thao tác kiểm tra:\n  ▸ Gõ /live (hoặc bấm [🛡️ Check Live], hoặc gõ /check_live)\n  ▸ Dán danh sách số điện thoại cần kiểm tra (mỗi số 1 dòng, tối đa 10 dòng)\n  ▸ Hỗ trợ các định dạng SĐT Việt Nam: 84xxxxxxxxx, 0xxxxxxxxx, hoặc xxxxxxxx (9 số, hệ thống tự động bổ sung đầu 84)\n  ▸ Lưu ý: Chỉ nhận số điện thoại, không nhận Cookie, Username hay Email",
+        "inputSample": "0931307769\n84912345678\n0987654321",
+        "outputFormat": "• Báo cáo chi tiết từng SĐT:\n  ▸ 🍀 Live: ✅ Tài khoản đang hoạt động (Live) kèm thông tin che bảo mật: Username, SĐT, Email (nếu có)\n  ▸ ❌ Die / Chưa ĐK: Số điện thoại chưa đăng ký hoặc đã bị khóa\n  ▸ ⚠️ Lỗi: Không kiểm tra được (do mạng hoặc timeout)",
+        "example": "Sếp có 10 số điện thoại Shopee cần lọc ➔ Gõ /live dán 10 SĐT ➔ Bot kiểm tra trực tiếp và báo ngay từng số Live ✅ kèm thông tin nick hoặc Die ❌.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Giới hạn: Mỗi lần kiểm tra tối đa 10 dòng (mỗi dòng 1 số điện thoại).\n• Cơ chế trừ tiền: Chỉ trừ tiền những số kiểm tra thành công. Lỗi hệ thống hoặc timeout ➔ Tự động hoàn tiền 100%."
+      },
+      {
+        "id": "10",
+        "name": "Kiểm Tra SĐT Chưa Đăng Ký (Check Zin)",
+        "icon": "🔍",
+        "cat": "cat_3",
+        "catName": "Cookie & Kiểm Tra Acc",
+        "price": "80 VNĐ / số",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Trừ trước, hoàn sau",
+        "payload": "zin",
+        "command": "/zin",
+        "purpose": "Kiểm tra xem số điện thoại đã từng đăng ký Shopee chưa trước khi Sếp mua SIM hoặc nạp tiền tạo nick (hỗ trợ SĐT Việt Nam và Đông Nam Á +62, +66, +60...).",
+        "inputFormat": "• Thao tác kiểm tra:\n  ▸ Gõ /zin (hoặc bấm [🔍 Check SĐT Zin], hoặc gõ /check_zin)\n  ▸ Dán danh sách số điện thoại (hỗ trợ SĐT Việt Nam và Đông Nam Á, mỗi dòng 1 số, tối đa 10 số)\n  ▸ Hệ thống kiểm tra trực tiếp trên Shopee và trả về trạng thái ZIN Chưa ĐK ✅ hoặc ĐÃ ĐK ❌",
+        "inputSample": "0912345678\n+628811542752\n0987654321",
+        "outputFormat": "• Báo cáo kết quả: ✨ [SĐT]: ZIN (Chưa từng đăng ký - Tạo nick OK) hoặc ⚠️ [SĐT]: ĐÃ ĐĂNG KÝ SHOPEE.",
+        "example": "Sếp vừa mua 1 lô SIM vật lý về định tạo nick Shopee ➔ Dán danh sách vào check trước ➔ Lọc ngay số sạch chưa đăng ký.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Lỗi kết nối Shopee hoặc timeout không có kết quả ➔ Tự động hoàn tiền 100%."
+      },
+      {
+        "id": "11",
+        "name": "Xem Thông Tin Tài Khoản (Check Acc Info)",
+        "icon": "🔍",
+        "cat": "cat_3",
+        "catName": "Cookie & Kiểm Tra Acc",
+        "price": "50 VNĐ / acc",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Trừ trước, hoàn sau",
+        "payload": "checkacc",
+        "command": "/checkacc",
+        "purpose": "Trích xuất hồ sơ tài khoản Shopee đầy đủ: User ID, Shop ID, Tên đăng nhập, Email gốc, SĐT gốc, Ngày tạo tài khoản và trạng thái Live/Die.",
+        "inputFormat": "• Thao tác soi thông tin acc:\n  ▸ Gõ /checkacc (hoặc bấm [🔍 Check Acc Info])\n  ▸ Dán danh sách tài khoản (mỗi dòng 1 tài khoản [|proxy], tối đa 20 dòng)\n  ▸ Chấp nhận Cookie SPC_ST hoặc SPC_F=token|user|pass\n  ▸ Bot trích xuất đầy đủ: User ID, Shop ID, Tên đăng nhập, Email gốc, SĐT gốc, Ngày tạo và trạng thái Live/Die",
+        "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
+        "outputFormat": "• Hồ sơ trích xuất: User ID, Shop ID, Tên đăng nhập, Email gốc, SĐT gốc, Ngày tạo, Trạng thái (Live ✅ / Die ❌).",
+        "example": "Sếp có danh sách Cookie nhưng không nhớ tài khoản tên gì, tạo từ khi nào ➔ Dán vào ➔ Bot xuất ra thông tin rõ ràng.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Hỗ trợ token SPC_F: Tự động nhận diện và đăng nhập giải mã.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Dòng nào sai mật khẩu hoặc cookie die ➔ Hoàn tiền 100%."
+      },
+      {
+        "id": "12",
+        "name": "Tra Mã Vận Đơn (SPX / GHN)",
+        "icon": "📦",
+        "cat": "cat_4",
+        "catName": "Đơn Hàng & Địa Chỉ",
+        "price": "10 VNĐ / mã",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Trừ trước, hoàn sau",
+        "payload": "mvd",
+        "command": "/mvd",
+        "purpose": "Tra cứu hành trình đơn hàng Shopee Xpress (SPX) hoặc Giao Hàng Nhanh (GHN) xem hàng đang ở kho nào, shipper nào đang giao (áp dụng hỏa tốc). Có chế độ ghi chú theo dõi tự động miễn phí.",
+        "inputFormat": "• Thao tác tra cứu:\n  ▸ Gõ /mvd (hoặc bấm [📦 Tra Mã Vận Đơn], hoặc gõ /check_order)\n  ▸ Dán danh sách mã vận đơn (mỗi dòng 1 mã, tối đa 20 mã):\n  ▸ 🧡 Shopee Xpress (SPX): Nhập mã vận đơn bình thường (ví dụ: SPXVN061234567890)\n  ▸ 💚 Giao Hàng Nhanh (GHN): Nhập mã kèm SĐT người nhận cách nhau bằng dấu cách (ví dụ: GY123456 0901234567)\n  ▸ 📝 Ghi chú nhanh: Thêm dấu gạch đứng để note (ví dụ: SPXVN...|Đơn son môi)\n  ▸ Tiện ích đi kèm: Nút [📋 Danh Sách Theo Dõi] và [🔎 Chi Tiết Đơn Hàng]",
+        "inputSample": "SPXVN061234567890\nGY123456 0901234567\nSPXVN069876543210|Đơn phụ kiện điện thoại",
+        "outputFormat": "• Chi tiết hành trình: Vị trí kho bưu cục, lịch trình luân chuyển, SĐT shipper đang đi giao.\n• Nút bấm theo dõi: [ 📋 Danh Sách Theo Dõi ] và [ 📦 Check Thêm ] (nếu dùng chế độ ghi chú).",
+        "example": "Sếp mua hàng Shopee muốn biết kiện hàng đã về đến bưu cục gần nhà chưa ➔ Nhập mã SPX nhận kết quả tức thì kèm SĐT shipper (áp dụng hỏa tốc).",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Giới hạn: Tối đa 20 mã/lần.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Mã vận đơn không tồn tại trên hệ thống hoặc tra cứu lỗi ➔ Tự động hoàn tiền 100% cho mã đó."
+      },
+      {
+        "id": "13",
+        "name": "Xem Chi Tiết Đơn Hàng",
+        "icon": "🔎",
+        "cat": "cat_4",
+        "catName": "Đơn Hàng & Địa Chỉ",
+        "price": "50 VNĐ / acc",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Trừ trước, hoàn sau",
+        "payload": "chitiet",
+        "command": "/chitiet",
+        "purpose": "Xem danh sách các đơn hàng gần nhất trong tài khoản Shopee: Tên sản phẩm, tổng tiền, mã vận đơn và trạng thái (Đang giao, Đã giao...).",
+        "inputFormat": "• Thao tác soi chi tiết đơn:\n  ▸ Gõ /chitiet (hoặc bấm [🔎 Chi Tiết Đơn Hàng], hoặc gõ /order_detail)\n  ▸ Dán danh sách Cookie Shopee (mỗi dòng 1 Cookie [|proxy], tối đa 10 cookie)\n  ▸ Hệ thống tự nhận diện Cookie có tiền tố SPC_ST= hay không\n  ▸ Trích xuất chi tiết: Mã đơn, tên sản phẩm, số tiền, ngày tạo đơn và tiến trình vận chuyển",
+        "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nb1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass",
+        "outputFormat": "• Báo cáo đơn hàng: Mã đơn, tên sản phẩm, tổng tiền, trạng thái vận chuyển chi tiết.",
+        "example": "Sếp quản lý nhiều nick đặt hàng, cần kiểm tra nhanh xem nick nào đã được giao hàng ➔ Dán 10 Cookie ➔ Bot liệt kê danh sách đơn từng nick.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Cookie die hoặc lỗi kết nối ➔ Tự động hoàn tiền 100%."
+      },
+      {
+        "id": "14",
+        "name": "Thêm Địa Chỉ Mặc Định",
+        "icon": "📍",
+        "cat": "cat_4",
+        "catName": "Đơn Hàng & Địa Chỉ",
+        "price": "50 VNĐ / acc",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": false,
+        "comboLabel": "Không Quota",
+        "billingType": "Thêm thành công mới tính tiền",
+        "payload": "diachi",
+        "command": "/diachi",
+        "purpose": "Tự động thêm địa chỉ nhận hàng và đặt làm mặc định cho tài khoản Shopee, hỗ trợ tự nhận diện hành chính.",
+        "inputFormat": "• Thao tác thêm địa chỉ:\n  ▸ Gõ /diachi (hoặc bấm [📍 Thêm Địa Chỉ])\n  ▸ Dán dòng thông tin theo cấu trúc: Cookie|Tên|SĐT|Địa chỉ\n  ▸ Địa chỉ phân cách bằng dấu phẩy: Số nhà/đường, Phường/Xã, Quận/Huyện, Tỉnh/TP\n  ▸ Mẹo thông minh: Không bắt buộc viết chữ Phường/Xã/Quận/Huyện — hệ thống tự nhận diện chuẩn Wards/Districts Shopee\n  ▸ Tên và SĐT có thể để trống (Cookie|||Địa chỉ) để hệ thống tự sinh ngẫu nhiên",
+        "inputSample": "SPC_ST=WTdWUT...abc123|Nguyễn Văn A|0901234567|123 Nguyễn Trãi, Bến Thành, Quận 1, TP Hồ Chí Minh\nSPC_ST=AbCdEf...xyz789|||Số 45 Lê Lợi, Phường Bến Nghé, Quận 1, TP Hồ Chí Minh",
+        "outputFormat": "• Kết quả: Báo cáo thêm địa chỉ nhận hàng thành công và đã đặt làm mặc định.",
+        "example": "Sếp chuẩn bị kéo sale, cần điền sẵn địa chỉ nhận hàng cho nick Shopee ➔ Nhập cú pháp đủ 3 dấu phẩy ➔ Bot tự thêm địa chỉ chuẩn xác.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi (không trừ Quota Combo).\n• Cơ chế hoàn tiền: Thêm thành công mới trừ tiền, thất bại hoàn tiền 100%."
+      },
+      {
+        "id": "15",
+        "name": "Bấm Đã Nhận Hàng Tự Động",
+        "icon": "✅",
+        "cat": "cat_4",
+        "catName": "Đơn Hàng & Địa Chỉ",
+        "price": "50 VNĐ / acc",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": false,
+        "comboLabel": "Không Quota",
+        "billingType": "Trừ trước, hoàn sau",
+        "payload": "xacnhandon",
+        "command": "/xacnhandon",
+        "purpose": "Tự động quét toàn bộ các đơn hàng đang giao trên hàng loạt nick Shopee và bấm nút 'Đã nhận được hàng' nhanh chóng.",
+        "inputFormat": "• Thao tác xác nhận nhận hàng:\n  ▸ Gõ /xacnhandon (hoặc bấm [✅ Xác Nhận Nhận Hàng])\n  ▸ Dán danh sách tài khoản cần xác nhận đơn (mỗi dòng 1 tài khoản [|proxy])\n  ▸ Chấp nhận Cookie SPC_ST (tối đa 100 tài khoản) hoặc SPC_F=token|user|pass (tối đa 20 dòng)\n  ▸ Bot tự động tìm toàn bộ đơn đang giao và bấm nút 'Đã nhận được hàng' trên Shopee",
+        "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
+        "outputFormat": "• Báo cáo chi tiết: Danh sách các đơn hàng đã bấm nhận thành công kèm mã đơn.",
+        "example": "Sếp có 50 nick đều đã nhận được hàng và cần bấm nút xác nhận ➔ Dán 50 Cookie vào Bot ➔ Bấm nhận toàn bộ trong 30 giây.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi.\n• Hỗ trợ token SPC_F: Nhận tối đa 20 dòng SPC_F/lần gửi.\n• Cơ chế hoàn tiền: Tạm giữ phí trước, tự động hoàn lại 100% cho nick không có đơn đang giao hoặc cookie lỗi."
+      },
+      {
+        "id": "16",
+        "name": "Kiểm Tra Ví Shopee Voucher",
+        "icon": "🔎",
+        "cat": "cat_5",
+        "catName": "Săn & Lưu Voucher",
+        "price": "50 VNĐ / acc",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": false,
+        "comboLabel": "Không Quota",
+        "billingType": "Trừ trước, hoàn sau",
+        "payload": "vivc",
+        "command": "/vivc",
+        "purpose": "Soi toàn bộ kho voucher trong ví tài khoản Shopee: Lọc theo mã giảm tiền, mã FreeShip, hoặc kiểm tra mã chỉ định.",
+        "inputFormat": "• Thao tác quét ví voucher:\n  ▸ Gõ /vivc (hoặc bấm [🔎 Voucher Acc])\n  ▸ Bước 1: Chọn loại voucher cần lọc qua 6 nút Inline:\n    [🔥 Mã Hot] | [💰 Giảm 100K] | [💰 Giảm 80K] | [🏷️ Giảm 20/25K] | [🚚 FreeShip Hỏa Tốc] | [🔍 Mã Tự Nhập]\n  ▸ Bước 2: Dán danh sách tài khoản (Cookie SPC_ST hoặc SPC_F, tối đa 20 dòng [|proxy])\n  ▸ Mẹo nhanh: Nếu dán Cookie thẳng mà không chọn nút, hệ thống tự động lọc theo bộ [🔥 Mã Hot]",
+        "inputSample": "SPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhau@123",
+        "outputFormat": "• Danh sách voucher khả dụng: Tên voucher, mức giảm, hạn sử dụng và điều kiện đơn tối thiểu.",
+        "example": "Sếp muốn biết nick của mình đã lưu được mã giảm 100k hôm nay chưa ➔ Bấm nút [ 💰 Giảm 100K ] ➔ Dán Cookie vào ➔ Bot liệt kê danh sách mã tương ứng.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi.\n• Hỗ trợ token SPC_F: Tự động nhận diện và đăng nhập giải mã.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Cookie die hoặc lỗi đăng nhập ➔ Tự động hoàn tiền 100%."
+      },
+      {
+        "id": "17",
+        "name": "Lưu Voucher Bằng Mã Code",
+        "icon": "🎟️",
+        "cat": "cat_5",
+        "catName": "Săn & Lưu Voucher",
+        "price": "700 VNĐ / lượt",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": false,
+        "comboLabel": "Không Quota",
+        "billingType": "Chỉ tính khi lưu thành công",
+        "payload": "luucode",
+        "command": "/luucode",
+        "purpose": "Lưu mã giảm giá ký tự (Voucher Code) vào ví tài khoản Shopee hàng loạt, chỉ tính phí khi lưu thành công.",
+        "inputFormat": "• Thao tác nạp voucher code tự do:\n  ▸ Gõ /luucode (hoặc bấm [🎟️ Lưu Voucher Code])\n  ▸ Gửi chung một tin nhắn chứa cả Mã Voucher và Danh Sách Cookie tài khoản\n  ▸ Hệ thống tự động phân tách Mã Voucher và Cookie\n  ▸ Hỗ trợ nạp cùng lúc tối đa 5 mã voucher vào tối đa 10 tài khoản Shopee",
+        "inputSample": "MAGIAMGIA50K\nFREESHIPTHANG10\nSPC_ST=WTdWUTBhS01wVz...cookie1\nSPC_ST=b1Z1c05rbk1xSj...cookie2|103.151.120.45:8080:user:pass",
+        "outputFormat": "• Báo cáo kết quả: ✅ Lưu thành công mã [CODE] vào ví tài khoản.",
+        "example": "Sếp săn được 2 mã code độc quyền, muốn nạp vào 10 nick Shopee (Tổng 2×10=20 lượt) ➔ Bot chạy song song và hoàn tất trong vài giây.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi.\n• Hỗ trợ token SPC_F: Tự động nhận diện và đăng nhập giải mã (tối đa 10 dòng SPC_F).\n• Cơ chế trừ tiền an toàn: CHỈ TÍNH TIỀN KHI LƯU VOUCHER THÀNH CÔNG. Lượt lưu lỗi (mã hết hạn, acc đã lưu trước đó, cookie die) ➔ Hoàn tiền 100%."
+      },
+      {
+        "id": "18",
+        "name": "Săn & Lưu Voucher Hot (Kho Bot)",
+        "icon": "🎁",
+        "cat": "cat_5",
+        "catName": "Săn & Lưu Voucher",
+        "price": "500 VNĐ / acc OK",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Trừ trước, hoàn sau",
+        "payload": "luuvc",
+        "command": "/luuvc",
+        "purpose": "Săn và lưu các mã giảm giá HOT được bot cập nhật theo thời gian thực (Shopee Live, Video, FreeShip, Giảm 50k, 100k...).",
+        "inputFormat": "• Thao tác săn mã HOT hệ thống:\n  ▸ Bước 1: Gõ /luuvc (hoặc bấm [🎁 Lưu Voucher], hoặc gõ /voucher)\n  ▸ Bước 2: Xem danh sách voucher được phân nhóm kèm trạng thái real-time (% đã dùng, còn lượt/hết lượt)\n  ▸ Bước 3: Bấm vào nút mã muốn lưu (ví dụ: [🔥 Giảm 50K — Mã Siêu Hot] hoặc [⚡ Đang HOT])\n  ▸ Bước 4: Dán danh sách Cookie Shopee (SPC_ST) để hệ thống lưu mã vào ví tài khoản",
+        "inputSample": "/luuvc (Bấm chọn mã [🔥 Mã Siêu Hot] / [⚡ Đang HOT]) ➔ Dán danh sách Cookie:\nSPC_ST=WTdWUTBhS01wVz...abc123def\nSPC_ST=b1Z1c05rbk1xSj...xyz789def",
+        "outputFormat": "• Thông báo lưu mã thành công: ✅ Đã lưu [Tên Mã] vào ví tài khoản Shopee.",
+        "example": "Sếp muốn lưu mã giảm 50k vào 5 nick Shopee ➔ Gõ /luuvc ➔ Bấm nút chọn mã ➔ Dán 5 Cookie ➔ Cả 5 nick đều được nạp mã trong 10 giây.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Tỷ lệ thành công: Mã còn lượt trên Shopee ➔ Lưu thành công 100%.\n• Cơ chế hoàn tiền: Trừ trước, hoàn sau. Mã hết lượt hoặc tài khoản lỗi ➔ Tự động hoàn tiền 100%."
+      },
+      {
+        "id": "19",
+        "name": "Gói Combo Dịch Vụ 30 Ngày",
+        "icon": "💎",
+        "cat": "cat_5",
+        "catName": "Săn & Lưu Voucher",
+        "price": "10k - 80k / 30 ngày",
+        "walletType": "main",
+        "walletLabel": "💰 Chỉ TK Chính",
+        "comboSupport": true,
+        "comboLabel": "Cấp Quota 30 ngày",
+        "billingType": "Kích hoạt dùng 30 ngày",
+        "payload": "combo",
+        "command": "/combo",
+        "purpose": "Đăng ký gói Combo trọn gói 30 ngày để sử dụng 8+ dịch vụ hệ thống với giá siêu tiết kiệm tới 45% so với dùng lẻ từng lượt.",
+        "inputFormat": "• Thao tác mua hoặc gia hạn gói:\n  ▸ Gõ /combo (hoặc bấm [💎 Combo Dịch Vụ]) ➔ Hiện bảng giá & hạn ngạch các gói Combo\n  ▸ Bấm nút mua gói tương ứng: [💎 Mua Gói Combo 1...] | [💎 Mua Gói Combo 2...] | [💎 Mua Gói Combo 3...]\n  ▸ Hệ thống trừ tiền TK Chính và kích hoạt ngay hạn ngạch sử dụng trong 30 ngày",
+        "inputSample": "/combo (Bấm chọn [💎 Mua Gói Combo 1...] / [💎 Mua Gói Combo 2...])",
+        "outputFormat": "• Kích hoạt: Kích hoạt ngay gói Combo 30 ngày và cộng hạn mức Quota dịch vụ vào tài khoản.\n• Tra cứu lượt: Kiểm tra số lượt còn lại bất kỳ lúc nào qua lệnh /tk.",
+        "example": "Thay vì trả tiền cho từng lượt dùng lẻ ➔ Sếp đăng ký gói Combo Tối Thượng 30k ➔ Được cấp hạn mức dùng thả ga cho 8+ dịch vụ trong 30 ngày.",
+        "notes": "• Loại ví thanh toán: Chỉ thanh toán bằng TK Chính (không trừ TK KM).\n• Thời hạn sử dụng: 30 ngày kể từ lúc mua.\n• Nâng cấp linh hoạt: Sếp có thể nâng cấp lên gói cao hơn bất kỳ lúc nào, hệ thống tự động tính khấu trừ số tiền tương ứng theo số ngày chưa dùng của gói cũ.\n• Mở khóa hạn mức: Áp dụng cho 8+ dịch vụ (QR, SPC_F, Zin, Live, Thêm Mail, Đọc Mail, Lưu Voucher, Tra Đơn)."
+      },
+      {
+        "id": "20",
+        "name": "Đổi Mật Khẩu Shopee",
+        "icon": "🔑",
+        "cat": "cat_3",
+        "catName": "Cookie & Kiểm Tra Acc",
+        "price": "100 VNĐ / acc",
+        "shortPrice": "100 VNĐ / acc",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM & Chính",
+        "comboSupport": false,
+        "comboLabel": "Không Quota",
+        "billingType": "Thành công mới tính tiền",
+        "payload": "doipass",
+        "command": "/doipass",
+        "purpose": "Hệ thống tự động đổi mật khẩu tài khoản Shopee hàng loạt qua Cookie SPC_ST hoặc mã SPC_F. Tự động sinh mật khẩu ngẫu nhiên 10 ký tự đạt 100% chuẩn Shopee nếu bỏ trống, hỗ trợ proxy riêng và tự động cập nhật mật khẩu mới lên Google Sheet nếu có liên kết ở /reg.",
+        "inputFormat": "• Thao tác chính qua lệnh /doipass (hoặc /spcf, hoặc bấm [🔑 Đổi Mật Khẩu]):\n  ▸ Kênh 1 — Nhập Text trực tiếp (tối đa 10 tài khoản / lần gửi chống tràn trần 4096 Telegram):\n    • Cú pháp tự sinh pass: SPC_ST|pass_cu (Hệ thống tự tạo pass mới 10 ký tự chuẩn Shopee)\n    • Cú pháp tự đặt pass: SPC_ST|pass_cu|pass_moi\n    • Kèm Proxy HTTP: SPC_ST|pass_cu[|pass_moi]|ip:port:user:pass\n    • Kèm Proxy SOCKS5: SPC_ST|pass_cu[|pass_moi]|socks5://ip:port:user:pass (hoặc socks5://ip:port)\n    • Định dạng SPC_F: SPC_F=token|username|pass_cu[|pass_moi][|proxy]\n  ▸ Kênh 2 — Gửi File .txt đính kèm (hỗ trợ từ 11 đến 50 tài khoản / file):\n    • Soạn danh sách mỗi dòng 1 acc theo cú pháp trên và gửi file .txt trực tiếp vào bot.\n• Hỗ trợ Proxy đa giao thức (HTTP & SOCKS5): Tương tự lệnh /vivc, Sếp có thể dùng HTTP Proxy hoặc SOCKS5 Proxy (kèm tiền tố socks5://). Nếu không kèm proxy, hệ thống tự động xoay proxy pool ngầm.\n• Tự động đồng bộ Google Sheet: Nếu sếp đã liên kết Google Sheet ở /reg (mục cấu hình nâng cao), hệ thống tự động cập nhật pass mới vào cột D và Cookie SPC_ST mới vào cột G.\n• Quy chuẩn mật khẩu Shopee: Dài 8-16 ký tự, có ít nhất 1 chữ hoa, 1 chữ thường, gồm chữ cái, số, dấu câu. Khuyên dùng bỏ trống pass_moi để hệ thống tự tạo an toàn 100%.",
+        "inputSample": "Cú pháp dán text tự sinh pass (Khuyên dùng):\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123\nSPC_F=token_spcf_sample|0912345678|MatKhauCu@123\n\nCú pháp kèm Proxy SOCKS5 (Hỗ trợ có auth hoặc không auth):\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123|socks5://103.151.120.45:1080\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123|Ph@123456|socks5://103.151.120.45:1080:user:pass\nSPC_F=token_spcf_sample|0912345678|MatKhauCu@123|socks5://103.151.120.45:1080:user:pass\n\nCú pháp kèm Proxy HTTP chuẩn:\nSPC_ST=WTdWUTBhS01wVz...abc123def|MatKhauCu@123|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|myuser|MatKhauCu@123|Ph@123456|http://103.151.120.45:8080:user:pass",
+        "outputFormat": "• Báo cáo Realtime (Streaming Card): Mỗi tài khoản xử lý xong được gửi ngay 1 thẻ Card độc lập báo Thành công (kèm Cookie SPC_ST mới đầy đủ để chạm copy dùng ngay) hoặc Thất bại (kèm lý do tiếng Việt rõ ràng).\n• Bảng kê 3 dòng minh bạch ở tin nhắn tổng kết: Tạm tính ban đầu ➔ Thực tế đã trừ ➔ Tự động hoàn tiền 100% tài khoản lỗi.\n• Xuất File .txt tự động (khi từ 3 acc trở lên): Tự động nạp file kết quả đính kèm gửi ngay cuối khung chat để tải về mở Excel/Notepad tiện lợi.",
+        "example": "Sếp có 10 nick Shopee cần đổi mật khẩu định kỳ ➔ Gõ /doipass ➔ Dán 10 dòng SPC_ST|pass_cu ➔ Bot đổi tuần tự từng nick, bắn thẻ card báo pass mới kèm Cookie SPC_ST sống, cập nhật luôn lên Google Sheet và hoàn tất trong chớp mắt.",
+        "notes": "• Loại ví thanh toán: Cố định 100đ/acc. Ưu tiên trừ TK Khuyến Mãi (TK KM 🎁) trước, thiếu mới trừ TK Chính.\n• Cơ chế hoàn tiền: Trừ tiền tạm tính trước, chỉ thu tiền các tài khoản THÀNH CÔNG. Tài khoản nào lỗi (sai pass cũ, cookie hết hạn, dính OTP xác minh, lỗi mạng...) ➔ Tự động hoàn lại 100% phí về đúng ví gốc đã trừ.\n• An toàn tài khoản: Mỗi tài khoản đổi pass được hệ thống dọn dẹp sạch sẽ dữ liệu phiên duyệt và bảo vệ đa tầng, đảm bảo tỷ lệ thành công tối đa."
+      }
+    ];
 
     // STATE
     let currentCategory = 'all';
@@ -2053,10 +2201,10 @@
     }
 
     function hapticLight() {
-      try { tg?.HapticFeedback?.impactOccurred('light'); } catch (e) {}
+      try { tg?.HapticFeedback?.impactOccurred('light'); } catch (e) { }
     }
     function hapticMedium() {
-      try { tg?.HapticFeedback?.impactOccurred('medium'); } catch (e) {}
+      try { tg?.HapticFeedback?.impactOccurred('medium'); } catch (e) { }
     }
 
     function showToast(msg) {
@@ -2241,8 +2389,8 @@
       container.innerHTML = filtered.map(item => {
         const isActive = item.id === activeFeatureId;
         const walletBadgeClass = item.walletType === 'km' ? 'tag-km' : 'tag-main';
-        const comboBadge = item.comboSupport 
-          ? `<span class="tag-badge tag-combo">💎 ${item.comboLabel}</span>` 
+        const comboBadge = item.comboSupport
+          ? `<span class="tag-badge tag-combo">💎 ${item.comboLabel}</span>`
           : '';
 
         return `
@@ -2300,8 +2448,8 @@
       const footer = document.getElementById('inspector-footer');
 
       const walletBadgeClass = item.walletType === 'km' ? 'tag-km' : 'tag-main';
-      const comboBadge = item.comboSupport 
-        ? `<span class="tag-badge tag-combo">💎 ${item.comboLabel}</span>` 
+      const comboBadge = item.comboSupport
+        ? `<span class="tag-badge tag-combo">💎 ${item.comboLabel}</span>`
         : '';
 
       header.innerHTML = `
@@ -2426,8 +2574,8 @@
       const footer = document.getElementById('drawer-footer');
 
       const walletBadgeClass = item.walletType === 'km' ? 'tag-km' : 'tag-main';
-      const comboBadge = item.comboSupport 
-        ? `<span class="tag-badge tag-combo">💎 ${item.comboLabel}</span>` 
+      const comboBadge = item.comboSupport
+        ? `<span class="tag-badge tag-combo">💎 ${item.comboLabel}</span>`
         : '';
 
       header.innerHTML = `
@@ -2552,7 +2700,7 @@
       document.body.style.overflow = '';
     }
 
-    
+
     // COPY COMMAND HELPER
     function copyCommand(cmd, event) {
       if (event) event.stopPropagation();
@@ -2675,4 +2823,5 @@
     renderMasterList();
   </script>
 </body>
+
 </html>
