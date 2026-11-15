@@ -1870,15 +1870,15 @@
         "walletLabel": "🎁 Hỗ trợ TK KM",
         "comboSupport": true,
         "comboLabel": "💎 Có Quota",
-        "billingType": "Chỉ trừ khi có thư / OTP",
+        "billingType": "10đ / lần đọc thành công (Trống = 0đ)",
         "payload": "docmail",
         "command": "/docmail",
-        "purpose": "Tự động kiểm tra hòm thư (Hotmail, Outlook, Mail Free hoặc iCloud thuê) để lấy mã OTP Shopee mới nhất, đồng thời hỗ trợ quản lý và gia hạn +7 ngày cho các Mail iCloud đã thuê qua lệnh /myicloud.",
+        "purpose": "Tự động kiểm tra hòm thư (Hotmail, Outlook, Mail Free hoặc iCloud thuê) để lấy mã OTP / Link xác nhận hoặc nội dung thư mới nhất, đồng thời hỗ trợ quản lý và gia hạn +7 ngày cho các Mail iCloud đã thuê qua lệnh /myicloud.",
         "inputFormat": "• Thao tác đọc email:\n  ▸ Gõ /docmail (hoặc bấm [📬 Đọc Email]) ➔ Dán data email theo định dạng tương ứng:\n  ▸ ☁️ Mail iCloud: tenmail@icloud.com (chỉ cần 1 dòng địa chỉ, hoặc bấm trực tiếp trong /myicloud không cần nhớ địa chỉ)\n  ▸ 📮 Hotmail / Outlook: email|password|token_auth|client_key\n  ▸ 📨 Mail Free: email|password|mailfree\n• Quản lý & Gia hạn Mail iCloud đã thuê:\n  ▸ Gõ /myicloud (hoặc bấm nút [📋 Quản Lý / Gia Hạn Mail iCloud Đã Thuê]) ➔ Xem danh sách mail đang dùng, lọc mail sắp hết hạn (< 48h), đọc OTP 1 chạm, gia hạn lẻ từng mail hoặc gia hạn hàng loạt +7 ngày (350đ/mail).",
         "inputSample": "abc123@icloud.com\nmyaccount@hotmail.com|Password123|token_auth_sample|client_key_sample\ntempmail123@domain.com|Password123|mailfree\n\nLệnh mở danh sách quản lý & gia hạn Mail iCloud:\n/myicloud",
-        "outputFormat": "• Kết quả: Mã xác thực OTP Shopee: 123456 (hoặc link xác nhận trong thư).\n• Nút bấm tương tác: [ 🔄 Đọc Lại / Lấy Mã Mới ] • [ ⏰ Gia Hạn +7 Ngày ] • [ 📋 Quản Lý Mail Đã Thuê ] • [ ☁️ Thuê Mail Mới ] • [ 🏠 Menu Chính ].",
+        "outputFormat": "• Kết quả: Mã xác thực OTP Shopee: 123456 (hoặc link xác nhận / trích dẫn nội dung thư mới nhất).\n• Nút bấm tương tác: [ 🔄 Đọc Lại / Lấy Mã Mới ] • [ ⏰ Gia Hạn +7 Ngày ] • [ 📋 Quản Lý Mail Đã Thuê ] • [ ☁️ Thuê Mail Mới ] • [ 🏠 Menu Chính ].",
         "example": "Sếp đổi mật khẩu Shopee hoặc cần gia hạn mail iCloud sắp hết hạn ➔ Gõ /myicloud ➔ Bấm [📬 OTP] để lấy mã ngay hoặc bấm [⏰ +7 Ngày] để cộng thêm 7 ngày sử dụng.",
-        "notes": "• Loại ví thanh toán: Đọc email hỗ trợ TK Khuyến Mãi & Quota Combo; Gia hạn Mail iCloud (+7 ngày = 350đ) chỉ dùng TK Chính.\n• Cơ chế trừ tiền đọc thư: CHỈ TRỪ TIỀN KHI ĐỌC ĐƯỢC THƯ CÓ MÃ OTP SHOPEE. Nếu chưa có thư mới ➔ Không tính phí.\n• Ân hạn 1 giờ: Khi Mail iCloud vừa hết hạn 7 ngày, hệ thống giữ thêm 1 giờ ân hạn để Sếp kịp bấm [⏰ Gia Hạn +7 Ngày] khôi phục mail trước khi xóa vĩnh viễn trên Apple."
+        "notes": "• Loại ví thanh toán: Đọc email (10đ/lần) hỗ trợ Lượt Miễn Phí, Quota Combo, TK Khuyến Mãi 🎁 & TK Chính 💰; Gia hạn Mail iCloud (+7 ngày = 350đ) chỉ dùng TK Chính.\n• Cơ chế trừ tiền đọc thư: Tính phí 10đ mỗi lần đọc hộp thư thành công (có thư trong hộp thư). Nếu hộp thư trống chưa có thư mới hoặc lỗi kết nối ➔ Hoàn toàn không tính phí (0đ).\n• Ân hạn 1 giờ: Khi Mail iCloud vừa hết hạn 7 ngày, hệ thống giữ thêm 1 giờ ân hạn để Sếp kịp bấm [⏰ Gia Hạn +7 Ngày] khôi phục mail trước khi xóa vĩnh viễn trên Apple."
       },
       {
         "id": "07",
@@ -1921,6 +1921,27 @@
         "outputFormat": "• Danh sách Cookie SPC_ST đổi thành công: ✅ [user]: SPC_ST=WTdWUT...",
         "example": "Sếp có 20 nick dạng SPC_F|user|pass ➔ Dán cả 20 dòng vào Bot ➔ Bot đổi và trả ra 20 Cookie SPC_ST để dùng cho các tool khác.",
         "notes": "• Loại ví thanh toán: Hỗ trợ thanh toán bằng TK Khuyến Mãi và trừ Quota Combo.\n• Cơ chế hoàn tiền: Trừ tiền trước, hoàn sau. Chỉ tính tiền những tài khoản trích xuất thành công Cookie SPC_ST. Tài khoản sai mật khẩu hoặc lỗi proxy ➔ Tự động hoàn tiền 100% cho từng dòng lỗi."
+      },
+      {
+        "id": "08b",
+        "name": "Đăng Nhập & Xác Minh Bằng Mã QR",
+        "icon": "🛡️",
+        "cat": "cat_3",
+        "catName": "Cookie & Kiểm Tra Acc",
+        "price": "50 VNĐ / lần",
+        "walletType": "km",
+        "walletLabel": "🎁 Hỗ trợ TK KM",
+        "comboSupport": true,
+        "comboLabel": "💎 Có Quota",
+        "billingType": "Trừ trước, hoàn sau 100%",
+        "payload": "qrlogin",
+        "command": "/qrlogin",
+        "purpose": "Tự động quét và xác nhận mã QR đăng nhập hoặc mã QR xác minh bảo mật Shopee trên trình duyệt PC/Web bằng Cookie SPC_ST hoặc SPC_F|user|pass mà không cần mở App điện thoại.",
+        "inputFormat": "• Lệnh chính duy nhất: /qrlogin (hoặc bấm [🛡️ Xác Minh Login QR] trên Menu / trong mục /cookie)\n• 5 Chế độ Nhập Nhanh 1 Chạm:\n  ▸ Cách 1 (0 cần gõ lệnh): Dán thẳng Ảnh chụp màn hình Mã QR kèm Caption là Cookie (SPC_ST=...) hoặc SPC_F=token|user|pass\n  ▸ Cách 2 (Gõ 1 dòng lệnh): /qrlogin SPC_ST=... https://shopee.vn/universal-link/qrcode-verification?id=...\n  ▸ Cách 3 (Dán chung Text / Reply ghép): Dán chung Link QR + Cookie vào 1 tin nhắn hoặc Reply tin nhắn chứa Cookie vào Ảnh QR\n  ▸ Cách 4 (Đặt sẵn Acc trước): Gõ /qrlogin SPC_F=token|user|pass (lưu chờ 5 phút) ➔ mở Shopee chụp ảnh QR dán vào là duyệt tức thì\n  ▸ Cách 5 (Duyệt lại Acc vừa dùng): Dán Ảnh QR ➔ Bấm nút [⚡ Duyệt Ngay Bằng Acc Vừa Dùng]\n• Hỗ trợ Proxy riêng (HTTP & SOCKS5 — tùy chọn): Thêm |ip:port:user:pass hoặc |socks5://ip:port:user:pass vào cuối dòng",
+        "inputSample": "/qrlogin SPC_ST=WTdWUTBhS01wVz... https://shopee.vn/universal-link/qrcode-verification?id=a1b2c3d4-e5f6-7890\nSPC_F=token_spcf_sample|myusername|MatKhau@123|103.151.120.45:8080:user:pass\nSPC_F=token_spcf_sample|myusername|MatKhau@123|socks5://103.151.120.45:1080:user:pass",
+        "outputFormat": "• Báo cáo kết quả: ✅ Xác minh / Đăng nhập mã QR thành công kèm thông tin tài khoản (Username, User ID, SĐT, Email) và Cookie SPC_ST sống (nếu tự động cấp mới từ SPC_F).",
+        "example": "Sếp đăng nhập nick Shopee trên trình duyệt máy tính bị hỏi quét mã QR xác minh bảo mật ➔ Chụp màn hình dán vào Bot kèm dòng SPC_F|user|pass ➔ Bot tự động duyệt mã QR và trình duyệt tự vào thẳng Shopee sau 2 giây.",
+        "notes": "• Loại ví thanh toán: Hỗ trợ Lượt Miễn Phí, Quota Combo, TK Khuyến Mãi 🎁 và TK Chính.\n• Tự động cứu phiên SPC_ST hết hạn: Nếu dòng dữ liệu của Sếp có cả SPC_ST cũ (đã hết hạn) và SPC_F|user|pass, hệ thống tự động tạo lại SPC_ST mới để duyệt QR.\n• Cơ chế hoàn tiền: Chỉ tính phí khi duyệt mã QR thành công. Nếu mã QR đã hết hạn hoặc lỗi kết nối ➔ Tự động hoàn tiền 100% về đúng ví gốc."
       },
       {
         "id": "09",
