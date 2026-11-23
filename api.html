@@ -1,0 +1,2769 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SFAST Developer Portal v2.0 — Tài Liệu Public API & SIM API v2</title>
+  <meta name="description"
+    content="Cổng tài liệu kỹ thuật SFAST Public API v2.0 chuẩn OpenAPI 3.1.0 & RFC 9457: Xác thực kép Bearer / HMAC-SHA256, Idempotency-Key, Outbound Signed Webhook và Code mẫu 4 ngôn ngữ.">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --bg-body: #F8FAFC;
+      --bg-header: rgba(255, 255, 255, 0.94);
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F8FAFC;
+      --bg-subtle: #F1F5F9;
+      --bg-active-row: #EFF6FF;
+      --border-color: #E2E8F0;
+      --border-active: #2563EB;
+      --border-focus: #94A3B8;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-sub: #475569;
+
+      --brand-primary: #EE4D2D;
+      --brand-coral: #FF5722;
+      --brand-gradient: linear-gradient(135deg, #FF6533 0%, #EE4D2D 100%);
+      --brand-blue-gradient: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+      --brand-glow: rgba(238, 77, 45, 0.22);
+
+      --method-get-bg: #ECFDF5;
+      --method-get-text: #059669;
+      --method-get-border: #A7F3D0;
+
+      --method-post-bg: #EFF6FF;
+      --method-post-text: #2563EB;
+      --method-post-border: #BFDBFE;
+
+      --method-wh-bg: #F5F3FF;
+      --method-wh-text: #7C3AED;
+      --method-wh-border: #DDD6FE;
+
+      --badge-warn-bg: #FFFBEB;
+      --badge-warn-text: #D97706;
+      --badge-warn-border: #FDE68A;
+
+      --badge-danger-bg: #FEF2F2;
+      --badge-danger-text: #DC2626;
+      --badge-danger-border: #FECACA;
+
+      --code-bg: #0F172A;
+      --code-text: #E2E8F0;
+      --code-border: #1E293B;
+
+      --card-shadow: 0 4px 18px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+      --card-shadow-active: 0 10px 25px -4px rgba(37, 99, 235, 0.14), 0 4px 12px -2px rgba(37, 99, 235, 0.08);
+
+      --banner-bg: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%);
+      --banner-border: #BFDBFE;
+
+      --drawer-bg: #FFFFFF;
+      --drawer-backdrop: rgba(15, 23, 42, 0.65);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+      --transition-fast: 0.15s ease;
+      --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #090D16;
+      --bg-header: rgba(15, 23, 42, 0.94);
+      --bg-card: #0F172A;
+      --bg-card-hover: #1E293B;
+      --bg-subtle: #1E293B;
+      --bg-active-row: #1E293B;
+      --border-color: #334155;
+      --border-active: #60A5FA;
+      --border-focus: #475569;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-sub: #CBD5E1;
+
+      --brand-primary: #FF6533;
+      --brand-coral: #FF7A45;
+      --brand-glow: rgba(255, 101, 51, 0.35);
+
+      --method-get-bg: rgba(6, 78, 59, 0.45);
+      --method-get-text: #34D399;
+      --method-get-border: #065F46;
+
+      --method-post-bg: rgba(30, 58, 138, 0.45);
+      --method-post-text: #60A5FA;
+      --method-post-border: #1E40AF;
+
+      --method-wh-bg: rgba(88, 28, 135, 0.45);
+      --method-wh-text: #C084FC;
+      --method-wh-border: #6B21A8;
+
+      --badge-warn-bg: rgba(120, 53, 15, 0.45);
+      --badge-warn-text: #FBBF24;
+      --badge-warn-border: #92400E;
+
+      --badge-danger-bg: rgba(127, 29, 29, 0.45);
+      --badge-danger-text: #F87171;
+      --badge-danger-border: #991B1B;
+
+      --code-bg: #050811;
+      --code-text: #E2E8F0;
+      --code-border: #1E293B;
+
+      --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+      --card-shadow-active: 0 10px 25px -4px rgba(96, 165, 250, 0.2);
+
+      --banner-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, rgba(6, 78, 59, 0.3) 100%);
+      --banner-border: #1E3A8A;
+
+      --drawer-bg: #0F172A;
+      --drawer-backdrop: rgba(0, 0, 0, 0.75);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-header);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .header-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 10px 16px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--brand-blue-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      background: var(--method-post-bg);
+      color: var(--method-post-text);
+      border: 1px solid var(--method-post-border);
+    }
+
+    .portal-switcher {
+      display: inline-flex;
+      background: var(--bg-subtle);
+      padding: 3px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      gap: 4px;
+    }
+
+    .portal-switch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text-sub);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .portal-switch-btn:hover {
+      color: var(--text-main);
+    }
+
+    .portal-switch-btn.active {
+      background: var(--bg-card);
+      color: var(--border-active);
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link-btn, .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 11px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      font-family: var(--font-sans);
+      text-decoration: none;
+    }
+
+    .nav-link-btn:hover, .btn-icon:hover {
+      border-color: var(--border-active);
+      background: var(--bg-active-row);
+    }
+
+    .nav-link-btn.btn-primary-cta {
+      background: var(--brand-gradient);
+      color: #fff;
+      border-color: transparent;
+      font-weight: 700;
+    }
+
+    .baseurl-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 6px 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .baseurl-label {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .baseurl-input {
+      flex: 1;
+      min-width: 210px;
+      padding: 5px 10px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      outline: none;
+    }
+
+    .baseurl-input:focus {
+      border-color: var(--border-active);
+    }
+
+    .baseurl-preset-btn {
+      padding: 4px 9px;
+      font-size: 11.5px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-sub);
+      cursor: pointer;
+      font-family: var(--font-mono);
+    }
+
+    .baseurl-preset-btn:hover {
+      border-color: var(--border-active);
+      color: var(--border-active);
+    }
+
+    .controls-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon-left {
+      position: absolute;
+      left: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 9px 36px 9px 36px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      outline: none;
+      transition: var(--transition-fast);
+    }
+
+    .search-input:focus {
+      border-color: var(--border-active);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 10px;
+      border: none;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .search-clear-btn.visible {
+      display: inline-flex;
+    }
+
+    .filter-bar-unified {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cat-scroll-container, .filter-pills-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .cat-scroll-container::-webkit-scrollbar, .filter-pills-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-pill, .filter-pill {
+      padding: 5px 11px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-sub);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: var(--font-sans);
+      transition: var(--transition-fast);
+    }
+
+    .cat-pill.active, .filter-pill.active {
+      background: var(--border-active);
+      color: #fff;
+      border-color: var(--border-active);
+    }
+
+    .content-area {
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 14px 16px 90px;
+      flex: 1;
+    }
+
+    /* 3-CARD ARCHITECTURE & PLAYGROUND BENTO BANNER */
+    .rules-banner {
+      background: var(--banner-bg);
+      border: 1px solid var(--banner-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .rules-banner-header {
+      padding: 11px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .rules-banner-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rules-banner-body {
+      padding: 0 16px 16px;
+    }
+
+    .rules-banner.collapsed .rules-banner-body {
+      display: none;
+    }
+
+    .bento-3col-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 1120px) {
+      .bento-3col-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .rule-bento-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 13px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .rule-bento-box h4 {
+      font-size: 13.5px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .flow-steps {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+
+    .flow-step-item {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    .flow-step-item:hover {
+      border-color: var(--border-active);
+      color: var(--border-active);
+    }
+
+    .flow-step-arrow {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .mini-table th, .mini-table td {
+      border: 1px solid var(--border-color);
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .mini-table th {
+      background: var(--bg-subtle);
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .pg-grid {
+      display: grid;
+      grid-template-columns: 95px 1fr;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .pg-input, .pg-select {
+      width: 100%;
+      padding: 5px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      outline: none;
+    }
+
+    .pg-input:focus, .pg-select:focus {
+      border-color: var(--border-active);
+      background: var(--bg-card);
+    }
+
+    .pg-output-box {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border: 1px solid var(--code-border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.45;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin-top: 6px;
+    }
+
+    /* MASTER-DETAIL 2-COLUMN SPLIT-VIEW */
+    .master-detail-container {
+      display: grid;
+      grid-template-columns: 430px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .master-detail-container {
+        grid-template-columns: 1fr;
+      }
+      .detail-inspector-panel {
+        display: none !important;
+      }
+      .desktop-nav-links {
+        display: none !important;
+      }
+    }
+
+    .master-list-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .master-list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-sub);
+      padding: 0 4px;
+    }
+
+    .master-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      box-shadow: var(--card-shadow);
+      margin-bottom: 9px;
+    }
+
+    .master-card:hover {
+      border-color: var(--border-active);
+      background: var(--bg-card-hover);
+      transform: translateY(-1px);
+    }
+
+    .master-card.active {
+      border-color: var(--border-active);
+      background: var(--bg-active-row);
+      box-shadow: var(--card-shadow-active);
+    }
+
+    .card-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .card-num-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: var(--bg-subtle);
+      color: var(--text-sub);
+      border: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    .method-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    .method-GET {
+      background: var(--method-get-bg);
+      color: var(--method-get-text);
+      border: 1px solid var(--method-get-border);
+    }
+
+    .method-POST {
+      background: var(--method-post-bg);
+      color: var(--method-post-text);
+      border: 1px solid var(--method-post-border);
+    }
+
+    .method-WEBHOOK {
+      background: var(--method-wh-bg);
+      color: var(--method-wh-text);
+      border: 1px solid var(--method-wh-border);
+    }
+
+    .card-name {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-path-line {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--border-active);
+      margin-bottom: 6px;
+      word-break: break-all;
+    }
+
+    .card-row-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .card-tags {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .tag-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      color: var(--text-sub);
+    }
+
+    .tag-scope {
+      font-family: var(--font-mono);
+      background: var(--method-post-bg);
+      color: var(--method-post-text);
+      border-color: var(--method-post-border);
+    }
+
+    .tag-idem {
+      background: var(--badge-warn-bg);
+      color: var(--badge-warn-text);
+      border-color: var(--badge-warn-border);
+    }
+
+    .tag-exempt {
+      background: var(--method-get-bg);
+      color: var(--method-get-text);
+      border-color: var(--method-get-border);
+    }
+
+    .tag-ban {
+      background: var(--badge-danger-bg);
+      color: var(--badge-danger-text);
+      border-color: var(--badge-danger-border);
+    }
+
+    .card-cmd-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--code-bg);
+      color: #38BDF8;
+      cursor: pointer;
+    }
+
+    /* RIGHT DETAIL INSPECTOR */
+    .detail-inspector-panel {
+      position: sticky;
+      top: 148px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: calc(100vh - 168px);
+    }
+
+    .inspector-header {
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .inspector-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .inspector-title-row h2 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .endpoint-url-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      margin-bottom: 8px;
+      overflow-x: auto;
+    }
+
+    .inspector-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .segmented-tabs-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      padding: 6px 12px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .seg-tab-btn {
+      padding: 7px 6px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--text-sub);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      text-align: center;
+    }
+
+    .seg-tab-btn.active {
+      background: var(--bg-card);
+      color: var(--border-active);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
+    }
+
+    .inspector-body {
+      padding: 16px 18px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .tab-content-panel {
+      display: none;
+    }
+
+    .tab-content-panel.active {
+      display: block;
+    }
+
+    .detail-section {
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .bento-card-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .lang-switcher-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .lang-btn {
+      padding: 5px 11px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      color: var(--text-sub);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font-mono);
+    }
+
+    .lang-btn.active {
+      background: var(--border-active);
+      color: #fff;
+      border-color: var(--border-active);
+    }
+
+    .code-box-wrapper {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .code-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid var(--code-border);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: #94A3B8;
+      font-weight: 700;
+    }
+
+    .btn-copy-code {
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      background: #1E293B;
+      color: #F8FAFC;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-sans);
+    }
+
+    .btn-copy-code:hover {
+      background: #2563EB;
+      border-color: #3B82F6;
+    }
+
+    .code-block {
+      padding: 12px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--code-text);
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .inspector-footer {
+      padding: 11px 18px;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-use-now {
+      flex: 1;
+      padding: 9px 14px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: var(--brand-gradient);
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: var(--font-sans);
+    }
+
+    .btn-secondary-action {
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 12.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 36px 16px;
+      background: var(--bg-card);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+    }
+
+    .empty-state.visible {
+      display: block;
+    }
+
+    /* MOBILE DRAWER & FLOATING NAV */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--drawer-backdrop);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+
+    .drawer-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .bottom-sheet-drawer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 210;
+      background: var(--drawer-bg);
+      border-radius: 20px 20px 0 0;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(102%);
+      transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .bottom-sheet-drawer.open {
+      transform: translateY(0);
+    }
+
+    .drawer-drag-pill-wrap {
+      padding: 8px 0 4px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .drawer-drag-pill {
+      width: 42px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--border-focus);
+    }
+
+    .drawer-header {
+      padding: 8px 14px 10px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .drawer-close-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .drawer-body {
+      padding: 12px 14px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .drawer-footer {
+      padding: 10px 14px;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-subtle);
+      display: flex;
+      gap: 8px;
+    }
+
+    .mobile-floating-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 150;
+      background: var(--bg-header);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border-color);
+      padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+      justify-content: space-around;
+    }
+
+    @media (max-width: 860px) {
+      .mobile-floating-nav {
+        display: flex;
+      }
+    }
+
+    .m-nav-item {
+      border: none;
+      background: transparent;
+      color: var(--text-sub);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: var(--font-sans);
+    }
+
+    .m-nav-item.active {
+      color: var(--border-active);
+    }
+
+    .m-nav-item .icon {
+      font-size: 16px;
+    }
+
+    .toast-popup {
+      position: fixed;
+      bottom: 76px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #0F172A;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 12.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 300;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .toast-popup.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- STICKY HEADER -->
+  <header class="sticky-header">
+    <div class="header-container">
+      <div class="header-top">
+        <a href="api.html" class="brand-box">
+          <div class="brand-logo">🌐</div>
+          <div class="brand-title">
+            SFAST DEVELOPER PORTAL
+            <span class="brand-badge">Public API v2.0 · OpenAPI 3.1</span>
+          </div>
+        </a>
+
+        <!-- DUAL-PORTAL SWITCHER -->
+        <div class="portal-switcher">
+          <a href="index.html" class="portal-switch-btn">📖 Sổ Tay 22 Chức Năng Bot</a>
+          <a href="api.html" class="portal-switch-btn active">🌐 Tài Liệu Public API</a>
+        </div>
+
+        <div class="header-actions">
+          <nav class="desktop-nav-links" style="display: flex; gap: 6px;">
+            <button class="nav-link-btn btn-primary-cta" onclick="useFeatureNow('api')">🔑 Lấy API Key (/api)</button>
+            <button class="nav-link-btn" onclick="useFeatureNow('sim')">📱 Thuê SĐT (/sim)</button>
+            <button class="nav-link-btn" onclick="openSupportGroup()">👥 Nhóm Hỗ Trợ</button>
+            <button class="nav-link-btn" onclick="openAdminSupport()">💬 Admin</button>
+          </nav>
+          <button class="btn-icon" id="theme-toggle-btn" title="Chuyển đổi Sáng / Tối" onclick="toggleTheme()">
+            <span id="theme-icon">🌙</span> <span id="theme-text">Tối</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CONFIGURABLE BASE URL BAR ([R-18]) -->
+      <div class="baseurl-bar">
+        <span class="baseurl-label">🔗 API Base URL:</span>
+        <input type="text" id="base-url-input" class="baseurl-input" value="http://127.0.0.1:8000"
+          placeholder="Nhập Base URL (VD: http://127.0.0.1:8000 hoặc https://api.domain...)"
+          oninput="updateBaseUrl(this.value)">
+        <button class="baseurl-preset-btn" onclick="setBaseUrlPreset('http://127.0.0.1:8000')">Local :8000</button>
+        <button class="baseurl-preset-btn" onclick="copyText(getBaseUrl(), 'Đã sao chép Base URL!')">📋 Copy URL</button>
+      </div>
+
+      <!-- SEARCH & FILTER ROW -->
+      <div class="controls-row">
+        <div class="search-wrapper">
+          <span class="search-icon-left">🔍</span>
+          <input type="text" id="search-input" class="search-input"
+            placeholder="Tìm kiếm nhanh 10 Endpoints & Webhook (예: /orders, rehire, balance, HMAC, Idempotency-Key, NO_STOCK...)"
+            autocomplete="off">
+          <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearch()">✕</button>
+        </div>
+
+        <div class="filter-bar-unified">
+          <div class="cat-scroll-container" id="category-scroll">
+            <button class="cat-pill active" data-cat="all" onclick="selectCategory('all', this)">Tất cả (10)</button>
+            <button class="cat-pill" data-cat="platform" onclick="selectCategory('platform', this)">1. Hệ Thống & Ví (2)</button>
+            <button class="cat-pill" data-cat="catalog" onclick="selectCategory('catalog', this)">2. Bảng Giá & Kho SIM (2)</button>
+            <button class="cat-pill" data-cat="orders" onclick="selectCategory('orders', this)">3. Thuê Số & Lấy OTP (5)</button>
+            <button class="cat-pill" data-cat="webhook" onclick="selectCategory('webhook', this)">4. Lịch Sử & Webhook (1)</button>
+          </div>
+
+          <div class="filter-pills-row" id="method-filter-row">
+            <button class="filter-pill active" data-method="ALL" onclick="selectMethodFilter('ALL', this)">Mọi Method</button>
+            <button class="filter-pill" data-method="GET" onclick="selectMethodFilter('GET', this)">🟢 GET (6)</button>
+            <button class="filter-pill" data-method="POST" onclick="selectMethodFilter('POST', this)">🔵 POST (3)</button>
+            <button class="filter-pill" data-method="WEBHOOK" onclick="selectMethodFilter('WEBHOOK', this)">🟣 WEBHOOK (1)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="content-area">
+
+    <!-- 3-CARD ARCHITECTURE, AUTH PLAYGROUND & AUTO-BAN SHIELD BANNER -->
+    <div class="rules-banner" id="arch-banner">
+      <div class="rules-banner-header" onclick="toggleArchBanner()">
+        <div class="rules-banner-title">
+          <span>⚡</span>
+          <span>Kiến Trúc SFAST Public API v2.0 · Công Cụ Tính Chữ Ký HMAC-SHA256 Trực Tiếp · Rate Limit & Auto-Ban Shield</span>
+        </div>
+        <div id="arch-arrow" style="font-size: 12px; font-weight: 800;">▼ Thu gọn</div>
+      </div>
+
+      <div class="rules-banner-body">
+        <div class="bento-3col-grid">
+
+          <!-- CARD 1: QUICKSTART 5 BƯỚC & QUY TẮC VÍ -->
+          <div class="rule-bento-box">
+            <h4>🚀 1. Quickstart 5 Bước Tích Hợp Tool</h4>
+            <div class="flow-steps">
+              <span class="flow-step-item" onclick="useFeatureNow('api')">1. Gõ /api lấy Key</span>
+              <span class="flow-step-arrow">➔</span>
+              <span class="flow-step-item" onclick="selectEndpoint('03')">2. GET /packages</span>
+              <span class="flow-step-arrow">➔</span>
+              <span class="flow-step-item" onclick="selectEndpoint('05')">3. POST /orders</span>
+              <span class="flow-step-arrow">➔</span>
+              <span class="flow-step-item" onclick="selectEndpoint('06')">4. Poll 4-5s/lần</span>
+              <span class="flow-step-arrow">➔</span>
+              <span class="flow-step-item" onclick="selectEndpoint('09')">5. Nhận OTP / Hoàn 100%</span>
+            </div>
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th>Cơ chế</th>
+                  <th>Quy chuẩn vận hành</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Định dạng Key</strong></td>
+                  <td><code>sf_live_&lt;8_hex&gt;_&lt;32_hex&gt;</code> (Khởi tạo/xoay trong chat riêng <code>/api</code>)</td>
+                </tr>
+                <tr>
+                  <td><strong>Thanh toán &amp; Ví</strong></td>
+                  <td>Đồng bộ 100% với Bot: Mặc định trừ <strong>TK Chính</strong> (tự động mở TK KM / Combo / Lượt Free khi Admin bật). Hủy hoặc hết 6 phút không có OTP ➔ <strong>Hoàn 100% đúng ví gốc</strong>.</td>
+                </tr>
+                <tr>
+                  <td><strong>Idempotency</strong></td>
+                  <td>Bắt buộc gửi header <code>Idempotency-Key: &lt;uuid&gt;</code> cho <code>POST /orders</code> &amp; <code>POST /rehire</code> (hiệu lực 24h, chống trừ tiền 2 lần khi mạng lag).</td>
+                </tr>
+                <tr>
+                  <td><strong>Chuẩn báo lỗi</strong></td>
+                  <td>100% lỗi trả về JSON chuẩn <strong>RFC 9457</strong> (<code>application/problem+json</code>) có trường <code>error_code</code> cố định và câu chữ tiếng Việt <code>display_message</code>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- CARD 2: DUAL AUTH & LIVE WEB-CRYPTO HMAC PLAYGROUND ([R-16]) -->
+          <div class="rule-bento-box">
+            <h4>
+              <span>🔐 2. Dual Auth &amp; HMAC-SHA256 Playground</span>
+              <span class="tag-badge tag-scope">Offline Web Crypto</span>
+            </h4>
+            <div style="font-size: 11.5px; color: var(--text-sub); margin-bottom: 6px;">
+              • <strong>Mode 1 (BEARER):</strong> Gửi <code>Authorization: Bearer sf_live_...</code> (hoặc <code>X-API-Key</code>).<br>
+              • <strong>Mode 2 (HMAC-SHA256):</strong> Gửi <code>X-API-Key</code> + <code>X-Timestamp</code> (±300s) + <code>X-Nonce</code> (TTL 300s) + <code>X-Signature</code>. Chuỗi Canonical 5 dòng <strong>chỉ lấy <code>url.path</code> (không kèm query string)</strong>:
+            </div>
+            <div class="pg-grid">
+              <select id="pg-method" class="pg-select" onchange="computeHmacPlayground()">
+                <option value="POST">POST</option>
+                <option value="GET">GET</option>
+              </select>
+              <input id="pg-path" class="pg-input" value="/api/v2/sim/orders" placeholder="/api/v2/sim/orders (Path only)" oninput="computeHmacPlayground()">
+            </div>
+            <div class="pg-grid">
+              <button class="baseurl-preset-btn" onclick="refreshPlaygroundTsNonce()">⏱ Now/Nonce</button>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+                <input id="pg-ts" class="pg-input" value="1763865600" placeholder="X-Timestamp" oninput="computeHmacPlayground()">
+                <input id="pg-nonce" class="pg-input" value="nonce_demo_01" placeholder="X-Nonce" oninput="computeHmacPlayground()">
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 5px;">
+              <input id="pg-secret" class="pg-input" value="sf_hmac_demo_secret_key" placeholder="HMAC Secret (sf_hmac_...)" oninput="computeHmacPlayground()">
+              <input id="pg-body" class="pg-input" value='{"sim_version":1}' placeholder='Raw JSON Body (để trống nếu GET)' oninput="computeHmacPlayground()">
+            </div>
+            <div class="pg-output-box" id="pg-result">Đang tính chữ ký HMAC-SHA256...</div>
+          </div>
+
+          <!-- CARD 3: RATE LIMITS, IETF HEADERS & AUTO-BAN SHIELD ([R-15]) -->
+          <div class="rule-bento-box">
+            <h4>🛡️ 3. Hạng Tốc Độ &amp; Khiên Auto-Ban Shield</h4>
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th>Hạng Token</th>
+                  <th>Rate Limit</th>
+                  <th>Trần Tìm Số &amp; Poll OTP</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>STANDARD</code> (Thường)</td>
+                  <td><strong>60 req/phút</strong></td>
+                  <td rowspan="3">• Tối đa <strong>2 luồng tìm số in-flight / token</strong><br>• Poll OTP cách nhau <strong>&gt;= 4 giây</strong> (4s Cache Barrier)<br>• Hủy đơn <code>PENDING</code> bất kỳ lúc nào (có <strong>Vớt OTP Chốt</strong>)</td>
+                </tr>
+                <tr>
+                  <td><code>VIP</code> (Khách VIP)</td>
+                  <td><strong>180 req/phút</strong></td>
+                </tr>
+                <tr>
+                  <td><code>ENTERPRISE</code> (Đại lý)</td>
+                  <td><strong>600 req/phút</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="font-size: 11.5px; color: var(--text-sub); margin-top: 8px; line-height: 1.55;">
+              • <strong>Ngưỡng Auto-Ban 15 phút:</strong> IP gửi sai <code>&gt;= 20</code> lỗi <code>401/403</code> trong 60s, hoặc Token bắn <code>&gt;= 30</code> lỗi <code>4xx</code> (sai cú pháp, hết tiền, thiếu <code>Idempotency-Key</code>) trong 60s.<br>
+              • <strong>8 Mã lỗi được MIỄN TRỪ Auto-Ban (An toàn 100% khi kho khan số):</strong>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+                <span class="tag-badge tag-exempt">NO_STOCK</span>
+                <span class="tag-badge tag-exempt">RATE_LIMITED</span>
+                <span class="tag-badge tag-exempt">CONCURRENT_LIMIT</span>
+                <span class="tag-badge tag-exempt">TOKEN_INFLIGHT_LIMIT</span>
+                <span class="tag-badge tag-exempt">SERVER_BUSY</span>
+                <span class="tag-badge tag-exempt">SERVICE_WARMING_UP</span>
+                <span class="tag-badge tag-exempt">MAINTENANCE</span>
+                <span class="tag-badge tag-exempt">SYSTEM_DRAINING</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- MASTER-DETAIL 2-COLUMN CONTAINER -->
+    <div class="master-detail-container">
+      <!-- LEFT: MASTER ENDPOINT CARDS -->
+      <section class="master-list-panel">
+        <div class="master-list-header">
+          <span id="results-count">Hiển thị: 10 / 10 Endpoints</span>
+          <span style="font-size: 11.5px; font-weight: 500;">Bấm chọn Endpoint để xem Code &amp; JSON ➔</span>
+        </div>
+        <div id="master-cards-list"></div>
+
+        <div class="empty-state" id="empty-state">
+          <div style="font-size: 26px; margin-bottom: 6px;">🔍</div>
+          <h3 style="font-size: 14.5px; margin-bottom: 4px;">Không tìm thấy Endpoint phù hợp</h3>
+          <p style="font-size: 12px; color: var(--text-muted);">Sếp thử tìm với từ khóa "/orders", "balance", "rehire", "audio", "webhook", "NO_STOCK"...</p>
+        </div>
+      </section>
+
+      <!-- RIGHT: STICKY DETAIL INSPECTOR (PC DESKTOP) -->
+      <aside class="detail-inspector-panel" id="desktop-detail-inspector">
+        <div class="inspector-header" id="inspector-header"></div>
+
+        <!-- 4 SEGMENTED MICRO-TABS -->
+        <div class="segmented-tabs-bar" id="desktop-tabs-bar">
+          <button class="seg-tab-btn active" data-tab="spec" onclick="switchDetailTab('spec', this)">📋 1. Đặc Tả &amp; Tham Số</button>
+          <button class="seg-tab-btn" data-tab="code" onclick="switchDetailTab('code', this)">💻 2. Code Mẫu (4 Ngôn Ngữ)</button>
+          <button class="seg-tab-btn" data-tab="response" onclick="switchDetailTab('response', this)">📤 3. JSON Response Mẫu</button>
+          <button class="seg-tab-btn" data-tab="errors" onclick="switchDetailTab('errors', this)">⚠️ 4. Mã Lỗi &amp; Retry</button>
+        </div>
+
+        <div class="inspector-body" id="inspector-body"></div>
+        <div class="inspector-footer" id="inspector-footer"></div>
+      </aside>
+    </div>
+
+  </main>
+
+  <!-- MOBILE NATIVE BOTTOM SHEET DRAWER (< 860px) -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeMobileDrawer()"></div>
+  <div class="bottom-sheet-drawer" id="mobile-drawer" role="dialog" aria-modal="true">
+    <div class="drawer-drag-pill-wrap" onclick="closeMobileDrawer()">
+      <div class="drawer-drag-pill"></div>
+    </div>
+    <div class="drawer-header" id="drawer-header"></div>
+
+    <div class="segmented-tabs-bar" id="mobile-tabs-bar">
+      <button class="seg-tab-btn active" data-tab="spec" onclick="switchMobileDrawerTab('spec', this)">📋 Đặc Tả</button>
+      <button class="seg-tab-btn" data-tab="code" onclick="switchMobileDrawerTab('code', this)">💻 Code Mẫu</button>
+      <button class="seg-tab-btn" data-tab="response" onclick="switchMobileDrawerTab('response', this)">📤 JSON</button>
+      <button class="seg-tab-btn" data-tab="errors" onclick="switchMobileDrawerTab('errors', this)">⚠️ Mã Lỗi</button>
+    </div>
+
+    <div class="drawer-body" id="drawer-body"></div>
+    <div class="drawer-footer" id="drawer-footer"></div>
+  </div>
+
+  <!-- MOBILE FLOATING BOTTOM NAV -->
+  <nav class="mobile-floating-nav">
+    <a href="index.html" class="m-nav-item">
+      <span class="icon">📖</span>
+      <span>Sổ Tay Bot</span>
+    </a>
+    <a href="api.html" class="m-nav-item active">
+      <span class="icon">🌐</span>
+      <span>API Docs</span>
+    </a>
+    <button class="m-nav-item" onclick="useFeatureNow('api')">
+      <span class="icon">🔑</span>
+      <span>Lấy Key</span>
+    </button>
+    <button class="m-nav-item" onclick="useFeatureNow('sim')">
+      <span class="icon">📱</span>
+      <span>Thuê SIM</span>
+    </button>
+    <button class="m-nav-item" onclick="openSupportGroup()">
+      <span class="icon">👥</span>
+      <span>Hỗ Trợ</span>
+    </button>
+  </nav>
+
+  <!-- TOAST POPUP -->
+  <div class="toast-popup" id="toast-popup">
+    <span>✅</span>
+    <span id="toast-message">Đã sao chép!</span>
+  </div>
+
+  <script>
+    const SFAST_CONFIG = {
+      botUsername: "sfast_main_bot",
+      supportGroup: "https://t.me/sfastsp",
+      adminSupport: "https://t.me/Thomas3810",
+      defaultBaseUrl: "http://127.0.0.1:8000"
+    };
+
+    // 10 ENDPOINTS & WEBHOOK DATA (VERIFIED 100% AGAINST app.py, router.py, webhooks.py, sim_core.py)
+    const API_ENDPOINTS_DATA = [
+      {
+        id: "01",
+        anchor: "platform-health",
+        cat: "platform",
+        catName: "Hệ Thống & Ví",
+        method: "GET",
+        path: "/health",
+        name: "Healthcheck & Trạng Thái Cổng API",
+        scope: "Public (Không cần Token)",
+        idempotency: false,
+        rateCost: "Miễn phí · Không tính hạn mức",
+        summary: "Kiểm tra trạng thái hoạt động của cổng SFAST Public API (:8000), công tắc tổng PUBLIC_API_ENABLED, trạng thái module sim_v2, bộ đếm luồng in-flight và Circuit Breaker.",
+        params: [
+          { loc: "Header", name: "Không bắt buộc", type: "—", req: "Tùy chọn", desc: "Endpoint công khai dùng cho tool ping kiểm tra kết nối trước khi bắn batch đơn." }
+        ],
+        billingNote: "Endpoint đọc trạng thái hệ thống, không trừ tiền và không yêu cầu xác thực.",
+        responseSample: `{
+  "ok": true,
+  "status": "healthy",
+  "service": "sfast_public_api",
+  "version": "2.0.0",
+  "api_enabled": true,
+  "modules": {
+    "sim_v2": true
+  },
+  "inflight": {
+    "global_find_inflight": 0,
+    "global_find_cap": 6
+  }
+}`,
+        errorSample: `{
+  "type": "https://sfast.vn/errors/service-unavailable",
+  "title": "Dịch vụ đang bảo trì",
+  "status": 503,
+  "detail": "Cổng Public API đang tạm ngưng bảo trì định kỳ.",
+  "error_code": "MAINTENANCE",
+  "request_id": "req_9f8a7b6c5d4e"
+}`,
+        fields: [
+          { name: "ok / status", type: "boolean / string", desc: "true & 'healthy' khi tiến trình API Server sẵn sàng phục vụ." },
+          { name: "api_enabled", type: "boolean", desc: "Trạng thái công tắc tổng PUBLIC_API_ENABLED trên Admin GUI." },
+          { name: "modules.sim_v2", type: "boolean", desc: "Trạng thái mở/tắt của module Thuê SIM Shopee (/api/v2/sim/*)." }
+        ],
+        errors: [
+          { code: "200 OK", status: 200, exempt: true, desc: "Hệ thống hoạt động bình thường.", retry: "Tiếp tục gọi các endpoint nghiệp vụ." }
+        ]
+      },
+      {
+        id: "02",
+        anchor: "account-balance",
+        cat: "platform",
+        catName: "Hệ Thống & Ví",
+        method: "GET",
+        path: "/api/v2/sim/account/balance",
+        name: "Tra Cứu Số Dư Ví, Hạng VIP & Trần Phiên",
+        scope: "account:read (hoặc sim:read)",
+        idempotency: false,
+        rateCost: "1 req / lần gọi",
+        summary: "Lấy thông tin số dư TK Chính (balance), TK Khuyến Mãi (bonus_balance), hạng VIP (is_vip), giới hạn số phiên thuê SIM đồng thời (session_limit_rent_phone) và số phiên đang chờ OTP hiện tại (active_pending_sessions).",
+        params: [
+          { loc: "Header", name: "Authorization", type: "string", req: "Bắt buộc (Bearer)", desc: "Bearer sf_live_<prefix>_<secret> (Hoặc dùng 4 header HMAC-SHA256)." }
+        ],
+        billingNote: "Không tốn phí. Phản ánh số dư thời gian thực đồng bộ 100% với lệnh /tk trên Bot Telegram.",
+        responseSample: `{
+  "ok": true,
+  "tg_id": 5652362359,
+  "username": "sep_sfast",
+  "is_vip": true,
+  "balance": 250000,
+  "bonus_balance": 35000,
+  "formatted_balance": "250,000 VNĐ",
+  "formatted_bonus_balance": "35,000 VNĐ",
+  "session_limit_rent_phone": 20,
+  "active_pending_sessions": 2,
+  "available_session_slots": 18
+}`,
+        errorSample: `{
+  "type": "https://sfast.vn/errors/unauthorized",
+  "title": "Xác thực thất bại",
+  "status": 401,
+  "detail": "API Key không hợp lệ hoặc đã bị thu hồi.",
+  "error_code": "INVALID_API_KEY",
+  "request_id": "req_1a2b3c4d5e6f"
+}`,
+        fields: [
+          { name: "balance", type: "integer", desc: "Số dư Tài khoản Chính (VNĐ)." },
+          { name: "bonus_balance", type: "integer", desc: "Số dư Tài khoản Khuyến Mãi (VNĐ)." },
+          { name: "session_limit_rent_phone", type: "integer", desc: "Tổng số đơn SIM được phép chờ OTP cùng lúc (tính gộp cả trên Bot + API)." },
+          { name: "active_pending_sessions", type: "integer", desc: "Số đơn SIM đang ở trạng thái PENDING / CANCELING hiện tại." }
+        ],
+        errors: [
+          { code: "INVALID_API_KEY", status: 401, exempt: false, desc: "Sai API Key hoặc Key đã bị thu hồi.", retry: "Dừng ngay! Kiểm tra lại Key trong /api (tránh spam >= 20 lần/60s bị khóa IP 15 phút)." },
+          { code: "INSUFFICIENT_SCOPE", status: 403, exempt: false, desc: "Token không có quyền account:read / sim:read.", retry: "Liên hệ Admin cấp lại scope." }
+        ]
+      },
+      {
+        id: "03",
+        anchor: "sim-packages",
+        cat: "catalog",
+        catName: "Bảng Giá & Kho SIM",
+        method: "GET",
+        path: "/api/v2/sim/packages",
+        name: "Danh Sách Gói SIM Shopee Động & Tỷ Lệ Mã Về",
+        scope: "sim:read",
+        idempotency: false,
+        rateCost: "1 req / lần gọi",
+        summary: "Trả về toàn bộ danh sách gói SIM Shopee đang mở (V1..V99), giá bán thời gian thực, cờ Check Zin, cờ Lấy Lại Được (reclaim), nhà mạng hỗ trợ, quốc gia, tỷ lệ mã OTP về hôm nay (%) và nguyên văn bảng menu /sim trên Bot.",
+        params: [
+          { loc: "Header", name: "Authorization", type: "string", req: "Bắt buộc", desc: "Bearer sf_live_<prefix>_<secret> (hoặc HMAC headers)." }
+        ],
+        billingNote: "Không tốn phí. Tool nên gọi định kỳ 30–60s/lần để cập nhật giá gói và chọn kho có quality_rate_today cao nhất.",
+        responseSample: `{
+  "ok": true,
+  "service": "rent_phone",
+  "packages": [
+    {
+      "version": 1,
+      "code": "V1",
+      "icon": "🔵",
+      "name": "Gói V1 - Kho Chính ZIN",
+      "price": 3100,
+      "formatted_price": "3,100 VNĐ",
+      "check_zin": true,
+      "reclaim": false,
+      "network_label": "Viettel, Vina, Mobi",
+      "country": "VN",
+      "quality_rate_today": 88.5,
+      "quality_badge": "[🔥 MÃ NHANH]",
+      "display_line": "🔵 *Gói V1 - Kho Chính ZIN* — \`3,100 VNĐ\` [🔥 MÃ NHANH]\\n╰ 📥 Tỷ Lệ Mã Về: \`88.5%\`",
+      "button_label": "🔵 Gói V1 - Kho Chính ZIN — 3,100 VNĐ | 🔥 MÃ NHANH"
+    }
+  ],
+  "wallet_policy": {
+    "bonus_restricted": true,
+    "policy_label": "Chỉ áp dụng thanh toán bằng TK Chính"
+  },
+  "session_limits": {
+    "user_limit": 10,
+    "active_pending": 0
+  },
+  "formatted_menu_text": "📱 *THUÊ SỐ ĐIỆN THOẠI NHẬN OTP SHOPEE*..."
+}`,
+        errorSample: `{
+  "type": "https://sfast.vn/errors/service-unavailable",
+  "title": "Dịch vụ đang bảo trì",
+  "status": 503,
+  "detail": "Dịch vụ Thuê SĐT Shopee đang tạm bảo trì.",
+  "error_code": "MAINTENANCE",
+  "request_id": "req_7c8d9e0f1a2b"
+}`,
+        fields: [
+          { name: "packages[].version", type: "integer", desc: "Mã số gói SIM (truyền vào trường sim_version khi gọi POST /api/v2/sim/orders)." },
+          { name: "packages[].check_zin", type: "boolean", desc: "true = Hệ thống tự lọc số ZIN chưa đăng ký Shopee trước khi giao số." },
+          { name: "packages[].reclaim", type: "boolean", desc: "true = Gói Lấy Lại Được (hỗ trợ thuê cả số đã từng đăng ký Shopee)." },
+          { name: "packages[].quality_rate_today", type: "float | null", desc: "Tỷ lệ % đơn nhận được mã OTP thành công trong ngày hôm nay." },
+          { name: "wallet_policy.bonus_restricted", type: "boolean", desc: "true = Chỉ trừ TK Chính; false = Cho phép ưu tiên trừ TK Khuyến Mãi / Combo." }
+        ],
+        errors: [
+          { code: "MAINTENANCE", status: 503, exempt: true, desc: "Dịch vụ /sim hoặc hệ thống đang bảo trì.", retry: "Miễn trừ Auto-Ban. Tạm dừng gọi 30–60 giây rồi kiểm tra lại." }
+        ]
+      },
+      {
+        id: "04",
+        anchor: "sim-otp-status",
+        cat: "catalog",
+        catName: "Bảng Giá & Kho SIM",
+        method: "GET",
+        path: "/api/v2/sim/otp-status",
+        name: "Top 10 Kho SIM Đang Nhận OTP Nhanh Nhất (/otpstatus)",
+        scope: "sim:read",
+        idempotency: false,
+        rateCost: "1 req / lần gọi",
+        summary: "Kế thừa 100% thuật toán thống kê /otpstatus trên Bot Telegram: trả về bảng xếp hạng Top 10 gói SIM có mã OTP về nhiều và nhạy nhất trong khoảng thời gian lookback_min phút gần đây.",
+        params: [
+          { loc: "Query", name: "lookback_min", type: "integer", req: "Tùy chọn", desc: "Khoảng thời gian thống kê (từ 1 đến 1440 phút). Nếu bỏ trống sẽ lấy theo cấu hình chuẩn của Bot." }
+        ],
+        billingNote: "Không tốn phí. Giúp tool tự động điều phối đơn sang gói SIM đang có sóng OTP tốt nhất.",
+        responseSample: `{
+  "ok": true,
+  "lookback_minutes": 30,
+  "total_otp_received": 42,
+  "top_packages": [
+    {
+      "rank": 1,
+      "sim_version": 1,
+      "code": "V1",
+      "package_name": "Gói V1 - Kho Chính ZIN",
+      "otp_count": 25,
+      "share_percent": 59.5,
+      "last_otp_ago_seconds": 12
+    }
+  ],
+  "display_format": "telegram_html",
+  "display_message": "📊 <b>TRẠNG THÁI OTP (30 phút gần nhất)</b>..."
+}`,
+        errorSample: `{
+  "type": "https://sfast.vn/errors/rate-limited",
+  "title": "Vượt giới hạn tần suất",
+  "status": 429,
+  "detail": "Sếp thao tác quá nhanh, vui lòng thử lại sau 2 giây.",
+  "error_code": "RATE_LIMITED",
+  "retry_after": 2
+}`,
+        fields: [
+          { name: "top_packages[].sim_version", type: "integer", desc: "Phiên bản gói SIM đang nổ OTP mạnh nhất." },
+          { name: "top_packages[].otp_count", type: "integer", desc: "Số lượng mã OTP thực tế đã nhận thành công trong cửa sổ lookback." },
+          { name: "top_packages[].last_otp_ago_seconds", type: "integer", desc: "Số giây tính từ lần gần nhất gói này nhận được mã OTP." }
+        ],
+        errors: [
+          { code: "RATE_LIMITED", status: 429, exempt: true, desc: "Vượt hạn mức req/phút của hạng Token.", retry: "Miễn trừ Auto-Ban. Đọc header Retry-After và chờ đúng số giây." }
+        ]
+      },
+      {
+        id: "05",
+        anchor: "sim-orders-create",
+        cat: "orders",
+        catName: "Thuê Số & Lấy OTP",
+        method: "POST",
+        path: "/api/v2/sim/orders",
+        name: "Tạo Đơn Thuê Số Điện Thoại Shopee Mới",
+        scope: "sim:rent",
+        idempotency: true,
+        rateCost: "Trừ theo giá gói SIM (Có OTP mới tính tiền)",
+        summary: "Thuê 1 số điện thoại mới từ gói sim_version (tự động lọc số ZIN nếu gói có check_zin=true). Bắt buộc truyền header Idempotency-Key. Hỗ trợ lọc nhà mạng (network) và đăng ký nhận đẩy OTP tự động qua webhook_url.",
+        params: [
+          { loc: "Header", name: "Idempotency-Key", type: "string (8..128 ký tự)", req: "Bắt buộc", desc: "UUID duy nhất cho mỗi lần tạo đơn (VD: idem_550e8400_e29b). Gửi lại cùng key + cùng body trong 24h sẽ trả lại đúng kết quả cũ mà không trừ tiền 2 lần." },
+          { loc: "Body JSON", name: "sim_version", type: "integer (1..99)", req: "Bắt buộc", desc: "Phiên bản gói SIM muốn thuê (lấy từ GET /api/v2/sim/packages)." },
+          { loc: "Body JSON", name: "network", type: "string", req: "Tùy chọn", desc: "Lọc nhà mạng mong muốn: VIETTEL, VINAPHONE, MOBIFONE, VIETNAMOBILE, ITELECOM (hoặc để null lấy tự động)." },
+          { loc: "Body JSON", name: "webhook_url", type: "string (HTTPS/HTTP)", req: "Tùy chọn", desc: "URL server của Sếp để nhận POST đẩy OTP tự động (có kiểm tra chống SSRF: cấm trỏ IP nội bộ/localhost)." }
+        ],
+        billingNote: "Tạm giữ tiền theo giá gói khi cấp số thành công. Nếu kho hết số (NO_STOCK) hoặc không lấy được số ZIN ➔ Hoàn trả 100% ngay trong tích tắc. Nếu sau 6 phút không có OTP ➔ Tự động hoàn 100% đúng ví gốc.",
+        responseSample: `{
+  "ok": true,
+  "order_id": "SIM-2311-849201",
+  "order_status": "PENDING",
+  "sim_version": 1,
+  "package_name": "Gói V1 - Kho Chính ZIN",
+  "phone": "0987654321",
+  "phone_international": "+84987654321",
+  "network": "Viettel",
+  "country": "VN",
+  "check_zin": true,
+  "is_reclaim": false,
+  "price": 3100,
+  "timeout_seconds": 360,
+  "expires_at": "2026-11-23 10:06:00",
+  "poll_interval_seconds": 4,
+  "rehire_supported": true,
+  "billing": {
+    "charged": 3100,
+    "wallet_used": "MAIN",
+    "balance_after": 246900,
+    "bonus_after": 35000,
+    "charge_message": "💸 Đã trừ 3,100 VNĐ từ TK Chính."
+  },
+  "display_format": "telegram_markdown",
+  "display_message": "✅ *LẤY SỐ THÀNH CÔNG!*\\n\\n📞 Số điện thoại: \`0987654321\`...",
+  "display_message_plain": "✅ LẤY SỐ THÀNH CÔNG! Số điện thoại: 0987654321..."
+}`,
+        errorSample: `{
+  "type": "https://sfast.vn/errors/no-stock",
+  "title": "Kho tạm hết số",
+  "status": 503,
+  "detail": "Gói V1 hiện đang tạm hết số ZIN, em đã hoàn lại 100% tiền vào ví của Sếp.",
+  "error_code": "NO_STOCK",
+  "retry_after": 10,
+  "request_id": "req_5a4b3c2d1e0f"
+}`,
+        fields: [
+          { name: "order_id", type: "string", desc: "Mã đơn chuẩn SFAST (SIM-DDMM-XXXXXX) dùng để poll OTP, hủy đơn, thuê lại hoặc tải file ghi âm." },
+          { name: "phone", type: "string", desc: "Số điện thoại đã qua kiểm tra ZIN (nếu gói Check Zin) sẵn sàng nhập vào Shopee." },
+          { name: "poll_interval_seconds", type: "integer", desc: "Chu kỳ khuyến nghị gọi GET /orders/{order_id} (4–5 giây/lần)." },
+          { name: "billing", type: "object", desc: "Chi tiết số tiền đã trừ, loại ví đã dùng và số dư còn lại sau giao dịch." }
+        ],
+        errors: [
+          { code: "NO_STOCK", status: 503, exempt: true, desc: "Kho số của gói đang tạm hết số ZIN (đã tự động hoàn tiền 100%).", retry: "Miễn trừ Auto-Ban. Chờ 10 giây (negative cache) hoặc đổi sang sim_version khác trong /otp-status." },
+          { code: "CONCURRENT_LIMIT", status: 429, exempt: true, desc: "Đầy trần số phiên thuê SIM đồng thời (tính gộp cả Bot + API).", retry: "Miễn trừ Auto-Ban. Chờ đơn cũ nhận OTP hoặc gọi POST /cancel đơn không dùng." },
+          { code: "TOKEN_INFLIGHT_LIMIT", status: 429, exempt: true, desc: "Vượt quá 2 yêu cầu đang dò số ZIN cùng lúc trên 1 Token.", retry: "Miễn trừ Auto-Ban. Chờ yêu cầu tìm số trước trả kết quả rồi gọi tiếp." },
+          { code: "INSUFFICIENT_BALANCE", status: 402, exempt: false, desc: "Số dư ví không đủ thanh toán giá gói SIM.", retry: "Dừng gọi ngay và nạp thêm tiền (tránh spam >= 30 lỗi 4xx/60s bị khóa Token 15 phút)." },
+          { code: "MISSING_IDEMPOTENCY_KEY", status: 400, exempt: false, desc: "Thiếu header Idempotency-Key.", retry: "Bổ sung UUID vào header Idempotency-Key trước khi gọi lại." }
+        ]
+      },
+      {
+        id: "06",
+        anchor: "sim-orders-poll",
+        cat: "orders",
+        catName: "Thuê Số & Lấy OTP",
+        method: "GET",
+        path: "/api/v2/sim/orders/{order_id}",
+        name: "Kiểm Tra Trạng Thái Đơn & Nhận Mã OTP / Voice / AI Hint",
+        scope: "sim:read",
+        idempotency: false,
+        rateCost: "Có 4s Cache Barrier chống nghẽn",
+        summary: "Kiểm tra trạng thái đơn thuê SIM theo thời gian thực. Tự động bóc tách mã OTP đơn, đa mã (otp_codes[]), nội dung SMS sạch, file ghi âm cuộc gọi (.ogg) kèm gợi ý nhận diện giọng nói AI (ai_candidates). Nếu kho báo hết hạn sớm hoặc quá 6 phút sẽ tự động hoàn tiền và trả về TIMEOUT.",
+        params: [
+          { loc: "Path", name: "order_id", type: "string", req: "Bắt buộc", desc: "Mã đơn thuê SIM (VD: SIM-2311-849201)." }
+        ],
+        billingNote: "Gọi cách nhau 4–5 giây/lần. Nếu gọi dày hơn 4 giây, hệ thống tự trả kết quả từ lớp đệm RAM 4s (không tốn tải, không bị phạt).",
+        responseSample: `{
+  "ok": true,
+  "order_id": "SIM-2311-849201",
+  "order_status": "SUCCESS",
+  "sim_version": 1,
+  "phone": "0987654321",
+  "price": 3100,
+  "otp_code": "482910",
+  "otp_codes": ["482910"],
+  "sms_content": "Ma xac minh Shopee cua ban la 482910. Hieu luc trong 15 phut.",
+  "has_audio": true,
+  "audio_endpoint": "/api/v2/sim/orders/SIM-2311-849201/audio",
+  "ai_candidates": ["482910"],
+  "ai_hint_message": "🤖 Gợi ý AI: 482910",
+  "rehire_supported": true,
+  "rehire_window_seconds": 1800,
+  "created_at": "2026-11-23 10:00:00",
+  "resolved_at": "2026-11-23 10:00:28",
+  "display_format": "telegram_markdown",
+  "display_message": "🎉 *NHẬN MÃ OTP THÀNH CÔNG!*\\n\\n📞 SĐT: \`0987654321\`\\n🔑 Mã OTP: \`482910\`...",
+  "display_message_plain": "🎉 NHẬN MÃ OTP THÀNH CÔNG! SĐT: 0987654321 - Mã OTP: 482910"
+}`,
+        errorSample: `{
+  "type": "https://sfast.vn/errors/not-found",
+  "title": "Không tìm thấy đơn",
+  "status": 404,
+  "detail": "Không tìm thấy đơn SIM-2311-999999 thuộc tài khoản của Sếp.",
+  "error_code": "ORDER_NOT_FOUND",
+  "request_id": "req_4e5f6a7b8c9d"
+}`,
+        fields: [
+          { name: "order_status", type: "string", desc: "PENDING (Đang chờ OTP) | SUCCESS (Đã có OTP) | TIMEOUT (Quá 6p, đã hoàn tiền) | CANCELLED (Khách hủy, đã hoàn tiền)." },
+          { name: "otp_code / otp_codes", type: "string / array", desc: "Mã OTP chính và danh sách toàn bộ mã OTP tách được từ SMS / CallText." },
+          { name: "has_audio / audio_endpoint", type: "boolean / string", desc: "Nếu là OTP cuộc gọi (Voice OTP), gọi tiếp GET audio_endpoint để tải file âm thanh .ogg." },
+          { name: "ai_candidates", type: "array[string]", desc: "Danh sách mã OTP do AI giải mã tự động từ file ghi âm cuộc gọi (nếu có)." }
+        ],
+        errors: [
+          { code: "ORDER_NOT_FOUND", status: 404, exempt: false, desc: "Mã order_id không tồn tại hoặc thuộc về tài khoản khác.", retry: "Kiểm tra lại đúng order_id trả về từ POST /orders." }
+        ]
+      },
+      {
+        id: "07",
+        anchor: "sim-orders-cancel",
+        cat: "orders",
+        catName: "Thuê Số & Lấy OTP",
+        method: "POST",
+        path: "/api/v2/sim/orders/{order_id}/cancel",
+        name: "Hủy Đơn Chủ Động & Hoàn Tiền 100% (Có Vớt OTP Chốt)",
+        scope: "sim:manage",
+        idempotency: false,
+        rateCost: "1 req / lần hủy",
+        summary: "Hủy chủ động đơn thuê SIM đang ở trạng thái PENDING bất kỳ lúc nào (không cần chờ hết 6 phút, không có cooldown 120s). Trước khi hoàn tiền, hệ thống tự động chạy 1 lượt 'Vớt OTP Chốt': nếu đúng giây đó mã OTP vừa về thì trả về SUCCESS + mã OTP; nếu chưa có OTP thì đóng đơn CANCELLED và hoàn 100% tiền về đúng ví gốc.",
+        params: [
+          { loc: "Path", name: "order_id", type: "string", req: "Bắt buộc", desc: "Mã đơn thuê SIM đang PENDING (VD: SIM-2311-849201)." }
+        ],
+        billingNote: "Đảm bảo an toàn chống hoàn tiền kép bằng khóa nguyên tử Per-User Lock & đối chiếu sổ cái balance_history.",
+        responseSample: `{
+  "ok": true,
+  "order_id": "SIM-2311-849201",
+  "order_status": "CANCELLED",
+  "sim_version": 1,
+  "phone": "0987654321",
+  "price": 3100,
+  "refunded": true,
+  "refund_message": "💰 Đã hoàn 3,100 VNĐ về TK Chính.",
+  "bot_parity": false,
+  "display_format": "telegram_markdown",
+  "display_message": "✅ Đã hủy đơn thuê SĐT 0987654321 (Mã GD: SIM-2311-849201).\\n💰 Đã hoàn 3,100 VNĐ về TK Chính.",
+  "display_message_plain": "✅ Đã hủy đơn thuê SĐT 0987654321 (Mã GD: SIM-2311-849201). Đã hoàn 3,100 VNĐ về TK Chính."
+}`,
+        errorSample: `{
+  "type": "https://sfast.vn/errors/conflict",
+  "title": "Đơn đã hoàn tất",
+  "status": 409,
+  "detail": "Đơn này đã nhận được mã OTP thành công nên không thể hủy.",
+  "error_code": "ORDER_ALREADY_COMPLETED",
+  "request_id": "req_8b9c0d1e2f3a"
+}`,
+        fields: [
+          { name: "order_status", type: "string", desc: "CANCELLED (Đã hủy & hoàn tiền) — hoặc SUCCESS nếu Vớt OTP Chốt bắt được mã OTP vừa về." },
+          { name: "refunded", type: "boolean", desc: "true khi tiền đã được cộng trả lại vào ví của Sếp." },
+          { name: "refund_message", type: "string", desc: "Thông báo chi tiết số tiền và loại ví được hoàn trả." }
+        ],
+        errors: [
+          { code: "ORDER_ALREADY_COMPLETED", status: 409, exempt: false, desc: "Đơn đã nhận mã OTP (SUCCESS) trước khi bấm hủy.", retry: "Gọi GET /orders/{order_id} để lấy mã OTP đã về." }
+        ]
+      },
+      {
+        id: "08",
+        anchor: "sim-orders-rehire",
+        cat: "orders",
+        catName: "Thuê Số & Lấy OTP",
+        method: "POST",
+        path: "/api/v2/sim/orders/{order_id}/rehire",
+        name: "Thuê Lại Số Cũ Trong 30 Phút Nhận Mã OTP Thứ 2",
+        scope: "sim:rent",
+        idempotency: true,
+        rateCost: "Trừ theo giá gói SIM hiện tại",
+        summary: "Thuê lại đúng số điện thoại của đơn cũ (đã SUCCESS) trong cửa sổ 30 phút (1800 giây) để nhận thêm mã OTP tiếp theo. Hoạt động 100% Stateless từ Database (kể cả khi server vừa khởi động lại). Bắt buộc gửi kèm header Idempotency-Key mới.",
+        params: [
+          { loc: "Path", name: "order_id", type: "string", req: "Bắt buộc", desc: "Mã đơn gốc đã nhận OTP trước đó (VD: SIM-2311-849201)." },
+          { loc: "Header", name: "Idempotency-Key", type: "string (8..128 ký tự)", req: "Bắt buộc", desc: "UUID duy nhất cho lượt thuê lại này." },
+          { loc: "Body JSON", name: "webhook_url", type: "string", req: "Tùy chọn", desc: "URL nhận Webhook đẩy OTP cho đơn thuê lại (nếu không truyền sẽ kế thừa từ đơn gốc)." }
+        ],
+        billingNote: "Trừ phí theo giá gói tại thời điểm thuê lại. Nếu số cũ đang bận hoặc kho từ chối thuê lại ➔ Tự động đóng đơn pre-queue và hoàn trả 100% tiền ngay lập tức.",
+        responseSample: `{
+  "ok": true,
+  "order_id": "SIM-2311-951042",
+  "rehire_of_order_id": "SIM-2311-849201",
+  "order_status": "PENDING",
+  "sim_version": 1,
+  "phone": "0987654321",
+  "price": 3100,
+  "timeout_seconds": 360,
+  "poll_interval_seconds": 4,
+  "display_message": "🔄 *THUÊ LẠI SỐ CŨ THÀNH CÔNG!*\\n\\n📞 Số điện thoại: \`0987654321\`..."
+}`,
+        errorSample: `{
+  "type": "https://sfast.vn/errors/gone",
+  "title": "Quá thời hạn thuê lại",
+  "status": 410,
+  "detail": "Số điện thoại này đã quá thời hạn 30 phút để thuê lại.",
+  "error_code": "REHIRE_EXPIRED",
+  "request_id": "req_2c3d4e5f6a7b"
+}`,
+        fields: [
+          { name: "order_id", type: "string", desc: "Mã đơn MỚI sinh ra cho lượt thuê lại (dùng mã mới này để poll GET /orders/{order_id})." },
+          { name: "rehire_of_order_id", type: "string", desc: "Mã đơn gốc ban đầu." }
+        ],
+        errors: [
+          { code: "REHIRE_EXPIRED", status: 410, exempt: false, desc: "Đơn gốc đã quá cửa sổ 30 phút (1800 giây).", retry: "Không thử lại trên đơn này; tạo đơn thuê số mới qua POST /orders." },
+          { code: "REHIRE_COOLDOWN", status: 429, exempt: true, desc: "Số cũ vừa mới hoàn tất, cần chờ 30–60 giây để tổng đài nhả phiên.", retry: "Chờ theo Retry-After (30 giây) rồi gọi lại với Idempotency-Key mới." },
+          { code: "REHIRE_NOT_SUPPORTED", status: 400, exempt: false, desc: "Gói SIM của đơn gốc không hỗ trợ tính năng thuê lại số cũ (rehire_supported=false).", retry: "Chọn gói có rehire_supported=true nếu cần nhận nhiều OTP." }
+        ]
+      },
+      {
+        id: "09",
+        anchor: "sim-orders-audio",
+        cat: "orders",
+        catName: "Thuê Số & Lấy OTP",
+        method: "GET",
+        path: "/api/v2/sim/orders/{order_id}/audio",
+        name: "Stream File Ghi Âm Voice OTP (.ogg) Đã Xóa Metadata",
+        scope: "sim:read",
+        idempotency: false,
+        rateCost: "1 req / lần tải",
+        summary: "Khi đơn SIM nhận mã OTP qua cuộc gọi (has_audio=true), gọi endpoint này để tải trực tiếp luồng byte âm thanh (audio/ogg hoặc audio/mpeg). Hệ thống đã tự động chuyển đổi định dạng và xóa sạch 100% metadata gốc.",
+        params: [
+          { loc: "Path", name: "order_id", type: "string", req: "Bắt buộc", desc: "Mã đơn có has_audio=true." }
+        ],
+        billingNote: "Miễn phí tải file ghi âm của đơn thuộc sở hữu của Sếp.",
+        responseSample: `[Binary Audio Stream]
+HTTP/1.1 200 OK
+Content-Type: audio/ogg
+Content-Disposition: inline; filename="otp_SIM-2311-849201.ogg"
+Cache-Control: private, max-age=300
+
+<OggS... binary audio bytes>`,
+        errorSample: `{
+  "type": "https://sfast.vn/errors/not-found",
+  "title": "Không có file ghi âm",
+  "status": 404,
+  "detail": "Đơn hàng này không có dữ liệu ghi âm cuộc gọi Voice OTP.",
+  "error_code": "AUDIO_NOT_AVAILABLE"
+}`,
+        fields: [
+          { name: "Body (Binary)", type: "bytes (audio/ogg)", desc: "Nội dung file âm thanh .ogg có thể phát trực tiếp trên trình duyệt hoặc đưa vào bộ nhận diện giọng nói." }
+        ],
+        errors: [
+          { code: "AUDIO_NOT_AVAILABLE", status: 404, exempt: false, desc: "Đơn chỉ có SMS văn bản hoặc chưa có cuộc gọi.", retry: "Kiểm tra trường has_audio=true trong GET /orders/{order_id} trước khi tải." }
+        ]
+      },
+      {
+        id: "10",
+        anchor: "sim-orders-history-webhook",
+        cat: "webhook",
+        catName: "Lịch Sử & Webhook",
+        method: "WEBHOOK",
+        path: "/api/v2/sim/orders",
+        name: "Lịch Sử Đơn API (GET /orders) & Chuẩn Outbound Webhook",
+        scope: "sim:read",
+        idempotency: false,
+        rateCost: "GET phân trang + Push tự động 3 lần retry",
+        summary: "1) Gọi GET /api/v2/sim/orders?status=SUCCESS&limit=20&offset=0 để tra cứu lịch sử đơn thuê qua API. 2) Nếu lúc tạo đơn có truyền webhook_url, ngay khi có OTP hoặc đơn kết thúc, SFAST sẽ tự động bắn HTTP POST kèm chữ ký HMAC-SHA256 trong header X-SFAST-Signature: t=<ts>,v1=<hex>.",
+        params: [
+          { loc: "Query (GET /orders)", name: "status", type: "string", req: "Tùy chọn", desc: "Lọc theo trạng thái: PENDING, SUCCESS, TIMEOUT, CLOSED." },
+          { loc: "Query (GET /orders)", name: "limit / offset", type: "integer", req: "Tùy chọn", desc: "Số bản ghi mỗi trang (1..100, mặc định 20) và vị trí phân trang (offset >= 0)." },
+          { loc: "Webhook Header", name: "X-SFAST-Event", type: "string", req: "SFAST gửi", desc: "1 trong 3 sự kiện thực tế: sim.order.otp_received | sim.order.cancelled | sim.order.timeout." },
+          { loc: "Webhook Header", name: "X-SFAST-Timestamp", type: "string", req: "SFAST gửi", desc: "Unix timestamp (giây) tại thời điểm ký gói tin Webhook." },
+          { loc: "Webhook Header", name: "X-SFAST-Signature", type: "string", req: "SFAST gửi", desc: "Định dạng chuẩn: t=<ts>,v1=<hex> với <hex> = HMAC-SHA256(secret, f\"{ts}.{raw_body_str}\")." }
+        ],
+        billingNote: "Outbound Webhook có cơ chế chống SSRF 2 tầng (chặn IP nội bộ 127.0.0.0/8, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, localhost), timeout 8s và tự động retry tối đa 3 lần.",
+        responseSample: `// 1. Response của GET /api/v2/sim/orders?limit=20:
+{
+  "ok": true,
+  "total_returned": 1,
+  "limit": 20,
+  "offset": 0,
+  "orders": [
+    {
+      "order_id": "SIM-2311-849201",
+      "order_status": "SUCCESS",
+      "sim_version": 1,
+      "phone": "0987654321",
+      "price": 3100,
+      "otp_code": "482910",
+      "created_at": "2026-11-23 10:00:00"
+    }
+  ]
+}
+
+// 2. Payload SFAST POST tới webhook_url của Sếp:
+// Headers:
+//   X-SFAST-Event: sim.order.otp_received
+//   X-SFAST-Timestamp: 1763865628
+//   X-SFAST-Signature: t=1763865628,v1=9c4e1b8f0a2d...
+{
+  "ok": true,
+  "order_id": "SIM-2311-849201",
+  "order_status": "SUCCESS",
+  "sim_version": 1,
+  "phone": "0987654321",
+  "otp_code": "482910",
+  "otp_codes": ["482910"],
+  "sms_content": "Ma xac minh Shopee cua ban la 482910"
+}`,
+        errorSample: `{
+  "type": "https://sfast.vn/errors/invalid-webhook-url",
+  "title": "Webhook URL không hợp lệ",
+  "status": 400,
+  "detail": "Địa chỉ webhook_url không được trỏ tới IP nội bộ hoặc localhost.",
+  "error_code": "WEBHOOK_SSRF_BLOCKED"
+}`,
+        fields: [
+          { name: "X-SFAST-Signature", type: "t=<ts>,v1=<hex>", desc: "Cách kiểm tra: tách ts và v1, tính expected = HMAC_SHA256(secret, ts + '.' + raw_body), so sánh hmac.compare_digest(v1, expected)." },
+          { name: "X-SFAST-Event", type: "enum", desc: "sim.order.otp_received (Khi có mã OTP) | sim.order.cancelled (Khi hủy đơn) | sim.order.timeout (Khi hết 6 phút hoàn tiền)." }
+        ],
+        errors: [
+          { code: "WEBHOOK_SSRF_BLOCKED", status: 400, exempt: false, desc: "webhook_url trỏ vào dải IP private/loopback.", retry: "Chỉ sử dụng domain/IP public hợp lệ cho webhook_url." }
+        ]
+      }
+    ];
+
+    // STATE
+    let currentCategory = 'all';
+    let currentMethodFilter = 'ALL';
+    let searchQuery = '';
+    let activeEndpointId = '05'; // Default to POST /api/v2/sim/orders
+    let activeDetailTab = 'spec';
+    let activeMobileTab = 'spec';
+    let activeCodeLang = 'curl';
+
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      try {
+        tg.ready();
+        tg.expand();
+      } catch (e) {}
+    }
+
+    function hapticLight() {
+      try { tg?.HapticFeedback?.impactOccurred('light'); } catch (e) {}
+    }
+    function hapticMedium() {
+      try { tg?.HapticFeedback?.impactOccurred('medium'); } catch (e) {}
+    }
+
+    // THEME SYNC WITH index.html
+    function initTheme() {
+      const saved = localStorage.getItem('sfast_theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+      updateThemeBtn(saved);
+    }
+    function toggleTheme() {
+      hapticLight();
+      const curr = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = curr === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('sfast_theme', next);
+      updateThemeBtn(next);
+    }
+    function updateThemeBtn(theme) {
+      const icon = document.getElementById('theme-icon');
+      const text = document.getElementById('theme-text');
+      if (icon && text) {
+        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        text.textContent = theme === 'dark' ? 'Sáng' : 'Tối';
+      }
+    }
+
+    // BASE URL MANAGEMENT ([R-18])
+    function getBaseUrl() {
+      const input = document.getElementById('base-url-input');
+      const raw = (input ? input.value : SFAST_CONFIG.defaultBaseUrl).trim().replace(/\/+$/, '');
+      return raw || SFAST_CONFIG.defaultBaseUrl;
+    }
+    function initBaseUrl() {
+      const saved = localStorage.getItem('sfast_api_base_url');
+      const input = document.getElementById('base-url-input');
+      if (saved && input) {
+        input.value = saved;
+      }
+    }
+    function updateBaseUrl(val) {
+      const clean = (val || '').trim().replace(/\/+$/, '');
+      if (clean) {
+        localStorage.setItem('sfast_api_base_url', clean);
+      }
+      updateDesktopInspector();
+    }
+    function setBaseUrlPreset(url) {
+      hapticLight();
+      const input = document.getElementById('base-url-input');
+      if (input) input.value = url;
+      localStorage.setItem('sfast_api_base_url', url);
+      updateDesktopInspector();
+      showToast(`Đã đặt Base URL: ${url}`);
+    }
+
+    function toggleArchBanner() {
+      hapticLight();
+      const banner = document.getElementById('arch-banner');
+      const arrow = document.getElementById('arch-arrow');
+      const collapsed = banner.classList.toggle('collapsed');
+      if (arrow) arrow.textContent = collapsed ? '▶ Mở rộng' : '▼ Thu gọn';
+    }
+
+    // CLIENT-SIDE WEB CRYPTO HMAC-SHA256 PLAYGROUND ([R-16])
+    async function sha256Hex(str) {
+      const enc = new TextEncoder().encode(str);
+      const buf = await crypto.subtle.digest('SHA-256', enc);
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    async function hmacSha256Hex(secret, message) {
+      const enc = new TextEncoder();
+      const key = await crypto.subtle.importKey(
+        'raw',
+        enc.encode(secret),
+        { name: 'HMAC', hash: 'SHA-256' },
+        false,
+        ['sign']
+      );
+      const sig = await crypto.subtle.sign('HMAC', key, enc.encode(message));
+      return Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    function refreshPlaygroundTsNonce() {
+      hapticLight();
+      document.getElementById('pg-ts').value = String(Math.floor(Date.now() / 1000));
+      document.getElementById('pg-nonce').value = 'nonce_' + Math.random().toString(36).substring(2, 10);
+      computeHmacPlayground();
+    }
+    async function computeHmacPlayground() {
+      const method = (document.getElementById('pg-method')?.value || 'POST').toUpperCase();
+      let rawPath = (document.getElementById('pg-path')?.value || '/api/v2/sim/orders').trim();
+      const hadQuery = rawPath.includes('?');
+      const cleanPath = rawPath.split('?')[0] || '/';
+      const ts = (document.getElementById('pg-ts')?.value || '').trim();
+      const nonce = (document.getElementById('pg-nonce')?.value || '').trim();
+      const secret = (document.getElementById('pg-secret')?.value || 'sf_hmac_demo').trim();
+      const bodyStr = method === 'GET' ? '' : (document.getElementById('pg-body')?.value || '');
+      const out = document.getElementById('pg-result');
+      if (!out) return;
+      try {
+        const bodyHash = await sha256Hex(bodyStr);
+        const canonical = `${method}\n${cleanPath}\n${ts}\n${nonce}\n${bodyHash}`;
+        const sig = await hmacSha256Hex(secret, canonical);
+        const queryNote = hadQuery ? ' ⚠️ (Đã tự cắt bỏ ?query_string theo chuẩn auth.py)' : '';
+        out.textContent =
+          `Body SHA-256 : ${bodyHash}\n` +
+          `Canonical 5L : ${JSON.stringify(canonical)}${queryNote}\n` +
+          `X-Signature  : ${sig}`;
+      } catch (e) {
+        out.textContent = 'Trình duyệt không hỗ trợ Web Crypto API.';
+      }
+    }
+
+    // GENERATE 4-LANGUAGE CODE SNIPPETS DYNAMICALLY
+    function buildCodeSnippet(item, lang) {
+      const base = getBaseUrl();
+      const samplePath = item.path.replace('{order_id}', 'SIM-2311-849201');
+      const fullUrl = `${base}${samplePath}`;
+      const isPost = item.method === 'POST';
+      const hasBody = item.id === '05';
+      const bodyObj = item.id === '05'
+        ? '{\n  "sim_version": 1,\n  "network": "VIETTEL"\n}'
+        : (item.id === '08' ? '{}' : '');
+
+      if (item.id === '10') {
+        if (lang === 'python') {
+          return `import hmac, hashlib
+
+def verify_sfast_webhook(raw_body: bytes, sig_header: str, webhook_secret: str) -> bool:
+    # Header mẫu: X-SFAST-Signature: t=1763865628,v1=9c4e1b...
+    parts = dict(kv.split("=", 1) for kv in sig_header.split(",") if "=" in kv)
+    ts = parts.get("t", "")
+    v1 = parts.get("v1", "")
+    msg = f"{ts}.{raw_body.decode('utf-8')}".encode("utf-8")
+    expected = hmac.new(webhook_secret.encode("utf-8"), msg, hashlib.sha256).hexdigest()
+    return hmac.compare_digest(v1, expected)`;
+        }
+        if (lang === 'node') {
+          return `import crypto from "node:crypto";
+
+export function verifySfastWebhook(rawBodyStr, sigHeader, webhookSecret) {
+  // X-SFAST-Signature: t=1763865628,v1=9c4e1b...
+  const parts = Object.fromEntries(sigHeader.split(",").map(p => p.split("=")));
+  const expected = crypto
+    .createHmac("sha256", webhookSecret)
+    .update(\`\${parts.t}.\${rawBodyStr}\`)
+    .digest("hex");
+  return crypto.timingSafeEqual(Buffer.from(parts.v1 || ""), Buffer.from(expected));
+}`;
+        }
+        if (lang === 'csharp') {
+          return `using System.Security.Cryptography;
+using System.Text;
+
+public static bool VerifySfastWebhook(string rawBody, string ts, string v1Hex, string secret) {
+    using var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(secret));
+    var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes($"{ts}.{rawBody}"));
+    var expected = Convert.ToHexString(hash).ToLowerInvariant();
+    return CryptographicOperations.FixedTimeEquals(
+        Encoding.UTF8.GetBytes(v1Hex), Encoding.UTF8.GetBytes(expected));
+}`;
+        }
+        return `curl -X GET "${fullUrl}?status=SUCCESS&limit=20&offset=0" \\
+  -H "Authorization: Bearer sf_live_a1b2c3d4_your_secret_key"`;
+      }
+
+      if (lang === 'curl') {
+        let cmd = `curl -X ${item.method} "${fullUrl}"`;
+        if (item.id !== '01') {
+          cmd += ` \\\n  -H "Authorization: Bearer sf_live_a1b2c3d4_your_secret_key"`;
+        }
+        if (item.idempotency) {
+          cmd += ` \\\n  -H "Idempotency-Key: idem_550e8400_e29b_41d4_a716"`;
+        }
+        if (isPost && hasBody) {
+          cmd += ` \\\n  -H "Content-Type: application/json" \\\n  -d '{"sim_version": 1, "network": "VIETTEL"}'`;
+        }
+        return cmd;
+      }
+
+      if (lang === 'python') {
+        let headers = item.id === '01' ? '{}' : `{\n    "Authorization": "Bearer sf_live_a1b2c3d4_your_secret_key"${item.idempotency ? ',\n    "Idempotency-Key": "idem_550e8400_e29b_41d4_a716"' : ''}\n}`;
+        if (isPost) {
+          return `import requests
+
+url = "${fullUrl}"
+headers = ${headers}
+payload = ${hasBody ? '{"sim_version": 1, "network": "VIETTEL"}' : '{}'}
+
+resp = requests.post(url, headers=headers, json=payload, timeout=60)
+print(resp.status_code, resp.json())`;
+        }
+        return `import requests
+
+url = "${fullUrl}"
+headers = ${headers}
+
+resp = requests.get(url, headers=headers, timeout=30)
+print(resp.status_code, ${item.id === '09' ? 'len(resp.content)' : 'resp.json()'})`;
+      }
+
+      if (lang === 'node') {
+        return `const response = await fetch("${fullUrl}", {
+  method: "${item.method}",
+  headers: {
+    "Authorization": "Bearer sf_live_a1b2c3d4_your_secret_key"${item.idempotency ? ',\n    "Idempotency-Key": "idem_550e8400_e29b_41d4_a716"' : ''}${isPost && hasBody ? ',\n    "Content-Type": "application/json"' : ''}
+  }${isPost && hasBody ? `,\n  body: JSON.stringify({ sim_version: 1, network: "VIETTEL" })` : ''}
+});
+const data = await response.${item.id === '09' ? 'arrayBuffer()' : 'json()'};
+console.log(response.status, data);`;
+      }
+
+      // C# (.NET)
+      return `using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+
+using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(60) };
+client.DefaultRequestHeaders.Authorization =
+    new AuthenticationHeaderValue("Bearer", "sf_live_a1b2c3d4_your_secret_key");
+${item.idempotency ? 'client.DefaultRequestHeaders.Add("Idempotency-Key", Guid.NewGuid().ToString());\n' : ''}${isPost
+  ? `var content = new StringContent(${hasBody ? '"{\\"sim_version\\":1,\\"network\\":\\"VIETTEL\\"}"' : '"{}"'}, Encoding.UTF8, "application/json");\nvar resp = await client.PostAsync("${fullUrl}", content);`
+  : `var resp = await client.GetAsync("${fullUrl}");`}
+Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
+    }
+
+    function removeVietnameseDiacritics(str) {
+      return (str || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+        .toLowerCase();
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderMasterList() {
+      const container = document.getElementById('master-cards-list');
+      const emptyState = document.getElementById('empty-state');
+      const resultsCount = document.getElementById('results-count');
+      const q = removeVietnameseDiacritics(searchQuery.trim());
+
+      const filtered = API_ENDPOINTS_DATA.filter(item => {
+        if (currentCategory !== 'all' && item.cat !== currentCategory) return false;
+        if (currentMethodFilter !== 'ALL' && item.method !== currentMethodFilter) return false;
+        if (q) {
+          const hay = removeVietnameseDiacritics(
+            `${item.id} ${item.method} ${item.path} ${item.name} ${item.scope} ${item.summary} ${JSON.stringify(item.errors)}`
+          );
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      resultsCount.textContent = `Hiển thị: ${filtered.length} / ${API_ENDPOINTS_DATA.length} Endpoints`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.add('visible');
+        return;
+      }
+      emptyState.classList.remove('visible');
+
+      if (!filtered.some(e => e.id === activeEndpointId)) {
+        activeEndpointId = filtered[0].id;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const isActive = item.id === activeEndpointId;
+        const idemBadge = item.idempotency
+          ? `<span class="tag-badge tag-idem">🔑 Idempotency-Key</span>`
+          : '';
+        return `
+          <article class="master-card ${isActive ? 'active' : ''}" id="card-${item.id}" onclick="selectEndpoint('${item.id}')">
+            <div class="card-row-top">
+              <div class="card-title-group">
+                <span class="card-num-badge">#${item.id}</span>
+                <span class="method-badge method-${item.method}">${item.method}</span>
+                <h3 class="card-name">${item.name}</h3>
+              </div>
+              <span style="font-size: 12px; color: var(--text-muted);">➔</span>
+            </div>
+            <div class="card-path-line">${item.path}</div>
+            <div class="card-row-bottom">
+              <div class="card-tags">
+                <span class="tag-badge tag-scope">🎯 ${item.scope}</span>
+                ${idemBadge}
+              </div>
+              <span class="card-cmd-badge" onclick="copyText('${item.path}', 'Đã copy đường dẫn ${item.path}!', event)">Copy Path</span>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      updateDesktopInspector();
+    }
+
+    function renderEndpointInspectorHTML(item, tabName, isMobile) {
+      const fullUrl = `${getBaseUrl()}${item.path}`;
+      const snippet = buildCodeSnippet(item, activeCodeLang);
+      const tabPrefix = isMobile ? 'm-tab-pane' : 'tab-pane';
+
+      const paramsRows = item.params.map(p => `
+        <tr>
+          <td><span class="tag-badge">${escapeHtml(p.loc)}</span></td>
+          <td><code>${escapeHtml(p.name)}</code></td>
+          <td><code>${escapeHtml(p.type)}</code></td>
+          <td><strong>${escapeHtml(p.req)}</strong></td>
+          <td>${escapeHtml(p.desc)}</td>
+        </tr>
+      `).join('');
+
+      const fieldsRows = item.fields.map(f => `
+        <tr>
+          <td><code>${escapeHtml(f.name)}</code></td>
+          <td><code>${escapeHtml(f.type)}</code></td>
+          <td>${escapeHtml(f.desc)}</td>
+        </tr>
+      `).join('');
+
+      const errorsRows = item.errors.map(er => `
+        <tr>
+          <td><code>${escapeHtml(er.code)}</code></td>
+          <td><strong>HTTP ${er.status}</strong></td>
+          <td>
+            <span class="tag-badge ${er.exempt ? 'tag-exempt' : 'tag-ban'}">
+              ${er.exempt ? '🟢 Miễn trừ Auto-Ban' : '🔴 Tính ngưỡng Auto-Ban'}
+            </span>
+          </td>
+          <td>${escapeHtml(er.desc)}</td>
+          <td>${escapeHtml(er.retry)}</td>
+        </tr>
+      `).join('');
+
+      return `
+        <!-- TAB 1: SPEC & PARAMS -->
+        <div class="tab-content-panel ${tabName === 'spec' ? 'active' : ''}" id="${tabPrefix}-spec">
+          <div class="detail-section">
+            <div class="section-heading">🎯 Chức Năng &amp; Cơ Chế Hoạt Động</div>
+            <div class="bento-card-box">
+              <p style="margin-bottom: 8px;">${escapeHtml(item.summary)}</p>
+              <div style="font-size: 12px; color: var(--text-sub); border-top: 1px dashed var(--border-color); padding-top: 8px;">
+                💳 <strong>Quy tắc Ví &amp; Hoàn tiền:</strong> ${escapeHtml(item.billingNote)}
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="section-heading">📥 Bảng Tham Số Đầu Vào (Headers / Path / Query / Body)</div>
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th>Vị trí</th>
+                  <th>Tên tham số</th>
+                  <th>Kiểu dữ liệu</th>
+                  <th>Bắt buộc</th>
+                  <th>Mô tả chi tiết</th>
+                </tr>
+              </thead>
+              <tbody>${paramsRows}</tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 2: 4-LANGUAGE CODE SAMPLES -->
+        <div class="tab-content-panel ${tabName === 'code' ? 'active' : ''}" id="${tabPrefix}-code">
+          <div class="detail-section">
+            <div class="section-heading">
+              <span>💻 Code Tích Hợp Mẫu (Tự động ghép Base URL)</span>
+            </div>
+            <div class="lang-switcher-bar">
+              <button class="lang-btn ${activeCodeLang === 'curl' ? 'active' : ''}" onclick="switchCodeLang('curl')">cURL</button>
+              <button class="lang-btn ${activeCodeLang === 'python' ? 'active' : ''}" onclick="switchCodeLang('python')">Python (requests)</button>
+              <button class="lang-btn ${activeCodeLang === 'node' ? 'active' : ''}" onclick="switchCodeLang('node')">Node.js (fetch)</button>
+              <button class="lang-btn ${activeCodeLang === 'csharp' ? 'active' : ''}" onclick="switchCodeLang('csharp')">C# (.NET)</button>
+            </div>
+            <div class="code-box-wrapper">
+              <div class="code-box-header">
+                <span>${activeCodeLang.toUpperCase()} · ${item.method} ${fullUrl}</span>
+                <button class="btn-copy-code" onclick="copyCurrentCode()">📋 Sao chép Code</button>
+              </div>
+              <pre class="code-block" id="${isMobile ? 'm-code-preview' : 'd-code-preview'}">${escapeHtml(snippet)}</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: JSON RESPONSE & RFC 9457 -->
+        <div class="tab-content-panel ${tabName === 'response' ? 'active' : ''}" id="${tabPrefix}-response">
+          <div class="detail-section">
+            <div class="section-heading">📤 JSON Response Thành Công (200 OK / 201 Created)</div>
+            <div class="code-box-wrapper">
+              <div class="code-box-header">
+                <span>application/json</span>
+                <button class="btn-copy-code" onclick="copyCurrentResponse()">📋 Sao chép JSON</button>
+              </div>
+              <pre class="code-block">${escapeHtml(item.responseSample)}</pre>
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <div class="section-heading">📖 Giải Thích Các Trường Quan Trọng</div>
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th>Trường JSON</th>
+                  <th>Kiểu</th>
+                  <th>Ý nghĩa</th>
+                </tr>
+              </thead>
+              <tbody>${fieldsRows}</tbody>
+            </table>
+          </div>
+
+          <div class="detail-section">
+            <div class="section-heading">🛡️ Mẫu JSON Báo Lỗi Chuẩn RFC 9457 (application/problem+json)</div>
+            <div class="code-box-wrapper">
+              <div class="code-box-header">
+                <span>application/problem+json</span>
+              </div>
+              <pre class="code-block">${escapeHtml(item.errorSample)}</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: ERROR CODES & AUTO-BAN EXEMPTION -->
+        <div class="tab-content-panel ${tabName === 'errors' ? 'active' : ''}" id="${tabPrefix}-errors">
+          <div class="detail-section">
+            <div class="section-heading">⚠️ Bảng Mã Lỗi, Trạng Thái Miễn Trừ Auto-Ban &amp; Chiến Lược Retry</div>
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th>error_code</th>
+                  <th>HTTP</th>
+                  <th>Khiên Auto-Ban</th>
+                  <th>Nguyên nhân</th>
+                  <th>Chiến lược xử lý trên Tool</th>
+                </tr>
+              </thead>
+              <tbody>${errorsRows}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateDesktopInspector() {
+      const item = API_ENDPOINTS_DATA.find(e => e.id === activeEndpointId);
+      if (!item) return;
+
+      const header = document.getElementById('inspector-header');
+      const body = document.getElementById('inspector-body');
+      const footer = document.getElementById('inspector-footer');
+      const fullUrl = `${getBaseUrl()}${item.path}`;
+
+      header.innerHTML = `
+        <div class="inspector-title-row">
+          <span class="card-num-badge">#${item.id}</span>
+          <span class="method-badge method-${item.method}">${item.method}</span>
+          <h2>${item.name}</h2>
+        </div>
+        <div class="endpoint-url-bar">
+          <span>${escapeHtml(fullUrl)}</span>
+          <button class="btn-copy-code" onclick="copyText('${fullUrl}', 'Đã sao chép URL đầy đủ!')">📋 Copy URL</button>
+        </div>
+        <div class="inspector-meta-row">
+          <span class="tag-badge tag-scope">🎯 Scope: ${item.scope}</span>
+          <span class="tag-badge">⚡ ${item.rateCost}</span>
+          ${item.idempotency ? '<span class="tag-badge tag-idem">🔑 Bắt buộc Idempotency-Key</span>' : ''}
+        </div>
+      `;
+
+      body.innerHTML = renderEndpointInspectorHTML(item, activeDetailTab, false);
+
+      footer.innerHTML = `
+        <button class="btn-use-now" onclick="useFeatureNow('api')">
+          <span>🔑 Mở Bot Quản Lý API Key (/api)</span>
+        </button>
+        <a href="index.html" class="btn-secondary-action">📖 Sổ Tay Bot</a>
+        <button class="btn-secondary-action" onclick="openSupportGroup()">👥 Nhóm Hỗ Trợ</button>
+      `;
+    }
+
+    function selectEndpoint(id) {
+      hapticLight();
+      activeEndpointId = id;
+      const item = API_ENDPOINTS_DATA.find(e => e.id === id);
+      if (item && history.replaceState) {
+        history.replaceState(null, '', `#${item.anchor}`);
+      }
+      document.querySelectorAll('.master-card').forEach(el => {
+        el.classList.toggle('active', el.id === `card-${id}`);
+      });
+
+      if (window.innerWidth <= 860) {
+        openMobileDrawer(id);
+      } else {
+        updateDesktopInspector();
+      }
+    }
+
+    function switchDetailTab(tabName, btn) {
+      hapticLight();
+      activeDetailTab = tabName;
+      document.querySelectorAll('#desktop-tabs-bar .seg-tab-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tab === tabName);
+      });
+      updateDesktopInspector();
+      const body = document.getElementById('inspector-body');
+      if (body) body.scrollTop = 0;
+    }
+
+    function switchCodeLang(lang) {
+      hapticLight();
+      activeCodeLang = lang;
+      updateDesktopInspector();
+      const item = API_ENDPOINTS_DATA.find(e => e.id === activeEndpointId);
+      if (item && document.getElementById('mobile-drawer')?.classList.contains('open')) {
+        document.getElementById('drawer-body').innerHTML = renderEndpointInspectorHTML(item, activeMobileTab, true);
+      }
+    }
+
+    function copyCurrentCode() {
+      const item = API_ENDPOINTS_DATA.find(e => e.id === activeEndpointId);
+      if (!item) return;
+      copyText(buildCodeSnippet(item, activeCodeLang), `Đã sao chép code ${activeCodeLang.toUpperCase()}!`);
+    }
+
+    function copyCurrentResponse() {
+      const item = API_ENDPOINTS_DATA.find(e => e.id === activeEndpointId);
+      if (!item) return;
+      copyText(item.responseSample, 'Đã sao chép JSON Response mẫu!');
+    }
+
+    // MOBILE DRAWER
+    function openMobileDrawer(id) {
+      const item = API_ENDPOINTS_DATA.find(e => e.id === id);
+      if (!item) return;
+      activeMobileTab = 'spec';
+      document.querySelectorAll('#mobile-tabs-bar .seg-tab-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tab === 'spec');
+      });
+
+      const header = document.getElementById('drawer-header');
+      const body = document.getElementById('drawer-body');
+      const footer = document.getElementById('drawer-footer');
+      const fullUrl = `${getBaseUrl()}${item.path}`;
+
+      header.innerHTML = `
+        <div style="min-width: 0; flex: 1;">
+          <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 4px;">
+            <span class="card-num-badge">#${item.id}</span>
+            <span class="method-badge method-${item.method}">${item.method}</span>
+            <h3 style="font-size: 14.5px; font-weight: 800;">${item.name}</h3>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 11.5px; color: var(--border-active); word-break: break-all;">${escapeHtml(fullUrl)}</div>
+        </div>
+        <button class="drawer-close-btn" onclick="closeMobileDrawer()">✕</button>
+      `;
+
+      body.innerHTML = renderEndpointInspectorHTML(item, activeMobileTab, true);
+      body.scrollTop = 0;
+
+      footer.innerHTML = `
+        <button class="btn-use-now" onclick="useFeatureNow('api')">🔑 Mở Bot Lấy API Key (/api)</button>
+      `;
+
+      document.getElementById('drawer-overlay').classList.add('active');
+      document.getElementById('mobile-drawer').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function switchMobileDrawerTab(tabName, btn) {
+      hapticLight();
+      activeMobileTab = tabName;
+      document.querySelectorAll('#mobile-tabs-bar .seg-tab-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tab === tabName);
+      });
+      const item = API_ENDPOINTS_DATA.find(e => e.id === activeEndpointId);
+      const body = document.getElementById('drawer-body');
+      if (item && body) {
+        body.innerHTML = renderEndpointInspectorHTML(item, activeMobileTab, true);
+        body.scrollTop = 0;
+      }
+    }
+
+    function closeMobileDrawer() {
+      hapticLight();
+      document.getElementById('drawer-overlay').classList.remove('active');
+      document.getElementById('mobile-drawer').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // FILTERS & SEARCH
+    function selectCategory(cat, btn) {
+      hapticLight();
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderMasterList();
+    }
+
+    function selectMethodFilter(method, btn) {
+      hapticLight();
+      currentMethodFilter = method;
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderMasterList();
+    }
+
+    function copyText(text, msg, event) {
+      if (event) event.stopPropagation();
+      hapticMedium();
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(msg || 'Đã sao chép!');
+      }).catch(() => {
+        showToast(text);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast-popup');
+      const label = document.getElementById('toast-message');
+      if (!toast || !label) return;
+      label.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function useFeatureNow(payload) {
+      hapticMedium();
+      const botUrl = `https://t.me/${SFAST_CONFIG.botUsername}?start=${encodeURIComponent(payload)}`;
+      if (tg) tg.openTelegramLink(botUrl);
+      else window.open(botUrl, '_blank');
+    }
+
+    function openSupportGroup() {
+      hapticLight();
+      if (tg) tg.openTelegramLink(SFAST_CONFIG.supportGroup);
+      else window.open(SFAST_CONFIG.supportGroup, '_blank');
+    }
+
+    function openAdminSupport() {
+      hapticLight();
+      if (tg) tg.openTelegramLink(SFAST_CONFIG.adminSupport);
+      else window.open(SFAST_CONFIG.adminSupport, '_blank');
+    }
+
+    const searchInput = document.getElementById('search-input');
+    const searchClear = document.getElementById('search-clear-btn');
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      searchClear.classList.toggle('visible', searchQuery.length > 0);
+      renderMasterList();
+    });
+
+    function clearSearch() {
+      hapticLight();
+      searchInput.value = '';
+      searchQuery = '';
+      searchClear.classList.remove('visible');
+      renderMasterList();
+      searchInput.focus();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMobileDrawer();
+      if (e.key === '/' && document.activeElement !== searchInput && document.activeElement?.tagName !== 'INPUT') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+
+    function initFromHash() {
+      const hash = (window.location.hash || '').replace(/^#/, '').trim();
+      if (!hash) return;
+      const found = API_ENDPOINTS_DATA.find(e => e.anchor === hash || e.id === hash);
+      if (found) activeEndpointId = found.id;
+    }
+
+    // INIT
+    initTheme();
+    initBaseUrl();
+    initFromHash();
+    computeHmacPlayground();
+    renderMasterList();
+  </script>
+</body>
+
+</html>
