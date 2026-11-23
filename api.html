@@ -1255,7 +1255,7 @@
         <div class="search-wrapper">
           <span class="search-icon-left">🔍</span>
           <input type="text" id="search-input" class="search-input"
-            placeholder="Tìm kiếm nhanh 10 Endpoints & Webhook (예: /orders, rehire, balance, HMAC, Idempotency-Key, NO_STOCK...)"
+            placeholder="Tìm kiếm nhanh 10 Endpoints & Webhook (VD: /orders, rehire, balance, HMAC, Idempotency-Key, NO_STOCK...)"
             autocomplete="off">
           <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearch()">✕</button>
         </div>
@@ -1509,7 +1509,7 @@
       defaultBaseUrl: "http://127.0.0.1:8000"
     };
 
-    // 10 ENDPOINTS & WEBHOOK DATA (VERIFIED 100% AGAINST app.py, router.py, webhooks.py, sim_core.py)
+    // 10 ENDPOINTS & WEBHOOK DATA (VERIFIED 100% AGAINST app.py, router.py, service.py, schemas.py, webhooks.py, sim_core.py)
     const API_ENDPOINTS_DATA = [
       {
         id: "01",
@@ -1522,7 +1522,7 @@
         scope: "Public (Không cần Token)",
         idempotency: false,
         rateCost: "Miễn phí · Không tính hạn mức",
-        summary: "Kiểm tra trạng thái hoạt động của cổng SFAST Public API (:8000), công tắc tổng PUBLIC_API_ENABLED, trạng thái module sim_v2, bộ đếm luồng in-flight và Circuit Breaker.",
+        summary: "Kiểm tra trạng thái hoạt động của cổng SFAST Public API (:8000), công tắc tổng PUBLIC_API_ENABLED, trạng thái module sim_v2, bộ đếm luồng in-flight, Auto-Ban và Circuit Breaker.",
         params: [
           { loc: "Header", name: "Không bắt buộc", type: "—", req: "Tùy chọn", desc: "Endpoint công khai dùng cho tool ping kiểm tra kết nối trước khi bắn batch đơn." }
         ],
@@ -1542,12 +1542,17 @@
   }
 }`,
         errorSample: `{
-  "type": "https://sfast.vn/errors/service-unavailable",
-  "title": "Dịch vụ đang bảo trì",
+  "ok": false,
+  "type": "https://api.sfast.vn/errors/maintenance",
+  "title": "Dịch vụ đang tạm bảo trì",
   "status": 503,
-  "detail": "Cổng Public API đang tạm ngưng bảo trì định kỳ.",
   "error_code": "MAINTENANCE",
-  "request_id": "req_9f8a7b6c5d4e"
+  "detail": "🔧 THÔNG BÁO BẢO TRÌ\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
+  "display_format": "telegram_markdown",
+  "display_message": "🔧 THÔNG BÁO BẢO TRÌ\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
+  "display_message_plain": "🔧 THÔNG BÁO BẢO TRÌ Dạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
+  "request_id": "req_9f8a7b6c5d4e",
+  "instance": "/health"
 }`,
         fields: [
           { name: "ok / status", type: "boolean / string", desc: "true & 'healthy' khi tiến trình API Server sẵn sàng phục vụ." },
@@ -1566,10 +1571,10 @@
         method: "GET",
         path: "/api/v2/sim/account/balance",
         name: "Tra Cứu Số Dư Ví, Hạng VIP & Trần Phiên",
-        scope: "account:read (hoặc sim:read)",
+        scope: "account:read",
         idempotency: false,
         rateCost: "1 req / lần gọi",
-        summary: "Lấy thông tin số dư TK Chính (balance), TK Khuyến Mãi (bonus_balance), hạng VIP (is_vip), giới hạn số phiên thuê SIM đồng thời (session_limit_rent_phone) và số phiên đang chờ OTP hiện tại (active_pending_sessions).",
+        summary: "Lấy thông tin số dư TK Chính (balance), TK Khuyến Mãi (bonus_balance), hạng VIP (is_vip, tier_label), hạng tốc độ (rate_tier, rate_limit_rpm), cờ cho phép dùng ví KM (rent_phone_bonus_allowed), giới hạn số phiên đồng thời (session_limit_rent_phone), số phiên đang chờ (active_pending_sessions) và số slot còn trống (remaining_session_slots).",
         params: [
           { loc: "Header", name: "Authorization", type: "string", req: "Bắt buộc (Bearer)", desc: "Bearer sf_live_<prefix>_<secret> (Hoặc dùng 4 header HMAC-SHA256)." }
         ],
@@ -1579,31 +1584,40 @@
   "tg_id": 5652362359,
   "username": "sep_sfast",
   "is_vip": true,
+  "tier_label": "👑 Khách VIP",
+  "rate_tier": "vip",
+  "rate_limit_rpm": 180,
   "balance": 250000,
   "bonus_balance": 35000,
-  "formatted_balance": "250,000 VNĐ",
-  "formatted_bonus_balance": "35,000 VNĐ",
-  "session_limit_rent_phone": 20,
+  "rent_phone_bonus_allowed": false,
+  "session_limit_rent_phone": 10,
   "active_pending_sessions": 2,
-  "available_session_slots": 18
+  "remaining_session_slots": 8
 }`,
         errorSample: `{
-  "type": "https://sfast.vn/errors/unauthorized",
+  "ok": false,
+  "type": "https://api.sfast.vn/errors/invalid_api_key",
   "title": "Xác thực thất bại",
   "status": 401,
-  "detail": "API Key không hợp lệ hoặc đã bị thu hồi.",
   "error_code": "INVALID_API_KEY",
-  "request_id": "req_1a2b3c4d5e6f"
+  "detail": "API Key không hợp lệ hoặc đã bị thu hồi.",
+  "display_format": "telegram_markdown",
+  "display_message": "API Key không hợp lệ hoặc đã bị thu hồi.",
+  "display_message_plain": "API Key không hợp lệ hoặc đã bị thu hồi.",
+  "request_id": "req_1a2b3c4d5e6f",
+  "instance": "/api/v2/sim/account/balance"
 }`,
         fields: [
-          { name: "balance", type: "integer", desc: "Số dư Tài khoản Chính (VNĐ)." },
-          { name: "bonus_balance", type: "integer", desc: "Số dư Tài khoản Khuyến Mãi (VNĐ)." },
+          { name: "balance / bonus_balance", type: "integer", desc: "Số dư Tài khoản Chính và Tài khoản Khuyến Mãi (VNĐ)." },
+          { name: "rate_tier / rate_limit_rpm", type: "string / integer", desc: "Hạng tốc độ hiện tại của Token (standard | vip | enterprise) và trần requests/phút." },
+          { name: "rent_phone_bonus_allowed", type: "boolean", desc: "true = Dịch vụ /sim đang cho phép trừ TK Khuyến Mãi; false = Chỉ trừ TK Chính." },
           { name: "session_limit_rent_phone", type: "integer", desc: "Tổng số đơn SIM được phép chờ OTP cùng lúc (tính gộp cả trên Bot + API)." },
-          { name: "active_pending_sessions", type: "integer", desc: "Số đơn SIM đang ở trạng thái PENDING / CANCELING hiện tại." }
+          { name: "active_pending_sessions", type: "integer", desc: "Số đơn SIM đang ở trạng thái PENDING / CANCELING hiện tại." },
+          { name: "remaining_session_slots", type: "integer", desc: "Số luồng thuê SIM còn trống có thể tạo mới ngay." }
         ],
         errors: [
           { code: "INVALID_API_KEY", status: 401, exempt: false, desc: "Sai API Key hoặc Key đã bị thu hồi.", retry: "Dừng ngay! Kiểm tra lại Key trong /api (tránh spam >= 20 lần/60s bị khóa IP 15 phút)." },
-          { code: "INSUFFICIENT_SCOPE", status: 403, exempt: false, desc: "Token không có quyền account:read / sim:read.", retry: "Liên hệ Admin cấp lại scope." }
+          { code: "INSUFFICIENT_SCOPE", status: 403, exempt: false, desc: "Token không có quyền account:read.", retry: "Liên hệ Admin cấp lại scope." }
         ]
       },
       {
@@ -1617,7 +1631,7 @@
         scope: "sim:read",
         idempotency: false,
         rateCost: "1 req / lần gọi",
-        summary: "Trả về toàn bộ danh sách gói SIM Shopee đang mở (V1..V99), giá bán thời gian thực, cờ Check Zin, cờ Lấy Lại Được (reclaim), nhà mạng hỗ trợ, quốc gia, tỷ lệ mã OTP về hôm nay (%) và nguyên văn bảng menu /sim trên Bot.",
+        summary: "Trả về toàn bộ danh sách gói SIM Shopee đang mở (packages[]), giá bán thời gian thực (price, price_formatted), cờ Check Zin (check_zin, mode_label), cờ Lấy Lại Được (reclaim), nhà mạng (network_label), quốc gia (country), tỷ lệ mã OTP về hôm nay (quality_rate_today) và nguyên văn bảng menu /sim trên Bot (formatted_menu_text).",
         params: [
           { loc: "Header", name: "Authorization", type: "string", req: "Bắt buộc", desc: "Bearer sf_live_<prefix>_<secret> (hoặc HMAC headers)." }
         ],
@@ -1625,48 +1639,66 @@
         responseSample: `{
   "ok": true,
   "service": "rent_phone",
+  "default_price": 3100,
+  "wallet_policy": {
+    "bonus_restricted": true,
+    "allowed_wallets": ["FREE", "SUBSCRIPTION", "MAIN"],
+    "policy_text": "Chỉ áp dụng thanh toán bằng TK Chính"
+  },
+  "session_limits": {
+    "default_limit_rent_phone": 2,
+    "vip_limit_rent_phone": 10,
+    "your_session_limit": 10
+  },
+  "notices": {
+    "wait_timeout_seconds": 360,
+    "no_check_zin_notice": null,
+    "reclaim_notice": null
+  },
   "packages": [
     {
-      "version": 1,
-      "code": "V1",
+      "sim_version": 1,
       "icon": "🔵",
       "name": "Gói V1 - Kho Chính ZIN",
       "price": 3100,
-      "formatted_price": "3,100 VNĐ",
+      "price_formatted": "3,100 VNĐ",
       "check_zin": true,
+      "mode_label": "CHECK ZIN",
       "reclaim": false,
-      "network_label": "Viettel, Vina, Mobi",
+      "network_label": "Tất cả nhà mạng",
       "country": "VN",
       "quality_rate_today": 88.5,
-      "quality_badge": "[🔥 MÃ NHANH]",
-      "display_line": "🔵 *Gói V1 - Kho Chính ZIN* — \`3,100 VNĐ\` [🔥 MÃ NHANH]\\n╰ 📥 Tỷ Lệ Mã Về: \`88.5%\`",
-      "button_label": "🔵 Gói V1 - Kho Chính ZIN — 3,100 VNĐ | 🔥 MÃ NHANH"
+      "quality_badge": "🚀 MÃ SIÊU TỐC",
+      "display_line": "🔵 *Gói V1 - Kho Chính ZIN* — \`3,100 VNĐ\` [🚀 MÃ SIÊU TỐC]\n╰ 📥 Tỷ Lệ Mã Về: \`88.5%\`",
+      "display_line_plain": "🔵 Gói V1 - Kho Chính ZIN — 3,100 VNĐ [🚀 MÃ SIÊU TỐC] ╰ 📥 Tỷ Lệ Mã Về: 88.5%",
+      "button_label": "🔵 Gói V1 - Kho Chính ZIN — 3,100 VNĐ | 🚀 MÃ SIÊU TỐC"
     }
   ],
-  "wallet_policy": {
-    "bonus_restricted": true,
-    "policy_label": "Chỉ áp dụng thanh toán bằng TK Chính"
-  },
-  "session_limits": {
-    "user_limit": 10,
-    "active_pending": 0
-  },
-  "formatted_menu_text": "📱 *THUÊ SỐ ĐIỆN THOẠI NHẬN OTP SHOPEE*..."
+  "display_format": "telegram_markdown",
+  "formatted_menu_text": "📱 *THUÊ SIM SHOPEE* 📱...",
+  "display_message": "📱 *THUÊ SIM SHOPEE* 📱...",
+  "display_message_plain": "📱 THUÊ SIM SHOPEE 📱..."
 }`,
         errorSample: `{
-  "type": "https://sfast.vn/errors/service-unavailable",
-  "title": "Dịch vụ đang bảo trì",
+  "ok": false,
+  "type": "https://api.sfast.vn/errors/maintenance",
+  "title": "Dịch vụ đang tạm bảo trì",
   "status": 503,
-  "detail": "Dịch vụ Thuê SĐT Shopee đang tạm bảo trì.",
   "error_code": "MAINTENANCE",
-  "request_id": "req_7c8d9e0f1a2b"
+  "detail": "🔧 THÔNG BÁO BẢO TRÌ...",
+  "display_format": "telegram_markdown",
+  "display_message": "🔧 THÔNG BÁO BẢO TRÌ...",
+  "display_message_plain": "🔧 THÔNG BÁO BẢO TRÌ...",
+  "request_id": "req_7c8d9e0f1a2b",
+  "instance": "/api/v2/sim/packages"
 }`,
         fields: [
-          { name: "packages[].version", type: "integer", desc: "Mã số gói SIM (truyền vào trường sim_version khi gọi POST /api/v2/sim/orders)." },
-          { name: "packages[].check_zin", type: "boolean", desc: "true = Hệ thống tự lọc số ZIN chưa đăng ký Shopee trước khi giao số." },
+          { name: "packages[].sim_version", type: "integer", desc: "Mã số gói SIM (truyền vào trường sim_version khi gọi POST /api/v2/sim/orders)." },
+          { name: "packages[].price / price_formatted", type: "integer / string", desc: "Giá gói SIM (VNĐ) và chuỗi hiển thị đã định dạng." },
+          { name: "packages[].check_zin / mode_label", type: "boolean / string", desc: "true ('CHECK ZIN') = Hệ thống tự lọc số ZIN chưa đăng ký Shopee trước khi giao số." },
           { name: "packages[].reclaim", type: "boolean", desc: "true = Gói Lấy Lại Được (hỗ trợ thuê cả số đã từng đăng ký Shopee)." },
-          { name: "packages[].quality_rate_today", type: "float | null", desc: "Tỷ lệ % đơn nhận được mã OTP thành công trong ngày hôm nay." },
-          { name: "wallet_policy.bonus_restricted", type: "boolean", desc: "true = Chỉ trừ TK Chính; false = Cho phép ưu tiên trừ TK Khuyến Mãi / Combo." }
+          { name: "packages[].quality_rate_today", type: "float | null", desc: "Tỷ lệ % đơn nhận được mã OTP thành công trong ngày hôm nay (khi gói có >= 3 đơn)." },
+          { name: "wallet_policy / session_limits", type: "object", desc: "Chính sách ví thanh toán (bonus_restricted, allowed_wallets, policy_text) và trần phiên (your_session_limit)." }
         ],
         errors: [
           { code: "MAINTENANCE", status: 503, exempt: true, desc: "Dịch vụ /sim hoặc hệ thống đang bảo trì.", retry: "Miễn trừ Auto-Ban. Tạm dừng gọi 30–60 giây rồi kiểm tra lại." }
@@ -1683,7 +1715,7 @@
         scope: "sim:read",
         idempotency: false,
         rateCost: "1 req / lần gọi",
-        summary: "Kế thừa 100% thuật toán thống kê /otpstatus trên Bot Telegram: trả về bảng xếp hạng Top 10 gói SIM có mã OTP về nhiều và nhạy nhất trong khoảng thời gian lookback_min phút gần đây.",
+        summary: "Kế thừa 100% thuật toán thống kê /otpstatus trên Bot Telegram: trả về bảng xếp hạng Top 10 gói SIM (top_packages[]) có mã OTP về nhiều và nhạy nhất trong khoảng thời gian lookback_min phút gần đây.",
         params: [
           { loc: "Query", name: "lookback_min", type: "integer", req: "Tùy chọn", desc: "Khoảng thời gian thống kê (từ 1 đến 1440 phút). Nếu bỏ trống sẽ lấy theo cấu hình chuẩn của Bot." }
         ],
@@ -1691,33 +1723,36 @@
         responseSample: `{
   "ok": true,
   "lookback_minutes": 30,
-  "total_otp_received": 42,
   "top_packages": [
     {
       "rank": 1,
       "sim_version": 1,
-      "code": "V1",
-      "package_name": "Gói V1 - Kho Chính ZIN",
-      "otp_count": 25,
-      "share_percent": 59.5,
-      "last_otp_ago_seconds": 12
+      "version_code": "V1",
+      "package_name": "Gói V1 - Kho Chính ZIN"
     }
   ],
   "display_format": "telegram_html",
-  "display_message": "📊 <b>TRẠNG THÁI OTP (30 phút gần nhất)</b>..."
+  "display_message": "📊 <b>TRẠNG THÁI OTP (30 phút gần nhất)</b>...",
+  "display_message_plain": "📊 TRẠNG THÁI OTP (30 phút gần nhất)..."
 }`,
         errorSample: `{
-  "type": "https://sfast.vn/errors/rate-limited",
+  "ok": false,
+  "type": "https://api.sfast.vn/errors/rate_limited",
   "title": "Vượt giới hạn tần suất",
   "status": 429,
-  "detail": "Sếp thao tác quá nhanh, vui lòng thử lại sau 2 giây.",
   "error_code": "RATE_LIMITED",
-  "retry_after": 2
+  "detail": "Sếp thao tác quá nhanh, vui lòng thử lại sau 2 giây.",
+  "display_format": "telegram_markdown",
+  "display_message": "Sếp thao tác quá nhanh, vui lòng thử lại sau 2 giây.",
+  "display_message_plain": "Sếp thao tác quá nhanh, vui lòng thử lại sau 2 giây.",
+  "request_id": "req_3a2b1c0d9e8f",
+  "instance": "/api/v2/sim/otp-status"
 }`,
         fields: [
-          { name: "top_packages[].sim_version", type: "integer", desc: "Phiên bản gói SIM đang nổ OTP mạnh nhất." },
-          { name: "top_packages[].otp_count", type: "integer", desc: "Số lượng mã OTP thực tế đã nhận thành công trong cửa sổ lookback." },
-          { name: "top_packages[].last_otp_ago_seconds", type: "integer", desc: "Số giây tính từ lần gần nhất gói này nhận được mã OTP." }
+          { name: "lookback_minutes", type: "integer", desc: "Số phút thống kê thực tế đã áp dụng." },
+          { name: "top_packages[].rank", type: "integer", desc: "Thứ hạng từ 1 đến 10 (1 là kho đang về mã OTP nhiều nhất)." },
+          { name: "top_packages[].sim_version / version_code", type: "integer / string", desc: "Số phiên bản gói SIM (VD: 1) và mã gói (VD: 'V1')." },
+          { name: "top_packages[].package_name", type: "string", desc: "Tên hiển thị của gói SIM." }
         ],
         errors: [
           { code: "RATE_LIMITED", status: 429, exempt: true, desc: "Vượt hạn mức req/phút của hạng Token.", retry: "Miễn trừ Auto-Ban. Đọc header Retry-After và chờ đúng số giây." }
@@ -1738,7 +1773,7 @@
         params: [
           { loc: "Header", name: "Idempotency-Key", type: "string (8..128 ký tự)", req: "Bắt buộc", desc: "UUID duy nhất cho mỗi lần tạo đơn (VD: idem_550e8400_e29b). Gửi lại cùng key + cùng body trong 24h sẽ trả lại đúng kết quả cũ mà không trừ tiền 2 lần." },
           { loc: "Body JSON", name: "sim_version", type: "integer (1..99)", req: "Bắt buộc", desc: "Phiên bản gói SIM muốn thuê (lấy từ GET /api/v2/sim/packages)." },
-          { loc: "Body JSON", name: "network", type: "string", req: "Tùy chọn", desc: "Lọc nhà mạng mong muốn: VIETTEL, VINAPHONE, MOBIFONE, VIETNAMOBILE, ITELECOM (hoặc để null lấy tự động)." },
+          { loc: "Body JSON", name: "network", type: "string", req: "Tùy chọn", desc: "Lọc nhà mạng mong muốn: ALL, 3MC, VIETTEL, MOBIFONE, VINAPHONE, VIETNAMOBILE, ITELECOM (hoặc để null lấy tự động)." },
           { loc: "Body JSON", name: "webhook_url", type: "string (HTTPS/HTTP)", req: "Tùy chọn", desc: "URL server của Sếp để nhận POST đẩy OTP tự động (có kiểm tra chống SSRF: cấm trỏ IP nội bộ/localhost)." }
         ],
         billingNote: "Tạm giữ tiền theo giá gói khi cấp số thành công. Nếu kho hết số (NO_STOCK) hoặc không lấy được số ZIN ➔ Hoàn trả 100% ngay trong tích tắc. Nếu sau 6 phút không có OTP ➔ Tự động hoàn 100% đúng ví gốc.",
@@ -1747,43 +1782,53 @@
   "order_id": "SIM-2311-849201",
   "order_status": "PENDING",
   "sim_version": 1,
-  "package_name": "Gói V1 - Kho Chính ZIN",
   "phone": "0987654321",
-  "phone_international": "+84987654321",
-  "network": "Viettel",
-  "country": "VN",
-  "check_zin": true,
-  "is_reclaim": false,
   "price": 3100,
-  "timeout_seconds": 360,
-  "expires_at": "2026-11-23 10:06:00",
-  "poll_interval_seconds": 4,
+  "wallet_used": "TK Chính",
+  "is_reclaim": false,
+  "otp_code": null,
+  "all_otps": [],
+  "has_multi_otp": false,
+  "sms_content": null,
+  "has_audio": false,
+  "audio_endpoint": null,
+  "ai_candidates": [],
+  "ai_hint_message": null,
   "rehire_supported": true,
-  "billing": {
-    "charged": 3100,
-    "wallet_used": "MAIN",
-    "balance_after": 246900,
-    "bonus_after": 35000,
-    "charge_message": "💸 Đã trừ 3,100 VNĐ từ TK Chính."
-  },
+  "rehire_window_seconds": 1800,
+  "refunded": null,
+  "charge_message": "⚡ *Đang tìm số điện thoại cho Gói V1 - Kho Chính ZIN...*\n\n💰 Đã trừ: \`3,100 VNĐ\` từ TK Chính\n⏳ Em sẽ báo ngay khi tìm được số!",
+  "refund_message": null,
+  "bot_parity": true,
+  "created_at": "2026-11-23 10:00:00",
+  "resolved_at": null,
   "display_format": "telegram_markdown",
-  "display_message": "✅ *LẤY SỐ THÀNH CÔNG!*\\n\\n📞 Số điện thoại: \`0987654321\`...",
-  "display_message_plain": "✅ LẤY SỐ THÀNH CÔNG! Số điện thoại: 0987654321..."
+  "display_message": "📱 *SỐ ĐIỆN THOẠI (Gói V1)*\n\n📞 SĐT: \`0987654321\`\n⏳ Đang chờ mã OTP Shopee (tối đa 6 phút)...",
+  "display_message_plain": "📱 SỐ ĐIỆN THOẠI (Gói V1) 📞 SĐT: 0987654321 ⏳ Đang chờ mã OTP Shopee (tối đa 6 phút)..."
 }`,
         errorSample: `{
-  "type": "https://sfast.vn/errors/no-stock",
-  "title": "Kho tạm hết số",
+  "ok": false,
+  "type": "https://api.sfast.vn/errors/no_stock",
+  "title": "Gói SIM tạm thời hết số hoặc nguồn đang bận",
   "status": 503,
-  "detail": "Gói V1 hiện đang tạm hết số ZIN, em đã hoàn lại 100% tiền vào ví của Sếp.",
   "error_code": "NO_STOCK",
-  "retry_after": 10,
-  "request_id": "req_5a4b3c2d1e0f"
+  "detail": "😔 Hiện tại Gói V1 đang tạm hết số ZIN.\n\n♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\n💰 TK Chính: 250,000 VNĐ",
+  "display_format": "telegram_markdown",
+  "display_message": "😔 Hiện tại Gói V1 đang tạm hết số ZIN.\n\n♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\n💰 TK Chính: 250,000 VNĐ",
+  "display_message_plain": "😔 Hiện tại Gói V1 đang tạm hết số ZIN. ♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính. 💰 TK Chính: 250,000 VNĐ",
+  "request_id": "req_5a4b3c2d1e0f",
+  "instance": "/api/v2/sim/orders",
+  "order_id": "SIM-2311-849200",
+  "sim_version": 1,
+  "refunded": true,
+  "balance": 250000,
+  "bonus_balance": 35000
 }`,
         fields: [
           { name: "order_id", type: "string", desc: "Mã đơn chuẩn SFAST (SIM-DDMM-XXXXXX) dùng để poll OTP, hủy đơn, thuê lại hoặc tải file ghi âm." },
           { name: "phone", type: "string", desc: "Số điện thoại đã qua kiểm tra ZIN (nếu gói Check Zin) sẵn sàng nhập vào Shopee." },
-          { name: "poll_interval_seconds", type: "integer", desc: "Chu kỳ khuyến nghị gọi GET /orders/{order_id} (4–5 giây/lần)." },
-          { name: "billing", type: "object", desc: "Chi tiết số tiền đã trừ, loại ví đã dùng và số dư còn lại sau giao dịch." }
+          { name: "wallet_used / charge_message", type: "string", desc: "Tên ví đã trừ tiền ('TK Chính', 'TK KM', 'Lượt Combo', 'Lượt Miễn Phí') và thông báo trừ tiền nguyên văn Bot." },
+          { name: "rehire_supported / rehire_window_seconds", type: "boolean / integer", desc: "Cờ báo số này có hỗ trợ thuê lại số cũ trong 1800 giây (30 phút) hay không." }
         ],
         errors: [
           { code: "NO_STOCK", status: 503, exempt: true, desc: "Kho số của gói đang tạm hết số ZIN (đã tự động hoàn tiền 100%).", retry: "Miễn trừ Auto-Ban. Chờ 10 giây (negative cache) hoặc đổi sang sim_version khác trong /otp-status." },
@@ -1804,7 +1849,7 @@
         scope: "sim:read",
         idempotency: false,
         rateCost: "Có 4s Cache Barrier chống nghẽn",
-        summary: "Kiểm tra trạng thái đơn thuê SIM theo thời gian thực. Tự động bóc tách mã OTP đơn, đa mã (otp_codes[]), nội dung SMS sạch, file ghi âm cuộc gọi (.ogg) kèm gợi ý nhận diện giọng nói AI (ai_candidates). Nếu kho báo hết hạn sớm hoặc quá 6 phút sẽ tự động hoàn tiền và trả về TIMEOUT.",
+        summary: "Kiểm tra trạng thái đơn thuê SIM theo thời gian thực. Tự động bóc tách mã OTP chính (otp_code), danh sách đa mã (all_otps[], has_multi_otp), nội dung SMS sạch (sms_content), file ghi âm cuộc gọi (.ogg) kèm gợi ý nhận diện giọng nói AI (ai_candidates). Nếu kho báo hết hạn sớm hoặc quá 6 phút sẽ tự động hoàn tiền và trả về TIMEOUT.",
         params: [
           { loc: "Path", name: "order_id", type: "string", req: "Bắt buộc", desc: "Mã đơn thuê SIM (VD: SIM-2311-849201)." }
         ],
@@ -1816,8 +1861,11 @@
   "sim_version": 1,
   "phone": "0987654321",
   "price": 3100,
+  "wallet_used": null,
+  "is_reclaim": false,
   "otp_code": "482910",
-  "otp_codes": ["482910"],
+  "all_otps": ["482910"],
+  "has_multi_otp": false,
   "sms_content": "Ma xac minh Shopee cua ban la 482910. Hieu luc trong 15 phut.",
   "has_audio": true,
   "audio_endpoint": "/api/v2/sim/orders/SIM-2311-849201/audio",
@@ -1825,25 +1873,34 @@
   "ai_hint_message": "🤖 Gợi ý AI: 482910",
   "rehire_supported": true,
   "rehire_window_seconds": 1800,
+  "refunded": null,
+  "charge_message": null,
+  "refund_message": null,
+  "bot_parity": true,
   "created_at": "2026-11-23 10:00:00",
   "resolved_at": "2026-11-23 10:00:28",
   "display_format": "telegram_markdown",
-  "display_message": "🎉 *NHẬN MÃ OTP THÀNH CÔNG!*\\n\\n📞 SĐT: \`0987654321\`\\n🔑 Mã OTP: \`482910\`...",
-  "display_message_plain": "🎉 NHẬN MÃ OTP THÀNH CÔNG! SĐT: 0987654321 - Mã OTP: 482910"
+  "display_message": "✅ *XÁC THỰC THÀNH CÔNG*\n\n📞 SĐT: \`0987654321\`\n🔑 OTP: \`482910\`\n🧾 Mã giao dịch: \`SIM-2311-849201\`",
+  "display_message_plain": "✅ XÁC THỰC THÀNH CÔNG 📞 SĐT: 0987654321 🔑 OTP: 482910 🧾 Mã giao dịch: SIM-2311-849201"
 }`,
         errorSample: `{
-  "type": "https://sfast.vn/errors/not-found",
-  "title": "Không tìm thấy đơn",
+  "ok": false,
+  "type": "https://api.sfast.vn/errors/order_not_found",
+  "title": "Không tìm thấy đơn thuê SIM",
   "status": 404,
-  "detail": "Không tìm thấy đơn SIM-2311-999999 thuộc tài khoản của Sếp.",
   "error_code": "ORDER_NOT_FOUND",
-  "request_id": "req_4e5f6a7b8c9d"
+  "detail": "❌ Không tìm thấy đơn thuê SIM mã \`SIM-2311-999999\` thuộc tài khoản của Sếp.",
+  "display_format": "telegram_markdown",
+  "display_message": "❌ Không tìm thấy đơn thuê SIM mã \`SIM-2311-999999\` thuộc tài khoản của Sếp.",
+  "display_message_plain": "❌ Không tìm thấy đơn thuê SIM mã SIM-2311-999999 thuộc tài khoản của Sếp.",
+  "request_id": "req_4e5f6a7b8c9d",
+  "instance": "/api/v2/sim/orders/SIM-2311-999999"
 }`,
         fields: [
           { name: "order_status", type: "string", desc: "PENDING (Đang chờ OTP) | SUCCESS (Đã có OTP) | TIMEOUT (Quá 6p, đã hoàn tiền) | CANCELLED (Khách hủy, đã hoàn tiền)." },
-          { name: "otp_code / otp_codes", type: "string / array", desc: "Mã OTP chính và danh sách toàn bộ mã OTP tách được từ SMS / CallText." },
+          { name: "otp_code / all_otps / has_multi_otp", type: "string / array / boolean", desc: "Mã OTP chính, danh sách toàn bộ mã OTP tách được từ SMS / CallText và cờ báo đa mã." },
           { name: "has_audio / audio_endpoint", type: "boolean / string", desc: "Nếu là OTP cuộc gọi (Voice OTP), gọi tiếp GET audio_endpoint để tải file âm thanh .ogg." },
-          { name: "ai_candidates", type: "array[string]", desc: "Danh sách mã OTP do AI giải mã tự động từ file ghi âm cuộc gọi (nếu có)." }
+          { name: "ai_candidates / ai_hint_message", type: "array[string] / string", desc: "Danh sách mã OTP do AI giải mã tự động từ file ghi âm cuộc gọi (nếu có)." }
         ],
         errors: [
           { code: "ORDER_NOT_FOUND", status: 404, exempt: false, desc: "Mã order_id không tồn tại hoặc thuộc về tài khoản khác.", retry: "Kiểm tra lại đúng order_id trả về từ POST /orders." }
@@ -1872,25 +1929,45 @@
   "sim_version": 1,
   "phone": "0987654321",
   "price": 3100,
+  "wallet_used": null,
+  "is_reclaim": false,
+  "otp_code": null,
+  "all_otps": [],
+  "has_multi_otp": false,
+  "sms_content": null,
+  "has_audio": false,
+  "audio_endpoint": null,
+  "ai_candidates": [],
+  "ai_hint_message": null,
+  "rehire_supported": false,
+  "rehire_window_seconds": 0,
   "refunded": true,
-  "refund_message": "💰 Đã hoàn 3,100 VNĐ về TK Chính.",
+  "charge_message": null,
+  "refund_message": "♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\n💰 TK Chính: 250,000 VNĐ\n🎁 TK KM: 35,000 VNĐ",
   "bot_parity": false,
+  "created_at": null,
+  "resolved_at": null,
   "display_format": "telegram_markdown",
-  "display_message": "✅ Đã hủy đơn thuê SĐT 0987654321 (Mã GD: SIM-2311-849201).\\n💰 Đã hoàn 3,100 VNĐ về TK Chính.",
-  "display_message_plain": "✅ Đã hủy đơn thuê SĐT 0987654321 (Mã GD: SIM-2311-849201). Đã hoàn 3,100 VNĐ về TK Chính."
+  "display_message": "✅ Đã hủy đơn thuê SĐT 0987654321 (Mã GD: SIM-2311-849201).\n♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\n💰 TK Chính: 250,000 VNĐ\n🎁 TK KM: 35,000 VNĐ",
+  "display_message_plain": "✅ Đã hủy đơn thuê SĐT 0987654321 (Mã GD: SIM-2311-849201). ♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính. 💰 TK Chính: 250,000 VNĐ 🎁 TK KM: 35,000 VNĐ"
 }`,
         errorSample: `{
-  "type": "https://sfast.vn/errors/conflict",
-  "title": "Đơn đã hoàn tất",
+  "ok": false,
+  "type": "https://api.sfast.vn/errors/order_already_completed",
+  "title": "Đơn đã nhận OTP thành công",
   "status": 409,
-  "detail": "Đơn này đã nhận được mã OTP thành công nên không thể hủy.",
   "error_code": "ORDER_ALREADY_COMPLETED",
-  "request_id": "req_8b9c0d1e2f3a"
+  "detail": "Đơn này đã nhận được mã OTP thành công nên không thể hủy.",
+  "display_format": "telegram_markdown",
+  "display_message": "Đơn này đã nhận được mã OTP thành công nên không thể hủy.",
+  "display_message_plain": "Đơn này đã nhận được mã OTP thành công nên không thể hủy.",
+  "request_id": "req_8b9c0d1e2f3a",
+  "instance": "/api/v2/sim/orders/SIM-2311-849201/cancel"
 }`,
         fields: [
           { name: "order_status", type: "string", desc: "CANCELLED (Đã hủy & hoàn tiền) — hoặc SUCCESS nếu Vớt OTP Chốt bắt được mã OTP vừa về." },
           { name: "refunded", type: "boolean", desc: "true khi tiền đã được cộng trả lại vào ví của Sếp." },
-          { name: "refund_message", type: "string", desc: "Thông báo chi tiết số tiền và loại ví được hoàn trả." }
+          { name: "refund_message", type: "string", desc: "Thông báo chi tiết số tiền và loại ví được hoàn trả (khớp nguyên văn TaskEngine)." }
         ],
         errors: [
           { code: "ORDER_ALREADY_COMPLETED", status: 409, exempt: false, desc: "Đơn đã nhận mã OTP (SUCCESS) trước khi bấm hủy.", retry: "Gọi GET /orders/{order_id} để lấy mã OTP đã về." }
@@ -1917,26 +1994,48 @@
         responseSample: `{
   "ok": true,
   "order_id": "SIM-2311-951042",
-  "rehire_of_order_id": "SIM-2311-849201",
   "order_status": "PENDING",
   "sim_version": 1,
   "phone": "0987654321",
   "price": 3100,
-  "timeout_seconds": 360,
-  "poll_interval_seconds": 4,
-  "display_message": "🔄 *THUÊ LẠI SỐ CŨ THÀNH CÔNG!*\\n\\n📞 Số điện thoại: \`0987654321\`..."
+  "wallet_used": "TK Chính",
+  "is_reclaim": false,
+  "otp_code": null,
+  "all_otps": [],
+  "has_multi_otp": false,
+  "sms_content": null,
+  "has_audio": false,
+  "audio_endpoint": null,
+  "ai_candidates": [],
+  "ai_hint_message": null,
+  "rehire_supported": true,
+  "rehire_window_seconds": 1800,
+  "refunded": null,
+  "charge_message": "⚡ *Thuê lại số 0987654321 — đang chờ OTP...*\n\n💰 Đã trừ: \`3,100 VNĐ\` từ TK Chính\n⏳ Em sẽ báo ngay khi có mã OTP!",
+  "refund_message": null,
+  "bot_parity": true,
+  "created_at": "2026-11-23 10:05:00",
+  "resolved_at": null,
+  "display_format": "telegram_markdown",
+  "display_message": "⚡ *Thuê lại số 0987654321 — đang chờ OTP...*\n\n💰 Đã trừ: \`3,100 VNĐ\` từ TK Chính\n⏳ Em sẽ báo ngay khi có mã OTP!",
+  "display_message_plain": "⚡ Thuê lại số 0987654321 — đang chờ OTP... 💰 Đã trừ: 3,100 VNĐ từ TK Chính ⏳ Em sẽ báo ngay khi có mã OTP!"
 }`,
         errorSample: `{
-  "type": "https://sfast.vn/errors/gone",
-  "title": "Quá thời hạn thuê lại",
+  "ok": false,
+  "type": "https://api.sfast.vn/errors/rehire_expired",
+  "title": "Không thể thuê lại số này",
   "status": 410,
-  "detail": "Số điện thoại này đã quá thời hạn 30 phút để thuê lại.",
   "error_code": "REHIRE_EXPIRED",
-  "request_id": "req_2c3d4e5f6a7b"
+  "detail": "⏰ Đã quá thời gian nên không thể thuê lại số này, sếp thuê số mới nhé ạ",
+  "display_format": "telegram_markdown",
+  "display_message": "⏰ Đã quá thời gian nên không thể thuê lại số này, sếp thuê số mới nhé ạ",
+  "display_message_plain": "⏰ Đã quá thời gian nên không thể thuê lại số này, sếp thuê số mới nhé ạ",
+  "request_id": "req_2c3d4e5f6a7b",
+  "instance": "/api/v2/sim/orders/SIM-2311-849201/rehire"
 }`,
         fields: [
           { name: "order_id", type: "string", desc: "Mã đơn MỚI sinh ra cho lượt thuê lại (dùng mã mới này để poll GET /orders/{order_id})." },
-          { name: "rehire_of_order_id", type: "string", desc: "Mã đơn gốc ban đầu." }
+          { name: "phone / wallet_used", type: "string", desc: "Số điện thoại cũ được kích hoạt lại và loại ví đã thanh toán." }
         ],
         errors: [
           { code: "REHIRE_EXPIRED", status: 410, exempt: false, desc: "Đơn gốc đã quá cửa sổ 30 phút (1800 giây).", retry: "Không thử lại trên đơn này; tạo đơn thuê số mới qua POST /orders." },
@@ -1968,11 +2067,17 @@ Cache-Control: private, max-age=300
 
 <OggS... binary audio bytes>`,
         errorSample: `{
-  "type": "https://sfast.vn/errors/not-found",
-  "title": "Không có file ghi âm",
+  "ok": false,
+  "type": "https://api.sfast.vn/errors/audio_not_available",
+  "title": "Đơn thuê SIM này không có file ghi âm cuộc gọi OTP",
   "status": 404,
-  "detail": "Đơn hàng này không có dữ liệu ghi âm cuộc gọi Voice OTP.",
-  "error_code": "AUDIO_NOT_AVAILABLE"
+  "error_code": "AUDIO_NOT_AVAILABLE",
+  "detail": "❌ Đơn thuê SIM này không có dữ liệu Audio OTP.",
+  "display_format": "telegram_markdown",
+  "display_message": "❌ Đơn thuê SIM này không có dữ liệu Audio OTP.",
+  "display_message_plain": "❌ Đơn thuê SIM này không có dữ liệu Audio OTP.",
+  "request_id": "req_6f7a8b9c0d1e",
+  "instance": "/api/v2/sim/orders/SIM-2311-849201/audio"
 }`,
         fields: [
           { name: "Body (Binary)", type: "bytes (audio/ogg)", desc: "Nội dung file âm thanh .ogg có thể phát trực tiếp trên trình duyệt hoặc đưa vào bộ nhận diện giọng nói." }
@@ -1992,19 +2097,19 @@ Cache-Control: private, max-age=300
         scope: "sim:read",
         idempotency: false,
         rateCost: "GET phân trang + Push tự động 3 lần retry",
-        summary: "1) Gọi GET /api/v2/sim/orders?status=SUCCESS&limit=20&offset=0 để tra cứu lịch sử đơn thuê qua API. 2) Nếu lúc tạo đơn có truyền webhook_url, ngay khi có OTP hoặc đơn kết thúc, SFAST sẽ tự động bắn HTTP POST kèm chữ ký HMAC-SHA256 trong header X-SFAST-Signature: t=<ts>,v1=<hex>.",
+        summary: "1) Gọi GET /api/v2/sim/orders?status=SUCCESS&limit=20&offset=0 để tra cứu lịch sử đơn thuê qua API (trả về count, limit, offset, orders[]). 2) Nếu lúc tạo đơn có truyền webhook_url, ngay khi có OTP hoặc đơn kết thúc, SFAST sẽ tự động bắn HTTP POST kèm chữ ký HMAC-SHA256 trong header X-SFAST-Signature: t=<ts>,v1=<hex>.",
         params: [
           { loc: "Query (GET /orders)", name: "status", type: "string", req: "Tùy chọn", desc: "Lọc theo trạng thái: PENDING, SUCCESS, TIMEOUT, CLOSED." },
           { loc: "Query (GET /orders)", name: "limit / offset", type: "integer", req: "Tùy chọn", desc: "Số bản ghi mỗi trang (1..100, mặc định 20) và vị trí phân trang (offset >= 0)." },
           { loc: "Webhook Header", name: "X-SFAST-Event", type: "string", req: "SFAST gửi", desc: "1 trong 3 sự kiện thực tế: sim.order.otp_received | sim.order.cancelled | sim.order.timeout." },
           { loc: "Webhook Header", name: "X-SFAST-Timestamp", type: "string", req: "SFAST gửi", desc: "Unix timestamp (giây) tại thời điểm ký gói tin Webhook." },
-          { loc: "Webhook Header", name: "X-SFAST-Signature", type: "string", req: "SFAST gửi", desc: "Định dạng chuẩn: t=<ts>,v1=<hex> với <hex> = HMAC-SHA256(secret, f\"{ts}.{raw_body_str}\")." }
+          { loc: "Webhook Header", name: "X-SFAST-Signature", type: "string", req: "SFAST gửi", desc: "Định dạng chuẩn: t=<ts>,v1=<hex> với <hex> = HMAC-SHA256(secret, f"{ts}.{raw_body_str}")." }
         ],
         billingNote: "Outbound Webhook có cơ chế chống SSRF 2 tầng (chặn IP nội bộ 127.0.0.0/8, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, localhost), timeout 8s và tự động retry tối đa 3 lần.",
         responseSample: `// 1. Response của GET /api/v2/sim/orders?limit=20:
 {
   "ok": true,
-  "total_returned": 1,
+  "count": 1,
   "limit": 20,
   "offset": 0,
   "orders": [
@@ -2015,7 +2120,10 @@ Cache-Control: private, max-age=300
       "phone": "0987654321",
       "price": 3100,
       "otp_code": "482910",
-      "created_at": "2026-11-23 10:00:00"
+      "is_reclaim": false,
+      "has_audio": false,
+      "created_at": "2026-11-23 10:00:00",
+      "resolved_at": "2026-11-23 10:00:28"
     }
   ]
 }
@@ -2031,18 +2139,28 @@ Cache-Control: private, max-age=300
   "order_status": "SUCCESS",
   "sim_version": 1,
   "phone": "0987654321",
+  "price": 3100,
+  "is_reclaim": false,
   "otp_code": "482910",
-  "otp_codes": ["482910"],
+  "all_otps": ["482910"],
+  "has_multi_otp": false,
   "sms_content": "Ma xac minh Shopee cua ban la 482910"
 }`,
         errorSample: `{
-  "type": "https://sfast.vn/errors/invalid-webhook-url",
+  "ok": false,
+  "type": "https://api.sfast.vn/errors/webhook_ssrf_blocked",
   "title": "Webhook URL không hợp lệ",
   "status": 400,
+  "error_code": "WEBHOOK_SSRF_BLOCKED",
   "detail": "Địa chỉ webhook_url không được trỏ tới IP nội bộ hoặc localhost.",
-  "error_code": "WEBHOOK_SSRF_BLOCKED"
+  "display_format": "telegram_markdown",
+  "display_message": "Địa chỉ webhook_url không được trỏ tới IP nội bộ hoặc localhost.",
+  "display_message_plain": "Địa chỉ webhook_url không được trỏ tới IP nội bộ hoặc localhost.",
+  "request_id": "req_0f1e2d3c4b5a",
+  "instance": "/api/v2/sim/orders"
 }`,
         fields: [
+          { name: "count / orders[]", type: "integer / array", desc: "Số bản ghi trả về trong trang hiện tại và danh sách lịch sử đơn thuê SIM qua API." },
           { name: "X-SFAST-Signature", type: "t=<ts>,v1=<hex>", desc: "Cách kiểm tra: tách ts và v1, tính expected = HMAC_SHA256(secret, ts + '.' + raw_body), so sánh hmac.compare_digest(v1, expected)." },
           { name: "X-SFAST-Event", type: "enum", desc: "sim.order.otp_received (Khi có mã OTP) | sim.order.cancelled (Khi hủy đơn) | sim.order.timeout (Khi hết 6 phút hoàn tiền)." }
         ],
@@ -2540,7 +2658,7 @@ Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
         </div>
         <div class="endpoint-url-bar">
           <span>${escapeHtml(fullUrl)}</span>
-          <button class="btn-copy-code" onclick="copyText('${fullUrl}', 'Đã sao chép URL đầy đủ!')">📋 Copy URL</button>
+          <button class="btn-copy-code" onclick="copyCurrentEndpointUrl()">📋 Copy URL</button>
         </div>
         <div class="inspector-meta-row">
           <span class="tag-badge tag-scope">🎯 Scope: ${item.scope}</span>
@@ -2597,6 +2715,12 @@ Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
       if (item && document.getElementById('mobile-drawer')?.classList.contains('open')) {
         document.getElementById('drawer-body').innerHTML = renderEndpointInspectorHTML(item, activeMobileTab, true);
       }
+    }
+
+    function copyCurrentEndpointUrl() {
+      const item = API_ENDPOINTS_DATA.find(e => e.id === activeEndpointId);
+      if (!item) return;
+      copyText(`${getBaseUrl()}${item.path}`, 'Đã sao chép URL đầy đủ!');
     }
 
     function copyCurrentCode() {
