@@ -1243,9 +1243,11 @@
       <!-- CONFIGURABLE BASE URL BAR ([R-18]) -->
       <div class="baseurl-bar">
         <span class="baseurl-label">🔗 API Base URL:</span>
-        <input type="text" id="base-url-input" class="baseurl-input" value="http://127.0.0.1:8000"
-          placeholder="Nhập Base URL (VD: http://127.0.0.1:8000 hoặc https://api.domain...)"
+        <input type="text" id="base-url-input" class="baseurl-input" value="https://api.sfastvn.com"
+          placeholder="Nhập Base URL (VD: https://api.sfastvn.com hoặc http://127.0.0.1:8000)"
           oninput="updateBaseUrl(this.value)">
+        <button class="baseurl-preset-btn" onclick="setBaseUrlPreset('https://api.sfastvn.com')">🌐 api.sfastvn.com (Chính)</button>
+        <button class="baseurl-preset-btn" onclick="setBaseUrlPreset('https://api.sfastservices.website')">Dự phòng (.website)</button>
         <button class="baseurl-preset-btn" onclick="setBaseUrlPreset('http://127.0.0.1:8000')">Local :8000</button>
         <button class="baseurl-preset-btn" onclick="copyText(getBaseUrl(), 'Đã sao chép Base URL!')">📋 Copy URL</button>
       </div>
@@ -1506,7 +1508,7 @@
       botUsername: "sfast_main_bot",
       supportGroup: "https://t.me/sfastsp",
       adminSupport: "https://t.me/Thomas3810",
-      defaultBaseUrl: "http://127.0.0.1:8000"
+      defaultBaseUrl: "https://api.sfastvn.com"
     };
 
     // 10 ENDPOINTS & WEBHOOK DATA (VERIFIED 100% AGAINST app.py, router.py, service.py, schemas.py, webhooks.py, sim_core.py)
