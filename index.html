@@ -2870,6 +2870,28 @@
     });
 
     // INIT
+    (function applyPublicApiVisibilityGate() {
+      const params = new URLSearchParams(window.location.search);
+      const isPublicApiVisible = (params.get('public_api') === '1' || params.get('admin') === '1');
+      if (!isPublicApiVisible) {
+        // 1. Hide desktop & mobile API nav links and rule chip #21 for normal customers while in Admin Beta
+        document.querySelectorAll('a[href^="api.html"], button[onclick*="useFeatureNow(\'api\')"], button[onclick*="selectFeature(\'21\')"]').forEach(el => {
+          el.style.display = 'none';
+        });
+        // 2. Remove feature #21 from runtime list and strip API lines from #02 for normal customers
+        const idx21 = FEATURES_DATA.findIndex(item => item.id === '21');
+        if (idx21 !== -1) {
+          FEATURES_DATA.splice(idx21, 1);
+        }
+        const f02 = FEATURES_DATA.find(item => item.id === '02');
+        if (f02) {
+          f02.inputFormat = (f02.inputFormat || '').replace(/\n• Tích hợp qua Cổng Public API[\s\S]*$/, '');
+          f02.inputSample = (f02.inputSample || '').replace(/\nQuản lý API Key tích hợp Tool:[\s\S]*$/, '');
+        }
+        const allPill = document.querySelector('.cat-pill[data-cat="all"]');
+        if (allPill) allPill.textContent = `Tất cả (${FEATURES_DATA.length})`;
+      }
+    })();
     renderMasterList();
   </script>
 </body>
