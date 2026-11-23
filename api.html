@@ -1537,8 +1537,8 @@
     "sim_v2": true
   },
   "inflight": {
-    "global_find_inflight": 0,
-    "global_find_cap": 6
+    "global_inflight_find": 0,
+    "active_tokens_inflight": 0
   }
 }`,
         errorSample: `{
@@ -1547,9 +1547,9 @@
   "title": "Dịch vụ đang tạm bảo trì",
   "status": 503,
   "error_code": "MAINTENANCE",
-  "detail": "🔧 THÔNG BÁO BẢO TRÌ\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
+  "detail": "🔧 THÔNG BÁO BẢO TRÌ\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n\\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
   "display_format": "telegram_markdown",
-  "display_message": "🔧 THÔNG BÁO BẢO TRÌ\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
+  "display_message": "🔧 THÔNG BÁO BẢO TRÌ\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n\\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
   "display_message_plain": "🔧 THÔNG BÁO BẢO TRÌ Dạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
   "request_id": "req_9f8a7b6c5d4e",
   "instance": "/health"
@@ -1669,7 +1669,7 @@
       "country": "VN",
       "quality_rate_today": 88.5,
       "quality_badge": "🚀 MÃ SIÊU TỐC",
-      "display_line": "🔵 *Gói V1 - Kho Chính ZIN* — \`3,100 VNĐ\` [🚀 MÃ SIÊU TỐC]\n╰ 📥 Tỷ Lệ Mã Về: \`88.5%\`",
+      "display_line": "🔵 *Gói V1 - Kho Chính ZIN* — \`3,100 VNĐ\` [🚀 MÃ SIÊU TỐC]\\n╰ 📥 Tỷ Lệ Mã Về: \`88.5%\`",
       "display_line_plain": "🔵 Gói V1 - Kho Chính ZIN — 3,100 VNĐ [🚀 MÃ SIÊU TỐC] ╰ 📥 Tỷ Lệ Mã Về: 88.5%",
       "button_label": "🔵 Gói V1 - Kho Chính ZIN — 3,100 VNĐ | 🚀 MÃ SIÊU TỐC"
     }
@@ -1797,13 +1797,13 @@
   "rehire_supported": true,
   "rehire_window_seconds": 1800,
   "refunded": null,
-  "charge_message": "⚡ *Đang tìm số điện thoại cho Gói V1 - Kho Chính ZIN...*\n\n💰 Đã trừ: \`3,100 VNĐ\` từ TK Chính\n⏳ Em sẽ báo ngay khi tìm được số!",
+  "charge_message": "⚡ *Đang tìm số điện thoại cho Gói V1 - Kho Chính ZIN...*\\n\\n💰 Đã trừ: \`3,100 VNĐ\` từ TK Chính\\n⏳ Em sẽ báo ngay khi tìm được số!",
   "refund_message": null,
   "bot_parity": true,
   "created_at": "2026-11-23 10:00:00",
   "resolved_at": null,
   "display_format": "telegram_markdown",
-  "display_message": "📱 *SỐ ĐIỆN THOẠI (Gói V1)*\n\n📞 SĐT: \`0987654321\`\n⏳ Đang chờ mã OTP Shopee (tối đa 6 phút)...",
+  "display_message": "📱 *SỐ ĐIỆN THOẠI (Gói V1)*\\n\\n📞 SĐT: \`0987654321\`\\n⏳ Đang chờ mã OTP Shopee (tối đa 6 phút)...",
   "display_message_plain": "📱 SỐ ĐIỆN THOẠI (Gói V1) 📞 SĐT: 0987654321 ⏳ Đang chờ mã OTP Shopee (tối đa 6 phút)..."
 }`,
         errorSample: `{
@@ -1812,9 +1812,9 @@
   "title": "Gói SIM tạm thời hết số hoặc nguồn đang bận",
   "status": 503,
   "error_code": "NO_STOCK",
-  "detail": "😔 Hiện tại Gói V1 đang tạm hết số ZIN.\n\n♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\n💰 TK Chính: 250,000 VNĐ",
+  "detail": "😔 Hiện tại Gói V1 đang tạm hết số ZIN.\\n\\n♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\\n💰 TK Chính: 250,000 VNĐ",
   "display_format": "telegram_markdown",
-  "display_message": "😔 Hiện tại Gói V1 đang tạm hết số ZIN.\n\n♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\n💰 TK Chính: 250,000 VNĐ",
+  "display_message": "😔 Hiện tại Gói V1 đang tạm hết số ZIN.\\n\\n♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\\n💰 TK Chính: 250,000 VNĐ",
   "display_message_plain": "😔 Hiện tại Gói V1 đang tạm hết số ZIN. ♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính. 💰 TK Chính: 250,000 VNĐ",
   "request_id": "req_5a4b3c2d1e0f",
   "instance": "/api/v2/sim/orders",
@@ -1880,7 +1880,7 @@
   "created_at": "2026-11-23 10:00:00",
   "resolved_at": "2026-11-23 10:00:28",
   "display_format": "telegram_markdown",
-  "display_message": "✅ *XÁC THỰC THÀNH CÔNG*\n\n📞 SĐT: \`0987654321\`\n🔑 OTP: \`482910\`\n🧾 Mã giao dịch: \`SIM-2311-849201\`",
+  "display_message": "✅ *XÁC THỰC THÀNH CÔNG*\\n\\n📞 SĐT: \`0987654321\`\\n🔑 OTP: \`482910\`\\n🧾 Mã giao dịch: \`SIM-2311-849201\`",
   "display_message_plain": "✅ XÁC THỰC THÀNH CÔNG 📞 SĐT: 0987654321 🔑 OTP: 482910 🧾 Mã giao dịch: SIM-2311-849201"
 }`,
         errorSample: `{
@@ -1943,12 +1943,12 @@
   "rehire_window_seconds": 0,
   "refunded": true,
   "charge_message": null,
-  "refund_message": "♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\n💰 TK Chính: 250,000 VNĐ\n🎁 TK KM: 35,000 VNĐ",
+  "refund_message": "♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\\n💰 TK Chính: 250,000 VNĐ\\n🎁 TK KM: 35,000 VNĐ",
   "bot_parity": false,
   "created_at": null,
   "resolved_at": null,
   "display_format": "telegram_markdown",
-  "display_message": "✅ Đã hủy đơn thuê SĐT 0987654321 (Mã GD: SIM-2311-849201).\n♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\n💰 TK Chính: 250,000 VNĐ\n🎁 TK KM: 35,000 VNĐ",
+  "display_message": "✅ Đã hủy đơn thuê SĐT 0987654321 (Mã GD: SIM-2311-849201).\\n♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính.\\n💰 TK Chính: 250,000 VNĐ\\n🎁 TK KM: 35,000 VNĐ",
   "display_message_plain": "✅ Đã hủy đơn thuê SĐT 0987654321 (Mã GD: SIM-2311-849201). ♻️ Thất bại: Em đã hoàn lại 3,100 VNĐ vào TK Chính. 💰 TK Chính: 250,000 VNĐ 🎁 TK KM: 35,000 VNĐ"
 }`,
         errorSample: `{
@@ -2011,13 +2011,13 @@
   "rehire_supported": true,
   "rehire_window_seconds": 1800,
   "refunded": null,
-  "charge_message": "⚡ *Thuê lại số 0987654321 — đang chờ OTP...*\n\n💰 Đã trừ: \`3,100 VNĐ\` từ TK Chính\n⏳ Em sẽ báo ngay khi có mã OTP!",
+  "charge_message": "⚡ *Thuê lại số 0987654321 — đang chờ OTP...*\\n\\n💰 Đã trừ: \`3,100 VNĐ\` từ TK Chính\\n⏳ Em sẽ báo ngay khi có mã OTP!",
   "refund_message": null,
   "bot_parity": true,
   "created_at": "2026-11-23 10:05:00",
   "resolved_at": null,
   "display_format": "telegram_markdown",
-  "display_message": "⚡ *Thuê lại số 0987654321 — đang chờ OTP...*\n\n💰 Đã trừ: \`3,100 VNĐ\` từ TK Chính\n⏳ Em sẽ báo ngay khi có mã OTP!",
+  "display_message": "⚡ *Thuê lại số 0987654321 — đang chờ OTP...*\\n\\n💰 Đã trừ: \`3,100 VNĐ\` từ TK Chính\\n⏳ Em sẽ báo ngay khi có mã OTP!",
   "display_message_plain": "⚡ Thuê lại số 0987654321 — đang chờ OTP... 💰 Đã trừ: 3,100 VNĐ từ TK Chính ⏳ Em sẽ báo ngay khi có mã OTP!"
 }`,
         errorSample: `{
