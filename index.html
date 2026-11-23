@@ -2578,7 +2578,7 @@
         <button class="btn-use-now" onclick="useFeatureNow('${item.payload}')">
           <span>⚡ Dùng Ngay: ${item.command}</span>
         </button>
-        ${(item.id === '21' || item.id === '02') ? `<a href="api.html${item.id === '02' ? '#sim-orders-create' : ''}" class="btn-secondary-action" style="background: rgba(37, 99, 235, 0.12); color: #2563EB; border-color: #93C5FD; font-weight: 700;"><span>🌐 Tài Liệu API</span></a>` : ''}
+        ${(window.__SFAST_PUBLIC_API_VISIBLE && (item.id === '21' || item.id === '02')) ? `<a href="api.html${item.id === '02' ? '#sim-orders-create' : ''}" class="btn-secondary-action" style="background: rgba(37, 99, 235, 0.12); color: #2563EB; border-color: #93C5FD; font-weight: 700;"><span>🌐 Tài Liệu API</span></a>` : ''}
         <a href="${SFAST_CONFIG.supportGroup}" target="_blank" class="btn-secondary-action">
           <span>👥 Nhóm</span>
         </a>
@@ -2653,7 +2653,7 @@
 
       footer.innerHTML = `
         <button class="btn-use-now" style="flex: 1; width: 100%; justify-content: center;" onclick="useFeatureNow('${item.payload}')"><span>⚡ Dùng Ngay Trên Bot (${item.command})</span></button>
-        ${(item.id === '21' || item.id === '02') ? `<a href="api.html${item.id === '02' ? '#sim-orders-create' : ''}" class="btn-secondary-action" style="justify-content: center; font-weight: 700;"><span>🌐 API Docs</span></a>` : ''}
+        ${(window.__SFAST_PUBLIC_API_VISIBLE && (item.id === '21' || item.id === '02')) ? `<a href="api.html${item.id === '02' ? '#sim-orders-create' : ''}" class="btn-secondary-action" style="justify-content: center; font-weight: 700;"><span>🌐 API Docs</span></a>` : ''}
       `;
 
       overlay.classList.add('active');
@@ -2869,10 +2869,11 @@
       }
     });
 
-    // INIT
+    // INIT ([P-28] Global visibility flag so dynamic renders on Card #02 also hide API links for normal customers)
     (function applyPublicApiVisibilityGate() {
       const params = new URLSearchParams(window.location.search);
       const isPublicApiVisible = (params.get('public_api') === '1' || params.get('admin') === '1');
+      window.__SFAST_PUBLIC_API_VISIBLE = isPublicApiVisible;
       if (!isPublicApiVisible) {
         // 1. Hide desktop & mobile API nav links and rule chip #21 for normal customers while in Admin Beta
         document.querySelectorAll('a[href^="api.html"], button[onclick*="useFeatureNow(\'api\')"], button[onclick*="selectFeature(\'21\')"]').forEach(el => {
@@ -2890,6 +2891,8 @@
         }
         const allPill = document.querySelector('.cat-pill[data-cat="all"]');
         if (allPill) allPill.textContent = `Tất cả (${FEATURES_DATA.length})`;
+        const sInput = document.getElementById('search-input');
+        if (sInput) sInput.placeholder = `Tìm kiếm nhanh ${FEATURES_DATA.length} chức năng (tên, lệnh /reg, /sim, cú pháp, ví dụ...)`;
       }
     })();
     renderMasterList();
