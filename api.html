@@ -1223,7 +1223,7 @@
 
         <!-- DUAL-PORTAL SWITCHER -->
         <div class="portal-switcher">
-          <a href="index.html" class="portal-switch-btn">📖 Sổ Tay 22 Chức Năng Bot</a>
+          <a href="index.html?public_api=1" class="portal-switch-btn">📖 Sổ Tay 22 Chức Năng Bot</a>
           <a href="api.html" class="portal-switch-btn active">🌐 Tài Liệu Public API</a>
         </div>
 
@@ -1370,34 +1370,11 @@
             <div class="pg-output-box" id="pg-result">Đang tính chữ ký HMAC-SHA256...</div>
           </div>
 
-          <!-- CARD 3: RATE LIMITS, IETF HEADERS & AUTO-BAN SHIELD ([R-15]) -->
+          <!-- CARD 3: POLL OTP RULES & AUTO-BAN SHIELD ([R-15, P-31]) -->
           <div class="rule-bento-box">
-            <h4>🛡️ 3. Hạng Tốc Độ &amp; Khiên Auto-Ban Shield</h4>
-            <table class="mini-table">
-              <thead>
-                <tr>
-                  <th>Hạng Token</th>
-                  <th>Rate Limit</th>
-                  <th>Trần Tìm Số &amp; Poll OTP</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>STANDARD</code> (Thường)</td>
-                  <td><strong>60 req/phút</strong></td>
-                  <td rowspan="3">• Tối đa <strong>2 luồng tìm số in-flight / token</strong><br>• Poll OTP cách nhau <strong>&gt;= 4 giây</strong> (4s Cache Barrier)<br>• Hủy đơn <code>PENDING</code> bất kỳ lúc nào (có <strong>Vớt OTP Chốt</strong>)</td>
-                </tr>
-                <tr>
-                  <td><code>VIP</code> (Khách VIP)</td>
-                  <td><strong>180 req/phút</strong></td>
-                </tr>
-                <tr>
-                  <td><code>ENTERPRISE</code> (Đại lý)</td>
-                  <td><strong>600 req/phút</strong></td>
-                </tr>
-              </tbody>
-            </table>
-            <div style="font-size: 11.5px; color: var(--text-sub); margin-top: 8px; line-height: 1.55;">
+            <h4>🛡️ 3. Quy Tắc Poll OTP &amp; Khiên Auto-Ban Shield</h4>
+            <div style="font-size: 11.5px; color: var(--text-sub); margin-top: 6px; line-height: 1.6;">
+              • <strong>Quy tắc gọi lấy số &amp; Poll OTP:</strong> Tối đa <strong>2 luồng tìm số in-flight / token</strong>; Poll OTP cách nhau <strong>&gt;= 4 giây</strong> (4s Cache Barrier); hỗ trợ hủy đơn <code>PENDING</code> bất kỳ lúc nào (có <strong>Vớt OTP Chốt</strong> trước khi hoàn tiền).<br>
               • <strong>Ngưỡng Auto-Ban 15 phút:</strong> IP gửi sai <code>&gt;= 20</code> lỗi <code>401/403</code> trong 60s, hoặc Token bắn <code>&gt;= 30</code> lỗi <code>4xx</code> (sai cú pháp, hết tiền, thiếu <code>Idempotency-Key</code>) trong 60s.<br>
               • <strong>8 Mã lỗi được MIỄN TRỪ Auto-Ban (An toàn 100% khi kho khan số):</strong>
               <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
@@ -1474,7 +1451,7 @@
 
   <!-- MOBILE FLOATING BOTTOM NAV -->
   <nav class="mobile-floating-nav">
-    <a href="index.html" class="m-nav-item">
+    <a href="index.html?public_api=1" class="m-nav-item">
       <span class="icon">📖</span>
       <span>Sổ Tay Bot</span>
     </a>
@@ -1571,11 +1548,11 @@
         catName: "Hệ Thống & Ví",
         method: "GET",
         path: "/api/v2/sim/account/balance",
-        name: "Tra Cứu Số Dư Ví, Hạng VIP & Trần Phiên",
+        name: "Tra Cứu Số Dư Ví & Hạng Tài Khoản",
         scope: "account:read",
         idempotency: false,
         rateCost: "1 req / lần gọi",
-        summary: "Lấy thông tin số dư TK Chính (balance), TK Khuyến Mãi (bonus_balance), hạng VIP (is_vip, tier_label), hạng tốc độ (rate_tier, rate_limit_rpm), cờ cho phép dùng ví KM (rent_phone_bonus_allowed), giới hạn số phiên đồng thời (session_limit_rent_phone), số phiên đang chờ (active_pending_sessions) và số slot còn trống (remaining_session_slots).",
+        summary: "Lấy thông tin số dư TK Chính (balance), TK Khuyến Mãi (bonus_balance), hạng tài khoản (is_vip, tier_label) và cờ cho phép dùng ví KM cho dịch vụ thuê SIM (rent_phone_bonus_allowed).",
         params: [
           { loc: "Header", name: "Authorization", type: "string", req: "Bắt buộc (Bearer)", desc: "Bearer sf_live_<prefix>_<secret> (Hoặc dùng 4 header HMAC-SHA256)." }
         ],
@@ -1586,14 +1563,9 @@
   "username": "sep_sfast",
   "is_vip": true,
   "tier_label": "👑 Khách VIP",
-  "rate_tier": "vip",
-  "rate_limit_rpm": 180,
   "balance": 250000,
   "bonus_balance": 35000,
-  "rent_phone_bonus_allowed": false,
-  "session_limit_rent_phone": 10,
-  "active_pending_sessions": 2,
-  "remaining_session_slots": 8
+  "rent_phone_bonus_allowed": false
 }`,
         errorSample: `{
   "ok": false,
@@ -1610,11 +1582,8 @@
 }`,
         fields: [
           { name: "balance / bonus_balance", type: "integer", desc: "Số dư Tài khoản Chính và Tài khoản Khuyến Mãi (VNĐ)." },
-          { name: "rate_tier / rate_limit_rpm", type: "string / integer", desc: "Hạng tốc độ hiện tại của Token (standard | vip | enterprise) và trần requests/phút." },
-          { name: "rent_phone_bonus_allowed", type: "boolean", desc: "true = Dịch vụ /sim đang cho phép trừ TK Khuyến Mãi; false = Chỉ trừ TK Chính." },
-          { name: "session_limit_rent_phone", type: "integer", desc: "Tổng số đơn SIM được phép chờ OTP cùng lúc (tính gộp cả trên Bot + API)." },
-          { name: "active_pending_sessions", type: "integer", desc: "Số đơn SIM đang ở trạng thái PENDING / CANCELING hiện tại." },
-          { name: "remaining_session_slots", type: "integer", desc: "Số luồng thuê SIM còn trống có thể tạo mới ngay." }
+          { name: "is_vip / tier_label", type: "boolean / string", desc: "Trạng thái Khách VIP và nhãn hiển thị hạng tài khoản." },
+          { name: "rent_phone_bonus_allowed", type: "boolean", desc: "true = Dịch vụ /sim đang cho phép trừ TK Khuyến Mãi; false = Chỉ trừ TK Chính." }
         ],
         errors: [
           { code: "INVALID_API_KEY", status: 401, exempt: false, desc: "Sai API Key hoặc Key đã bị thu hồi.", retry: "Dừng ngay! Kiểm tra lại Key trong /api (tránh spam >= 20 lần/60s bị khóa IP 15 phút)." },
@@ -1645,11 +1614,6 @@
     "bonus_restricted": true,
     "allowed_wallets": ["FREE", "SUBSCRIPTION", "MAIN"],
     "policy_text": "Chỉ áp dụng thanh toán bằng TK Chính"
-  },
-  "session_limits": {
-    "default_limit_rent_phone": 2,
-    "vip_limit_rent_phone": 10,
-    "your_session_limit": 10
   },
   "notices": {
     "wait_timeout_seconds": 360,
@@ -1699,7 +1663,7 @@
           { name: "packages[].check_zin / mode_label", type: "boolean / string", desc: "true ('CHECK ZIN') = Hệ thống tự lọc số ZIN chưa đăng ký Shopee trước khi giao số." },
           { name: "packages[].reclaim", type: "boolean", desc: "true = Gói Lấy Lại Được (hỗ trợ thuê cả số đã từng đăng ký Shopee)." },
           { name: "packages[].quality_rate_today", type: "float | null", desc: "Tỷ lệ % đơn nhận được mã OTP thành công trong ngày hôm nay (khi gói có >= 3 đơn)." },
-          { name: "wallet_policy / session_limits", type: "object", desc: "Chính sách ví thanh toán (bonus_restricted, allowed_wallets, policy_text) và trần phiên (your_session_limit)." }
+          { name: "wallet_policy", type: "object", desc: "Chính sách ví thanh toán (bonus_restricted, allowed_wallets, policy_text)." }
         ],
         errors: [
           { code: "MAINTENANCE", status: 503, exempt: true, desc: "Dịch vụ /sim hoặc hệ thống đang bảo trì.", retry: "Miễn trừ Auto-Ban. Tạm dừng gọi 30–60 giây rồi kiểm tra lại." }
@@ -2674,7 +2638,7 @@ Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
         <button class="btn-use-now" onclick="useFeatureNow('api')">
           <span>🔑 Mở Bot Quản Lý API Key (/api)</span>
         </button>
-        <a href="index.html" class="btn-secondary-action">📖 Sổ Tay Bot</a>
+        <a href="index.html?public_api=1" class="btn-secondary-action">📖 Sổ Tay Bot</a>
         <button class="btn-secondary-action" onclick="openSupportGroup()">👥 Nhóm Hỗ Trợ</button>
       `;
     }
@@ -2883,6 +2847,7 @@ Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
     }
 
     // INIT
+    try { sessionStorage.setItem('sfast_public_api_visible', '1'); } catch (e) {}
     initTheme();
     initBaseUrl();
     initFromHash();
