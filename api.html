@@ -428,6 +428,8 @@
       gap: 8px;
       flex-wrap: wrap;
       flex: 2 1 480px;
+      min-width: 0;
+      max-width: 100%;
       justify-content: space-between;
     }
 
@@ -436,6 +438,8 @@
       display: flex;
       align-items: center;
       gap: 5px;
+      min-width: 0;
+      max-width: 100%;
       overflow-x: auto;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
@@ -558,6 +562,8 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      min-width: 0;
+      max-width: 100%;
     }
 
     .master-list-header {
@@ -2590,25 +2596,25 @@ Cache-Control: no-store
       return Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    function refreshPlaygroundTsNonce() {
+    function refreshPlaygroundTsNonce(prefix = 'pg') {
       hapticLight();
-      const tsEl = document.getElementById('pg-ts');
-      const nonceEl = document.getElementById('pg-nonce');
+      const tsEl = document.getElementById(`${prefix}-ts`);
+      const nonceEl = document.getElementById(`${prefix}-nonce`);
       if (tsEl) tsEl.value = String(Math.floor(Date.now() / 1000));
       if (nonceEl) nonceEl.value = 'nonce_' + Math.random().toString(36).substring(2, 10);
-      computeHmacPlayground();
+      computeHmacPlayground(prefix);
     }
 
-    async function computeHmacPlayground() {
-      const method = (document.getElementById('pg-method')?.value || 'POST').toUpperCase();
-      let rawPath = (document.getElementById('pg-path')?.value || '/api/v2/sim/orders').trim();
+    async function computeHmacPlayground(prefix = 'pg') {
+      const method = (document.getElementById(`${prefix}-method`)?.value || 'POST').toUpperCase();
+      let rawPath = (document.getElementById(`${prefix}-path`)?.value || '/api/v2/sim/orders').trim();
       const hadQuery = rawPath.includes('?');
       const cleanPath = rawPath.split('?')[0] || '/';
-      const ts = (document.getElementById('pg-ts')?.value || '').trim();
-      const nonce = (document.getElementById('pg-nonce')?.value || '').trim();
-      const secret = (document.getElementById('pg-secret')?.value || 'sf_hmac_demo_secret_key').trim();
-      const bodyStr = method === 'GET' ? '' : (document.getElementById('pg-body')?.value || '');
-      const out = document.getElementById('pg-result');
+      const ts = (document.getElementById(`${prefix}-ts`)?.value || '').trim();
+      const nonce = (document.getElementById(`${prefix}-nonce`)?.value || '').trim();
+      const secret = (document.getElementById(`${prefix}-secret`)?.value || 'sf_hmac_demo_secret_key').trim();
+      const bodyStr = method === 'GET' ? '' : (document.getElementById(`${prefix}-body`)?.value || '');
+      const out = document.getElementById(`${prefix}-result`);
       if (!out) return;
       try {
         const bodyHash = await sha256Hex(bodyStr);
@@ -2634,12 +2640,12 @@ Cache-Control: no-store
       copyText(lastPgSig, 'Đã sao chép X-Signature!', null, btn);
     }
 
-    function copyPlaygroundSignedCurl(btn) {
-      const method = (document.getElementById('pg-method')?.value || 'POST').toUpperCase();
-      const rawPath = (document.getElementById('pg-path')?.value || '/api/v2/sim/orders').trim();
-      const ts = (document.getElementById('pg-ts')?.value || '').trim();
-      const nonce = (document.getElementById('pg-nonce')?.value || '').trim();
-      const bodyStr = method === 'GET' ? '' : (document.getElementById('pg-body')?.value || '');
+    function copyPlaygroundSignedCurl(btn, prefix = 'pg') {
+      const method = (document.getElementById(`${prefix}-method`)?.value || 'POST').toUpperCase();
+      const rawPath = (document.getElementById(`${prefix}-path`)?.value || '/api/v2/sim/orders').trim();
+      const ts = (document.getElementById(`${prefix}-ts`)?.value || '').trim();
+      const nonce = (document.getElementById(`${prefix}-nonce`)?.value || '').trim();
+      const bodyStr = method === 'GET' ? '' : (document.getElementById(`${prefix}-body`)?.value || '');
       const fullUrl = `${getBaseUrl()}${rawPath.startsWith('/') ? rawPath : '/' + rawPath}`;
       let cmd = `curl -X ${method} "${fullUrl}" \\\n` +
         `  -H "X-API-Key: sf_live_a1b2c3d4_your_secret_key" \\\n` +
@@ -3110,45 +3116,43 @@ Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
               </div>
             </div>
 
-            ${!isMobile ? `
             <div class="bento-card-box">
               <div class="pg-form-grid">
                 <div class="pg-field">
-                  <label for="pg-method">1. HTTP Method</label>
-                  <select id="pg-method" class="pg-select" onchange="computeHmacPlayground()">
+                  <label for="${isMobile ? 'm-pg' : 'pg'}-method">1. HTTP Method</label>
+                  <select id="${isMobile ? 'm-pg' : 'pg'}-method" class="pg-select" onchange="computeHmacPlayground('${isMobile ? 'm-pg' : 'pg'}')">
                     <option value="POST">POST</option>
                     <option value="GET">GET</option>
                   </select>
                 </div>
                 <div class="pg-field">
-                  <label for="pg-path">2. Endpoint Path (Tự động cắt bỏ ?query khi ký)</label>
-                  <input id="pg-path" class="pg-input" value="/api/v2/sim/orders" oninput="computeHmacPlayground()">
+                  <label for="${isMobile ? 'm-pg' : 'pg'}-path">2. Endpoint Path (Tự động cắt bỏ ?query khi ký)</label>
+                  <input id="${isMobile ? 'm-pg' : 'pg'}-path" class="pg-input" value="/api/v2/sim/orders" oninput="computeHmacPlayground('${isMobile ? 'm-pg' : 'pg'}')">
                 </div>
                 <div class="pg-field">
-                  <label for="pg-ts">3. X-Timestamp (Unix giây, hiệu lực ±300s)</label>
-                  <input id="pg-ts" class="pg-input" value="${nowTs}" oninput="computeHmacPlayground()">
+                  <label for="${isMobile ? 'm-pg' : 'pg'}-ts">3. X-Timestamp (Unix giây, hiệu lực ±300s)</label>
+                  <input id="${isMobile ? 'm-pg' : 'pg'}-ts" class="pg-input" value="${nowTs}" oninput="computeHmacPlayground('${isMobile ? 'm-pg' : 'pg'}')">
                 </div>
                 <div class="pg-field">
-                  <label for="pg-nonce">4. X-Nonce (Duy nhất trong 300s)</label>
-                  <input id="pg-nonce" class="pg-input" value="nonce_demo_01" oninput="computeHmacPlayground()">
+                  <label for="${isMobile ? 'm-pg' : 'pg'}-nonce">4. X-Nonce (Duy nhất trong 300s)</label>
+                  <input id="${isMobile ? 'm-pg' : 'pg'}-nonce" class="pg-input" value="nonce_demo_01" oninput="computeHmacPlayground('${isMobile ? 'm-pg' : 'pg'}')">
                 </div>
                 <div class="pg-field">
-                  <label for="pg-secret">5. HMAC Secret (sf_hmac_...)</label>
-                  <input id="pg-secret" class="pg-input" value="sf_hmac_demo_secret_key" oninput="computeHmacPlayground()">
+                  <label for="${isMobile ? 'm-pg' : 'pg'}-secret">5. HMAC Secret (sf_hmac_...)</label>
+                  <input id="${isMobile ? 'm-pg' : 'pg'}-secret" class="pg-input" value="sf_hmac_demo_secret_key" oninput="computeHmacPlayground('${isMobile ? 'm-pg' : 'pg'}')">
                 </div>
                 <div class="pg-field">
-                  <label for="pg-body">6. Raw JSON Body (Để trống nếu là GET)</label>
-                  <input id="pg-body" class="pg-input" value='{"sim_version":1,"network":"VIETTEL"}' oninput="computeHmacPlayground()">
+                  <label for="${isMobile ? 'm-pg' : 'pg'}-body">6. Raw JSON Body (Để trống nếu là GET)</label>
+                  <input id="${isMobile ? 'm-pg' : 'pg'}-body" class="pg-input" value='{"sim_version":1,"network":"VIETTEL"}' oninput="computeHmacPlayground('${isMobile ? 'm-pg' : 'pg'}')">
                 </div>
               </div>
               <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px;">
-                <button type="button" class="baseurl-preset-btn" onclick="refreshPlaygroundTsNonce()">⏱ Làm Mới Timestamp &amp; Nonce</button>
+                <button type="button" class="baseurl-preset-btn" onclick="refreshPlaygroundTsNonce('${isMobile ? 'm-pg' : 'pg'}')">⏱ Làm Mới Timestamp &amp; Nonce</button>
                 <button type="button" class="baseurl-preset-btn" onclick="copyPlaygroundSignature(this)">📋 Copy X-Signature</button>
-                <button type="button" class="baseurl-preset-btn" onclick="copyPlaygroundSignedCurl(this)">📋 Copy Lệnh cURL Đã Ký</button>
+                <button type="button" class="baseurl-preset-btn" onclick="copyPlaygroundSignedCurl(this, '${isMobile ? 'm-pg' : 'pg'}')">📋 Copy Lệnh cURL Đã Ký</button>
               </div>
-              <div class="pg-output-box" id="pg-result">Đang tính chữ ký HMAC-SHA256...</div>
+              <div class="pg-output-box" id="${isMobile ? 'm-pg' : 'pg'}-result">Đang tính chữ ký HMAC-SHA256...</div>
             </div>
-            ` : ''}
           </div>
         </div>
 
@@ -3611,6 +3615,7 @@ Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
           <button type="button" class="drawer-close-btn" onclick="closeMobileDrawer()">✕</button>
         `;
         body.innerHTML = renderGettingStartedHTML(activeMobileTab, true);
+        computeHmacPlayground('m-pg');
       } else {
         const item = API_ENDPOINTS_DATA.find(e => e.id === id);
         if (!item) return;
