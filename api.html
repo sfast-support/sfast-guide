@@ -1655,7 +1655,7 @@
       }
     ];
 
-    // 9 EXEMPT ERROR CODES (KHÔNG TÍNH NGƯỠNG KHÓA TỰ ĐỘNG)
+    // 10 EXEMPT ERROR CODES (KHÔNG TÍNH NGƯỠNG KHÓA TỰ ĐỘNG)
     const AUTOBAN_EXEMPT_CODES = [
       "NO_STOCK",
       "MAINTENANCE",
@@ -1665,7 +1665,8 @@
       "CONCURRENT_LIMIT",
       "TOKEN_INFLIGHT_LIMIT",
       "SERVER_BUSY",
-      "SERVICE_WARMING_UP"
+      "SERVICE_WARMING_UP",
+      "REHIRE_COOLDOWN"
     ];
 
     // 10 HTTP ENDPOINTS + 1 OUTBOUND WEBHOOK REFERENCE (100% DATA-DRIVEN SCHEMA)
@@ -1708,23 +1709,22 @@
 }`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/maintenance",
-  "title": "Dịch vụ đang tạm bảo trì",
-  "status": 503,
-  "error_code": "MAINTENANCE",
-  "detail": "🔧 THÔNG BÁO BẢO TRÌ\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n\\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
-  "display_message": "🔧 THÔNG BÁO BẢO TRÌ\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n\\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
-  "display_message_plain": "🔧 THÔNG BÁO BẢO TRÌ Dạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.",
+  "type": "https://api.sfastvn.com/errors/ip_rate_limited",
+  "title": "Quá nhiều yêu cầu từ cùng địa chỉ IP",
+  "status": 429,
+  "error_code": "IP_RATE_LIMITED",
+  "detail": "⏳ Địa chỉ IP của Sếp đang gửi yêu cầu quá nhanh. Vui lòng chờ 5s rồi thử lại nhé ạ!",
+  "display_message": "⏳ Địa chỉ IP của Sếp đang gửi yêu cầu quá nhanh. Vui lòng chờ 5s rồi thử lại nhé ạ!",
+  "display_message_plain": "⏳ Địa chỉ IP của Sếp đang gửi yêu cầu quá nhanh. Vui lòng chờ 5s rồi thử lại nhé ạ!",
   "request_id": "req_9f8a7b6c5d4e",
   "instance": "/health"
 }`,
         fields: [
           { name: "ok / status", type: "boolean / string", desc: "true & 'healthy' khi tiến trình API Server sẵn sàng phục vụ." },
-          { name: "api_enabled", type: "boolean", desc: "Trạng thái mở/tắt chung của cổng Public API." },
+          { name: "api_enabled", type: "boolean", desc: "Trạng thái mở/tắt chung của cổng Public API (khi bảo trì vẫn trả HTTP 200 kèm api_enabled: false)." },
           { name: "modules.sim_v2", type: "boolean", desc: "Trạng thái mở/tắt của module Thuê SIM Shopee (/api/v2/sim/*)." }
         ],
         errors: [
-          { code: "200 OK", status: 200, exempt: true, desc: "Hệ thống hoạt động bình thường.", retry: "Tiếp tục gọi các endpoint nghiệp vụ." },
           { code: "IP_RATE_LIMITED", status: 429, exempt: true, desc: "Gửi quá nhiều request ping liên thanh từ cùng 1 IP.", retry: "Miễn trừ Auto-Ban. Đọc header Retry-After và giảm tần suất ping." }
         ]
       },
@@ -1749,7 +1749,7 @@
           "Dùng chung số dư thời gian thực với lệnh /tk trên Bot Telegram."
         ],
         params: [
-          { loc: "Header", name: "Authorization", type: "string", req: "Bắt buộc (Bearer)", desc: "Bearer sf_live_<prefix>_<secret> (Hoặc gửi X-API-Key + X-Timestamp + X-Nonce + X-Signature ở chế độ HMAC)." }
+          { loc: "Header", name: "Authorization", type: "string", req: "Bắt buộc (Bearer)", desc: "Bearer sf_live_<8_hex>_<32_hex> (Hoặc gửi X-API-Key + X-Timestamp + X-Nonce + X-Signature ở chế độ HMAC)." }
         ],
         billingNote: "Không tốn phí. Phản ánh số dư thời gian thực đồng bộ 100% với lệnh /tk trên Bot Telegram.",
         requestBodySample: null,
@@ -1764,13 +1764,13 @@
 }`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/invalid_api_key",
-  "title": "Xác thực thất bại",
+  "type": "https://api.sfastvn.com/errors/invalid_api_key",
+  "title": "API Key không tồn tại hoặc đã được xoay mới",
   "status": 401,
   "error_code": "INVALID_API_KEY",
-  "detail": "API Key không hợp lệ hoặc đã bị thu hồi.",
-  "display_message": "API Key không hợp lệ hoặc đã bị thu hồi.",
-  "display_message_plain": "API Key không hợp lệ hoặc đã bị thu hồi.",
+  "detail": "❌ API Key không hợp lệ hoặc đã được xoay sang mã mới. Sếp kiểm tra lại trong \`/api\` nhé ạ!",
+  "display_message": "❌ API Key không hợp lệ hoặc đã được xoay sang mã mới. Sếp kiểm tra lại trong \`/api\` nhé ạ!",
+  "display_message_plain": "❌ API Key không hợp lệ hoặc đã được xoay sang mã mới. Sếp kiểm tra lại trong /api nhé ạ!",
   "request_id": "req_1a2b3c4d5e6f",
   "instance": "/api/v2/sim/account/balance"
 }`,
@@ -1781,8 +1781,21 @@
         ],
         errors: [
           { code: "MISSING_API_KEY", status: 401, exempt: false, desc: "Chưa truyền header Authorization hoặc X-API-Key.", retry: "Bổ sung API Key trước khi gọi lại." },
-          { code: "INVALID_API_KEY", status: 401, exempt: false, desc: "Sai API Key hoặc Key đã bị thu hồi.", retry: "Dừng ngay! Kiểm tra lại Key trong /api." },
-          { code: "INSUFFICIENT_SCOPE", status: 403, exempt: false, desc: "Token không có quyền account:read.", retry: "Liên hệ Admin cấp lại scope." }
+          { code: "INVALID_API_KEY_FORMAT", status: 401, exempt: false, desc: "Định dạng API Key không đúng chuẩn sf_live_<8_hex>_<32_hex>.", retry: "Gõ /api trên Bot để lấy Key chuẩn." },
+          { code: "INVALID_API_KEY", status: 401, exempt: false, desc: "Sai API Key hoặc Key đã được xoay sang mã mới.", retry: "Dừng ngay! Kiểm tra lại Key trong /api." },
+          { code: "API_KEY_REVOKED", status: 403, exempt: false, desc: "API Key đã bị thu hồi.", retry: "Vào /api trên Bot để tạo Key mới." },
+          { code: "API_KEY_SUSPENDED", status: 403, exempt: false, desc: "API Key đang bị tạm khóa do gửi lặp lỗi liên tiếp.", retry: "Chờ hết thời gian tạm khóa hoặc liên hệ Admin mở khóa." },
+          { code: "USER_BANNED", status: 403, exempt: false, desc: "Tài khoản Telegram gắn với Key đang bị khóa.", retry: "Liên hệ Admin hỗ trợ." },
+          { code: "API_ADMIN_TESTING_ONLY", status: 403, exempt: false, desc: "Cổng Public API đang ở chế độ thử nghiệm nội bộ dành riêng cho Admin.", retry: "Chờ thông báo mở chính thức." },
+          { code: "IP_NOT_IN_ALLOWLIST", status: 403, exempt: false, desc: "Địa chỉ IP gọi API không nằm trong IP Allowlist của Key.", retry: "Cập nhật IP Allowlist hoặc gọi đúng IP đã đăng ký." },
+          { code: "IP_TEMPORARILY_BLOCKED", status: 429, exempt: false, desc: "Địa chỉ IP tạm thời bị khóa do gửi sai xác thực liên tiếp.", retry: "Dừng gửi sai Key và chờ hết thời gian Retry-After." },
+          { code: "MISSING_HMAC_HEADERS", status: 401, exempt: false, desc: "Chế độ HMAC thiếu X-Timestamp, X-Nonce hoặc X-Signature.", retry: "Truyền đủ 4 headers xác thực HMAC." },
+          { code: "INVALID_TIMESTAMP", status: 401, exempt: false, desc: "Header X-Timestamp không phải số nguyên Unix giây.", retry: "Truyền Unix timestamp tính bằng giây." },
+          { code: "TIMESTAMP_EXPIRED", status: 401, exempt: false, desc: "X-Timestamp lệch quá ±300 giây (5 phút) so với giờ máy chủ.", retry: "Đồng bộ lại giờ hệ thống NTP." },
+          { code: "NONCE_REPLAYED", status: 401, exempt: false, desc: "Mã X-Nonce bị trùng lặp trong vòng 5 phút.", retry: "Sinh chuỗi X-Nonce mới duy nhất cho mỗi request." },
+          { code: "INVALID_HMAC_SIGNATURE", status: 401, exempt: false, desc: "Chữ ký X-Signature không khớp với chuỗi Canonical và HMAC Secret (48 ký tự hex).", retry: "Kiểm tra lại chuỗi Canonical 5 dòng (không kèm ?query) và HMAC Secret 48 ký tự hex." },
+          { code: "INSUFFICIENT_SCOPE", status: 403, exempt: false, desc: "Token không có quyền account:read.", retry: "Liên hệ Admin cấp lại scope." },
+          { code: "USER_NOT_FOUND", status: 404, exempt: false, desc: "Không tìm thấy tài khoản khách hàng gắn với API Key.", retry: "Gõ /start trên Bot trước khi dùng API." }
         ]
       },
       {
@@ -1800,13 +1813,13 @@
         authRequired: true,
         idempotency: false,
         rateCost: "Miễn phí · 1 req/lần",
-        summary: "Trả về toàn bộ danh sách gói SIM Shopee đang mở (packages[]), giá bán thời gian thực (price, price_formatted), cờ Check Zin (check_zin, mode_label), cờ Lấy Lại Được (reclaim), nhà mạng (network_label), quốc gia (country) và tỷ lệ mã OTP về hôm nay (quality_rate_today).",
+        summary: "Trả về toàn bộ danh sách gói SIM Shopee đang mở (packages[]), giá bán thời gian thực (price, price_formatted), cờ Check Zin (check_zin, mode_label), cờ Lấy Lại Được (reclaim), nhà mạng (network_label), quốc gia (country) và tỷ lệ mã OTP về hôm nay (quality_rate_today) đồng bộ 100% với menu /sim trên Bot.",
         usageRules: [
           "Gọi định kỳ mỗi 30–60 giây để cập nhật bảng giá gói và chọn sim_version có quality_rate_today cao nhất.",
-          "Trường quality_rate_today và quality_badge chỉ xuất hiện trên các gói đã có thống kê mã OTP về trong ngày (> 0%)."
+          "Đồng bộ 100% với menu /sim trên Bot Telegram: trường quality_rate_today và quality_badge (🚀 MÃ SIÊU TỐC >=85%, 🔥 MÃ RẤT NHANH >=70%, 🎯 MÃ ỔN ĐỊNH >=50%) xuất hiện khi gói đã cấp >= 3 số trong 24h và tỷ lệ đạt từ 50% trở lên."
         ],
         params: [
-          { loc: "Header", name: "Authorization", type: "string", req: "Bắt buộc", desc: "Bearer sf_live_<prefix>_<secret> (hoặc 4 headers HMAC-SHA256)." }
+          { loc: "Header", name: "Authorization", type: "string", req: "Bắt buộc", desc: "Bearer sf_live_<8_hex>_<32_hex> (hoặc 4 headers HMAC-SHA256)." }
         ],
         billingNote: "Không tốn phí. Tool nên gọi định kỳ 30–60s/lần để cập nhật giá gói và chọn kho có quality_rate_today cao nhất.",
         requestBodySample: null,
@@ -1833,20 +1846,20 @@
       "reclaim": false,
       "network_label": "ALL",
       "country": "VN",
-      "quality_rate_today": 88.5,
+      "quality_rate_today": 88.0,
       "quality_badge": "🚀 MÃ SIÊU TỐC"
     }
   ]
 }`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/maintenance",
+  "type": "https://api.sfastvn.com/errors/maintenance",
   "title": "Dịch vụ đang tạm bảo trì",
   "status": 503,
   "error_code": "MAINTENANCE",
-  "detail": "🔧 THÔNG BÁO BẢO TRÌ...",
-  "display_message": "🔧 THÔNG BÁO BẢO TRÌ...",
-  "display_message_plain": "🔧 THÔNG BÁO BẢO TRÌ...",
+  "detail": "🔧 THÔNG BÁO BẢO TRÌ\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n\\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.\\n\\nEm sẽ hoàn tất sớm nhất có thể, Sếp vui lòng quay lại sau nhé ạ! 🙏",
+  "display_message": "🔧 THÔNG BÁO BẢO TRÌ\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n\\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.\\n\\nEm sẽ hoàn tất sớm nhất có thể, Sếp vui lòng quay lại sau nhé ạ! 🙏",
+  "display_message_plain": "🔧 THÔNG BÁO BẢO TRÌ\\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\n\\nDạ Sếp, tính năng Thuê SĐT Shopee đang tạm bảo trì.\\n\\nEm sẽ hoàn tất sớm nhất có thể, Sếp vui lòng quay lại sau nhé ạ! 🙏",
   "request_id": "req_7c8d9e0f1a2b",
   "instance": "/api/v2/sim/packages"
 }`,
@@ -1854,12 +1867,13 @@
           { name: "packages[].sim_version", type: "integer", desc: "Mã số gói SIM (truyền vào trường sim_version khi gọi POST /api/v2/sim/orders)." },
           { name: "packages[].price / price_formatted", type: "integer / string", desc: "Giá gói SIM (VNĐ) và chuỗi hiển thị đã định dạng." },
           { name: "packages[].check_zin / mode_label", type: "boolean / string", desc: "true ('CHECK ZIN') = Hệ thống tự lọc số ZIN chưa đăng ký Shopee trước khi giao số." },
-          { name: "packages[].reclaim", type: "boolean", desc: "true = Gói Lấy Lại Được (hỗ trợ thuê cả số đã từng đăng ký Shopee)." },
-          { name: "packages[].quality_rate_today", type: "float (optional)", desc: "Tỷ lệ % đơn nhận được mã OTP thành công hôm nay (chỉ trả về khi gói đã phát sinh >= 3 đơn và tỷ lệ > 0%)." },
+          { name: "packages[].reclaim", type: "boolean", desc: "true = Gói Lấy Lại Được (hỗ trợ thuê cả số đã từng đăng ký Shopee; nếu gặp số đã đăng ký thì nhấn chọn lấy lại số trên Shopee)." },
+          { name: "packages[].quality_rate_today / quality_badge", type: "float | null / string | null", desc: "Tỷ lệ % nhận OTP thành công trong 24h và nhãn chất lượng (chỉ hiển thị khi gói đã phát sinh >= 3 số và tỷ lệ >= 50%, khớp 100% menu /sim trên Bot)." },
           { name: "wallet_policy", type: "object", desc: "Chính sách ví thanh toán (bonus_restricted, policy_text)." }
         ],
         errors: [
-          { code: "MAINTENANCE", status: 503, exempt: true, desc: "Dịch vụ /sim hoặc hệ thống đang tạm bảo trì.", retry: "Miễn trừ Auto-Ban. Tạm dừng gọi 30–60 giây rồi kiểm tra lại." }
+          { code: "MAINTENANCE", status: 503, exempt: true, desc: "Dịch vụ /sim hoặc hệ thống đang tạm bảo trì.", retry: "Miễn trừ Auto-Ban. Tạm dừng gọi 30–60 giây rồi kiểm tra lại." },
+          { code: "SYSTEM_DRAINING", status: 503, exempt: true, desc: "Hệ thống đang tạm ngưng nhận đơn mới 1–2 phút để khởi động lại.", retry: "Miễn trừ Auto-Ban. Chờ theo header Retry-After (60s) rồi gọi lại." }
         ]
       },
       {
@@ -1877,13 +1891,13 @@
         authRequired: true,
         idempotency: false,
         rateCost: "Miễn phí · 1 req/lần",
-        summary: "Kế thừa 100% thuật toán thống kê /otpstatus trên Bot Telegram: trả về bảng xếp hạng Top 10 gói SIM (top_packages[]) có mã OTP về nhiều và nhạy nhất trong khoảng thời gian lookback_min phút gần đây.",
+        summary: "Kế thừa 100% thuật toán thống kê /otpstatus trên Bot Telegram: trả về bảng xếp hạng Top 10 gói SIM (top_packages[]) có mã OTP về nhiều và nhạy nhất trong khoảng thời gian lookback_min phút gần đây (mặc định 10 phút).",
         usageRules: [
-          "Truyền query lookback_min (1..1440) để xem thống kê theo khung thời gian mong muốn.",
+          "Truyền query lookback_min (1..1440) để xem thống kê theo khung thời gian mong muốn (nếu bỏ trống mặc định lấy 10 phút gần nhất như lệnh /otpstatus trên Bot).",
           "Lưu ý khi ký HMAC-SHA256: chuỗi Canonical chỉ ký phần path '/api/v2/sim/otp-status' (không bao gồm '?lookback_min=30')."
         ],
         params: [
-          { loc: "Query", name: "lookback_min", type: "integer (1..1440)", req: "Tùy chọn", desc: "Khoảng thời gian thống kê (phút). Nếu bỏ trống sẽ lấy theo cấu hình mặc định của hệ thống." }
+          { loc: "Query", name: "lookback_min", type: "integer (1..1440)", req: "Tùy chọn", desc: "Khoảng thời gian thống kê (phút). Nếu bỏ trống sẽ mặc định lấy 10 phút gần nhất (đồng bộ 100% với lệnh /otpstatus trên Bot Telegram)." }
         ],
         billingNote: "Không tốn phí. Giúp tool tự động điều phối đơn sang gói SIM đang có sóng OTP tốt nhất.",
         requestBodySample: null,
@@ -1899,13 +1913,13 @@
       "package_name": "Gói V1 - Kho Chính ZIN"
     }
   ],
-  "display_message": "📊 <b>TRẠNG THÁI OTP (30 phút gần nhất)</b>...",
-  "display_message_plain": "📊 TRẠNG THÁI OTP (30 phút gần nhất)..."
+  "display_message": "📊 <b>TOP KHO SỐ ĐANG NHẬN OTP</b>\\n⏱ 30 phút gần nhất · 24/11 08:00\\n1. Gói V1 - Kho Chính ZIN",
+  "display_message_plain": "📊 TOP KHO SỐ ĐANG NHẬN OTP\\n⏱ 30 phút gần nhất · 24/11 08:00\\n1. Gói V1 - Kho Chính ZIN"
 }`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/rate_limited",
-  "title": "Vượt giới hạn tần suất",
+  "type": "https://api.sfastvn.com/errors/rate_limited",
+  "title": "Vượt quá giới hạn tần suất gọi API",
   "status": 429,
   "error_code": "RATE_LIMITED",
   "detail": "⏳ Sếp thao tác gọi API quá nhanh. Vui lòng chờ 2s rồi thử lại nhé ạ!",
@@ -1915,7 +1929,7 @@
   "instance": "/api/v2/sim/otp-status"
 }`,
         fields: [
-          { name: "lookback_minutes", type: "integer", desc: "Số phút thống kê thực tế đã áp dụng." },
+          { name: "lookback_minutes", type: "integer", desc: "Số phút thống kê thực tế đã áp dụng (mặc định 10 phút)." },
           { name: "top_packages[].rank", type: "integer", desc: "Thứ hạng từ 1 đến 10 (1 là kho đang về mã OTP nhạy nhất)." },
           { name: "top_packages[].sim_version / version_code", type: "integer / string", desc: "Số phiên bản gói SIM (VD: 1) và mã gói (VD: 'V1')." },
           { name: "top_packages[].package_name", type: "string", desc: "Tên hiển thị của gói SIM." }
@@ -1983,7 +1997,7 @@
 }`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/no_stock",
+  "type": "https://api.sfastvn.com/errors/no_stock",
   "title": "Gói SIM tạm thời hết số hoặc nguồn đang bận",
   "status": 503,
   "error_code": "NO_STOCK",
@@ -2001,19 +2015,27 @@
         fields: [
           { name: "order_id", type: "string", desc: "Mã đơn chuẩn SFAST (SIM-DDMM-XXXXXX) dùng để poll OTP, hủy đơn, thuê lại hoặc tải file ghi âm." },
           { name: "phone", type: "string", desc: "Số điện thoại đã qua kiểm tra ZIN (nếu gói Check Zin) sẵn sàng nhập vào Shopee." },
-          { name: "wallet_used / charge_message", type: "string", desc: "Tên ví đã trừ tiền ('TK Chính', 'TK KM', 'Lượt Combo', 'Lượt Miễn Phí') và thông báo trừ tiền đồng bộ Bot." },
+          { name: "wallet_used / charge_message", type: "string", desc: "Tên ví đã trừ tiền (1 trong 5 giá trị: 'TK Chính', 'TK Khuyến Mãi 🎁', 'Gói Combo 👑', 'Lượt Miễn Phí 🎟️', 'Đa Ví (Combo/KM/Chính)') và thông báo trừ tiền đồng bộ Bot." },
           { name: "rehire_supported / rehire_window_seconds", type: "boolean / integer", desc: "Cờ báo số này có hỗ trợ thuê lại số cũ trong 1800 giây (30 phút) hay không." }
         ],
         errors: [
           { code: "NO_STOCK", status: 503, exempt: true, desc: "Kho số của gói đang tạm hết số (đã tự động hoàn tiền 100%).", retry: "Miễn trừ Auto-Ban. Chờ 10 giây hoặc đổi sang sim_version khác trong /otp-status." },
+          { code: "PROVIDER_UNAVAILABLE", status: 503, exempt: false, desc: "Nguồn cung cấp số của gói đang tạm bảo trì (đã hoàn tiền 100%).", retry: "Chuyển sang sim_version khác trong /packages." },
           { code: "CONCURRENT_LIMIT", status: 429, exempt: true, desc: "Đầy số phiên thuê SIM đang chờ OTP đồng thời của tài khoản.", retry: "Miễn trừ Auto-Ban. Chờ đơn cũ nhận OTP hoặc gọi POST /cancel đơn không dùng." },
           { code: "TOKEN_INFLIGHT_LIMIT", status: 429, exempt: true, desc: "Đang có yêu cầu tìm số khác chạy song song trên cùng Token.", retry: "Miễn trừ Auto-Ban. Chờ yêu cầu tìm số trước trả kết quả rồi gọi tiếp." },
+          { code: "SERVER_BUSY", status: 503, exempt: true, desc: "Luồng tìm số toàn hệ thống đang xử lý tối đa yêu cầu đồng thời.", retry: "Miễn trừ Auto-Ban. Chờ 5 giây rồi gọi lại." },
           { code: "SERVICE_WARMING_UP", status: 503, exempt: true, desc: "Bộ lọc kiểm tra số ZIN đang khởi động hoặc làm mới phiên.", retry: "Miễn trừ Auto-Ban. Chờ 3–5 giây rồi gọi lại." },
           { code: "INSUFFICIENT_BALANCE", status: 402, exempt: false, desc: "Số dư ví không đủ thanh toán giá gói SIM.", retry: "Dừng gọi ngay và nạp thêm tiền trước khi tiếp tục." },
           { code: "MISSING_IDEMPOTENCY_KEY", status: 400, exempt: false, desc: "Thiếu header Idempotency-Key.", retry: "Bổ sung UUID vào header Idempotency-Key trước khi gọi lại." },
+          { code: "INVALID_IDEMPOTENCY_KEY", status: 400, exempt: false, desc: "Độ dài Idempotency-Key nằm ngoài khoảng 8..128 ký tự.", retry: "Truyền UUID hợp lệ từ 8 đến 128 ký tự." },
           { code: "IDEMPOTENCY_IN_FLIGHT", status: 409, exempt: false, desc: "Request với cùng Idempotency-Key đang được xử lý.", retry: "Chờ request đầu tiên hoàn tất, không bắn chồng cùng key." },
           { code: "IDEMPOTENCY_PAYLOAD_MISMATCH", status: 422, exempt: false, desc: "Dùng lại Idempotency-Key cũ nhưng gửi body JSON khác.", retry: "Tạo UUID Idempotency-Key mới cho mỗi đơn mới." },
-          { code: "PACKAGE_DISABLED", status: 400, exempt: false, desc: "Gói sim_version đã tắt hoặc không tồn tại.", retry: "Gọi GET /api/v2/sim/packages để lấy danh sách gói đang mở." }
+          { code: "INVALID_VERSION", status: 404, exempt: false, desc: "Gói sim_version chưa được cấu hình trên hệ thống.", retry: "Gọi GET /api/v2/sim/packages để lấy danh sách sim_version hợp lệ." },
+          { code: "PACKAGE_DISABLED", status: 400, exempt: false, desc: "Gói sim_version hiện đang tạm ngưng.", retry: "Chọn gói khác đang mở trong GET /api/v2/sim/packages." },
+          { code: "PAYLOAD_TOO_LARGE", status: 413, exempt: false, desc: "Kích thước body JSON vượt quá giới hạn 64KB.", retry: "Chỉ gửi đúng 3 trường JSON gọn nhẹ theo schema." },
+          { code: "UNSUPPORTED_MEDIA_TYPE", status: 415, exempt: false, desc: "Thiếu hoặc sai header Content-Type: application/json.", retry: "Đặt đúng header Content-Type: application/json." },
+          { code: "CLIENT_DISCONNECTED", status: 400, exempt: false, desc: "Kết nối mạng phía client bị ngắt trước khi gửi xong body.", retry: "Kiểm tra kết nối mạng và gửi lại kèm cùng Idempotency-Key." },
+          { code: "INTERNAL_ERROR", status: 500, exempt: false, desc: "Lỗi hệ thống tạm thời.", retry: "Chờ vài giây rồi gửi lại kèm cùng Idempotency-Key." }
         ]
       },
       {
@@ -2049,7 +2071,7 @@
   "sim_version": 1,
   "phone": "0987654321",
   "price": 3100,
-  "wallet_used": null,
+  "wallet_used": "TK Chính",
   "is_reclaim": false,
   "otp_code": "482910",
   "all_otps": ["482910"],
@@ -2071,7 +2093,7 @@
 }`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/order_not_found",
+  "type": "https://api.sfastvn.com/errors/order_not_found",
   "title": "Không tìm thấy đơn thuê SIM",
   "status": 404,
   "error_code": "ORDER_NOT_FOUND",
@@ -2124,7 +2146,7 @@
   "sim_version": 1,
   "phone": "0987654321",
   "price": 3100,
-  "wallet_used": null,
+  "wallet_used": "TK Chính",
   "is_reclaim": false,
   "otp_code": null,
   "all_otps": [],
@@ -2146,7 +2168,7 @@
 }`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/order_already_completed",
+  "type": "https://api.sfastvn.com/errors/order_already_completed",
   "title": "Đơn thuê SIM đã nhận được mã OTP nên không thể hủy",
   "status": 409,
   "error_code": "ORDER_ALREADY_COMPLETED",
@@ -2183,7 +2205,7 @@
         rateCost: "Trừ theo giá gói SIM hiện tại",
         summary: "Thuê lại đúng số điện thoại của đơn cũ (đã SUCCESS) trong cửa sổ 30 phút (1800 giây) để nhận thêm mã OTP tiếp theo. Hoạt động 100% Stateless (kể cả khi server vừa khởi động lại). Bắt buộc gửi kèm header Idempotency-Key mới.",
         usageRules: [
-          "Chỉ gọi trên đơn gốc đã có order_status: 'SUCCESS' và rehire_supported: true trong vòng 1800 giây.",
+          "Chỉ gọi trên đơn gốc đã có order_status: 'SUCCESS' và rehire_supported: true trong vòng 1800 giây (nếu đơn gốc chưa SUCCESS sẽ trả về 409 ORDER_NOT_COMPLETED).",
           "Khi thành công (201 Created), API sinh ra một mã order_id MỚI — dùng mã order_id mới này để poll GET /api/v2/sim/orders/{new_order_id}."
         ],
         params: [
@@ -2223,7 +2245,7 @@
 }`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/rehire_expired",
+  "type": "https://api.sfastvn.com/errors/rehire_expired",
   "title": "Không thể thuê lại số này",
   "status": 410,
   "error_code": "REHIRE_EXPIRED",
@@ -2239,7 +2261,7 @@
         ],
         errors: [
           { code: "REHIRE_EXPIRED", status: 410, exempt: false, desc: "Đơn gốc đã quá cửa sổ 30 phút (1800 giây) hoặc số không còn khả dụng.", retry: "Không thử lại trên đơn này; tạo đơn thuê số mới qua POST /orders." },
-          { code: "REHIRE_COOLDOWN", status: 429, exempt: true, desc: "Số cũ vừa mới hoàn tất, cần chờ 30–60 giây để tổng đài nhả phiên.", retry: "Chờ theo Retry-After rồi gọi lại với Idempotency-Key mới." },
+          { code: "REHIRE_COOLDOWN", status: 429, exempt: true, desc: "Số cũ vừa nhận OTP, cần chờ 1 phút (60 giây) mới có thể thuê lại (đồng bộ thông báo trên Bot).", retry: "Miễn trừ Auto-Ban. Chờ theo Retry-After (30s) rồi gọi lại." },
           { code: "REHIRE_NOT_SUPPORTED", status: 400, exempt: false, desc: "Gói SIM của đơn gốc không hỗ trợ thuê lại số cũ (rehire_supported=false).", retry: "Chọn gói có rehire_supported=true nếu cần nhận nhiều OTP." },
           { code: "ORDER_NOT_COMPLETED", status: 409, exempt: false, desc: "Đơn gốc chưa ở trạng thái SUCCESS.", retry: "Chỉ gọi /rehire sau khi đơn gốc đã nhận OTP thành công." }
         ]
@@ -2279,7 +2301,7 @@ Cache-Control: no-store
 <OggS... binary audio bytes>`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/audio_not_available",
+  "type": "https://api.sfastvn.com/errors/audio_not_available",
   "title": "Đơn thuê SIM này không có file ghi âm cuộc gọi OTP",
   "status": 404,
   "error_code": "AUDIO_NOT_AVAILABLE",
@@ -2312,13 +2334,13 @@ Cache-Control: no-store
         authRequired: true,
         idempotency: false,
         rateCost: "Miễn phí · Phân trang 1..100",
-        summary: "Tra cứu danh sách các đơn thuê SIM đã tạo qua Public API của tài khoản, hỗ trợ lọc theo trạng thái (status) và phân trang (limit, offset).",
+        summary: "Tra cứu danh sách các đơn thuê SIM đã tạo qua Public API của tài khoản, hỗ trợ lọc theo trạng thái (status: PENDING, SUCCESS, TIMEOUT, CANCELLED, CLOSED) và phân trang (limit, offset).",
         usageRules: [
-          "Khi lọc query ?status=CLOSED, danh sách trả về các đơn đã đóng/hủy với trường order_status hiển thị là 'CANCELLED'.",
+          "Truyền ?status=CANCELLED để lọc trực tiếp các đơn do khách chủ động hủy qua POST /cancel (trả về order_status: 'CANCELLED').",
           "Lưu ý khi ký HMAC-SHA256: dòng thứ 2 của chuỗi Canonical chỉ ký '/api/v2/sim/orders' (không kèm '?status=SUCCESS&limit=20&offset=0')."
         ],
         params: [
-          { loc: "Query", name: "status", type: "string", req: "Tùy chọn", desc: "Lọc theo trạng thái trong kho: PENDING, SUCCESS, TIMEOUT, CLOSED (trả về order_status: 'CANCELLED' cho đơn khách hủy)." },
+          { loc: "Query", name: "status", type: "string", req: "Tùy chọn", desc: "Lọc theo trạng thái đơn: PENDING, SUCCESS, TIMEOUT, CANCELLED (đơn khách chủ động hủy), hoặc CLOSED." },
           { loc: "Query", name: "limit", type: "integer (1..100)", req: "Tùy chọn", desc: "Số bản ghi tối đa mỗi trang (mặc định 20, tối đa 100)." },
           { loc: "Query", name: "offset", type: "integer (>= 0)", req: "Tùy chọn", desc: "Vị trí bắt đầu phân trang (mặc định 0)." }
         ],
@@ -2347,7 +2369,7 @@ Cache-Control: no-store
 }`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/validation_error",
+  "type": "https://api.sfastvn.com/errors/validation_error",
   "title": "Tham số đầu vào không hợp lệ",
   "status": 422,
   "error_code": "VALIDATION_ERROR",
@@ -2401,7 +2423,7 @@ Cache-Control: no-store
   "sim_version": 1,
   "phone": "0987654321",
   "price": 3100,
-  "wallet_used": null,
+  "wallet_used": "TK Chính",
   "is_reclaim": false,
   "otp_code": "482910",
   "all_otps": ["482910"],
@@ -2423,13 +2445,13 @@ Cache-Control: no-store
 }`,
         errorSample: `{
   "ok": false,
-  "type": "https://api.sfast.vn/errors/webhook_ssrf_blocked",
-  "title": "Webhook URL không hợp lệ",
+  "type": "https://api.sfastvn.com/errors/webhook_ssrf_blocked",
+  "title": "Địa chỉ Webhook bị từ chối vì lý do bảo mật (SSRF Guard)",
   "status": 400,
   "error_code": "WEBHOOK_SSRF_BLOCKED",
-  "detail": "Địa chỉ webhook_url không được trỏ tới IP nội bộ hoặc localhost.",
-  "display_message": "Địa chỉ webhook_url không được trỏ tới IP nội bộ hoặc localhost.",
-  "display_message_plain": "Địa chỉ webhook_url không được trỏ tới IP nội bộ hoặc localhost.",
+  "detail": "🛡️ \`webhook_url\` không được trỏ vào localhost hoặc mạng nội bộ.",
+  "display_message": "🛡️ \`webhook_url\` không được trỏ vào localhost hoặc mạng nội bộ.",
+  "display_message_plain": "🛡️ webhook_url không được trỏ vào localhost hoặc mạng nội bộ.",
   "request_id": "req_0f1e2d3c4b5a",
   "instance": "/api/v2/sim/orders"
 }`,
@@ -2439,7 +2461,7 @@ Cache-Control: no-store
           { name: "Body JSON (SimOrderPublicView)", type: "object", desc: "Cấu trúc JSON đồng nhất 100% với phản hồi của GET /api/v2/sim/orders/{order_id} (gồm order_id, order_status, phone, otp_code, all_otps, has_audio, audio_endpoint, ai_candidates, refunded...)." }
         ],
         errors: [
-          { code: "WEBHOOK_INVALID_URL", status: 400, exempt: false, desc: "webhook_url sai định dạng hoặc không dùng giao thức http/https.", retry: "Truyền URL đầy đủ bắt đầu bằng https:// hoặc http://." },
+          { code: "INVALID_WEBHOOK_URL", status: 400, exempt: false, desc: "webhook_url quá 512 ký tự hoặc không dùng giao thức http/https.", retry: "Truyền URL đầy đủ bắt đầu bằng https:// hoặc http:// (<= 512 ký tự)." },
           { code: "WEBHOOK_SSRF_BLOCKED", status: 400, exempt: false, desc: "webhook_url trỏ vào localhost hoặc dải IP nội bộ.", retry: "Chỉ sử dụng tên miền hoặc IP công khai hợp lệ." },
           { code: "WEBHOOK_DNS_FAILED", status: 400, exempt: false, desc: "Tên miền trong webhook_url không thể phân giải DNS.", retry: "Kiểm tra lại cấu hình DNS của tên miền nhận Webhook." }
         ]
@@ -2612,7 +2634,7 @@ Cache-Control: no-store
       const cleanPath = rawPath.split('?')[0] || '/';
       const ts = (document.getElementById(`${prefix}-ts`)?.value || '').trim();
       const nonce = (document.getElementById(`${prefix}-nonce`)?.value || '').trim();
-      const secret = (document.getElementById(`${prefix}-secret`)?.value || 'sf_hmac_demo_secret_key').trim();
+      const secret = (document.getElementById(`${prefix}-secret`)?.value || '4b8e2f1a9c0d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d').trim();
       const bodyStr = method === 'GET' ? '' : (document.getElementById(`${prefix}-body`)?.value || '');
       const out = document.getElementById(`${prefix}-result`);
       if (!out) return;
@@ -2725,7 +2747,7 @@ curl -X POST "${fullUrl}" \\
       if (item.authRequired && authMode === 'hmac') {
         if (lang === 'curl') {
           return `API_KEY="sf_live_a1b2c3d4_your_secret_key"
-HMAC_SECRET="sf_hmac_your_secret_key"
+HMAC_SECRET="4b8e2f1a9c0d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d"
 TS=$(date +%s)
 NONCE="nonce_$(date +%s%N)"
 BODY='${compactBodyStr}'
@@ -2745,7 +2767,7 @@ curl -X ${item.method} "${fullUrl}" \\
 
 url = "${fullUrl}"
 api_key = "sf_live_a1b2c3d4_your_secret_key"
-hmac_secret = "sf_hmac_your_secret_key"
+hmac_secret = "4b8e2f1a9c0d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d"
 
 ${isPost && hasBodyObj ? `payload = ${JSON.stringify(item.requestBodySample)}\nraw_body = json.dumps(payload, separators=(",", ":")).encode("utf-8")` : 'raw_body = b""'}
 ts = str(int(time.time()))
@@ -2770,7 +2792,7 @@ print(resp.status_code, ${isBinary ? 'len(resp.content)' : 'resp.json()'})`;
 
 const url = "${fullUrl}";
 const apiKey = "sf_live_a1b2c3d4_your_secret_key";
-const hmacSecret = "sf_hmac_your_secret_key";
+const hmacSecret = "4b8e2f1a9c0d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d";
 
 const rawBody = ${isPost && hasBodyObj ? `JSON.stringify(${JSON.stringify(item.requestBodySample)})` : '""'};
 const ts = String(Math.floor(Date.now() / 1000));
@@ -2800,7 +2822,7 @@ using System.Text;
 
 var url = "${fullUrl}";
 var apiKey = "sf_live_a1b2c3d4_your_secret_key";
-var hmacSecret = "sf_hmac_your_secret_key";
+var hmacSecret = "4b8e2f1a9c0d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d";
 var rawBody = ${isPost && hasBodyObj ? `"${compactBodyStr.replace(/"/g, '\\"')}"` : '""'};
 
 var ts = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
@@ -3084,7 +3106,7 @@ Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
                   </tr>
                   <tr>
                     <td><strong>Khởi tạo API Key</strong></td>
-                    <td>Gõ lệnh <code>/api</code> trong chat riêng với Bot Telegram ➔ Bấm <strong>➕ Tạo Key Mới</strong> để nhận cặp <code>sf_live_&lt;8_hex&gt;_&lt;32_hex&gt;</code> và <code>sf_hmac_&lt;secret&gt;</code>.</td>
+                    <td>Gõ lệnh <code>/api</code> trong chat riêng với Bot Telegram (tối đa 3 Key đang hoạt động / tài khoản) ➔ Bấm <strong>➕ Tạo Key Mới</strong> để nhận cặp <strong>API Key</strong> (<code>sf_live_&lt;8_hex&gt;_&lt;32_hex&gt;</code>) và <strong>HMAC Secret</strong> (chuỗi <code>48</code> ký tự hex nguyên bản tại mục <code>🛡️ HMAC Secret</code>, copy nguyên văn không thêm tiền tố).</td>
                   </tr>
                   <tr>
                     <td><strong>Thanh toán &amp; Hoàn tiền</strong></td>
@@ -3112,7 +3134,7 @@ Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
                 • <strong>Mode 1 — BEARER TOKEN (Khuyên dùng khi cần tích hợp nhanh):</strong> Truyền header <code>Authorization: Bearer sf_live_...</code> (hoặc <code>X-API-Key: sf_live_...</code>).
               </div>
               <div>
-                • <strong>Mode 2 — HMAC-SHA256 (Bảo mật cấp doanh nghiệp chống sửa gói tin &amp; Replay ±300s):</strong> Truyền đủ 4 headers <code>X-API-Key</code>, <code>X-Timestamp</code>, <code>X-Nonce</code>, <code>X-Signature</code>. Chuỗi Canonical 5 dòng <strong>chỉ lấy phần <code>url.path</code> (không kèm <code>?query_string</code>)</strong> và băm đúng mảng byte <code>raw_body</code> gửi trên mạng.
+                • <strong>Mode 2 — HMAC-SHA256 (Bảo mật cấp doanh nghiệp chống sửa gói tin &amp; Replay ±300s):</strong> Truyền đủ 4 headers <code>X-API-Key</code>, <code>X-Timestamp</code>, <code>X-Nonce</code>, <code>X-Signature</code>. Chuỗi Canonical 5 dòng <strong>chỉ lấy phần <code>url.path</code> (không kèm <code>?query_string</code>)</strong> và băm đúng mảng byte <code>raw_body</code> gửi trên mạng bằng chuỗi <code>48</code> ký tự hex <code>HMAC Secret</code>.
               </div>
             </div>
 
@@ -3138,8 +3160,8 @@ Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
                   <input id="${isMobile ? 'm-pg' : 'pg'}-nonce" class="pg-input" value="nonce_demo_01" oninput="computeHmacPlayground('${isMobile ? 'm-pg' : 'pg'}')">
                 </div>
                 <div class="pg-field">
-                  <label for="${isMobile ? 'm-pg' : 'pg'}-secret">5. HMAC Secret (sf_hmac_...)</label>
-                  <input id="${isMobile ? 'm-pg' : 'pg'}-secret" class="pg-input" value="sf_hmac_demo_secret_key" oninput="computeHmacPlayground('${isMobile ? 'm-pg' : 'pg'}')">
+                  <label for="${isMobile ? 'm-pg' : 'pg'}-secret">5. HMAC Secret (48 ký tự hex từ /api)</label>
+                  <input id="${isMobile ? 'm-pg' : 'pg'}-secret" class="pg-input" value="4b8e2f1a9c0d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d" oninput="computeHmacPlayground('${isMobile ? 'm-pg' : 'pg'}')">
                 </div>
                 <div class="pg-field">
                   <label for="${isMobile ? 'm-pg' : 'pg'}-body">6. Raw JSON Body (Để trống nếu là GET)</label>
@@ -3169,16 +3191,16 @@ Console.WriteLine(await resp.Content.ReadAsStringAsync());`;
           </div>
         </div>
 
-        <!-- PANEL 4: RFC 9457 ERROR PLAYBOOK & 9 EXEMPT CODES -->
+        <!-- PANEL 4: RFC 9457 ERROR PLAYBOOK & 10 EXEMPT CODES -->
         <div class="tab-content-panel ${showErr ? 'active' : ''}" id="${tabPrefix}-errors">
           <div class="detail-section">
-            <div class="section-heading">🛡️ Chuẩn Báo Lỗi RFC 9457 &amp; 9 Mã Lỗi Khách Quan Miễn Trừ Khóa Tự Động</div>
+            <div class="section-heading">🛡️ Chuẩn Báo Lỗi RFC 9457 &amp; 10 Mã Lỗi Khách Quan Miễn Trừ Khóa Tự Động</div>
             <div class="bento-card-box">
               <p style="margin-bottom: 8px;">
                 Mọi phản hồi lỗi đều trả về JSON chuẩn <code>application/problem+json</code> có trường <code>ok: false</code>, <code>error_code</code> cố định, câu thông báo tiếng Việt <code>display_message</code> / <code>display_message_plain</code> và <code>request_id</code>.
               </p>
               <div style="font-size: 12px; color: var(--text-sub); margin-bottom: 6px;">
-                <strong>🟢 9 Mã lỗi khách quan được MIỄN TRỪ 100% khỏi khóa tự động (An toàn tuyệt đối khi kho khan số hoặc chờ nhịp gọi):</strong>
+                <strong>🟢 10 Mã lỗi khách quan được MIỄN TRỪ 100% khỏi khóa tự động (An toàn tuyệt đối khi kho khan số hoặc chờ nhịp gọi):</strong>
               </div>
               <div style="display: flex; flex-wrap: wrap; gap: 5px;">${exemptBadges}</div>
             </div>
